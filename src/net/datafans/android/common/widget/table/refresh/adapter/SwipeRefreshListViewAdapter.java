@@ -29,7 +29,7 @@ public class SwipeRefreshListViewAdapter extends ListViewAdapter implements
 
 	@Override
 	public View getListView() {
-		return listView;
+		return refreshLayout;
 	}
 
 	@Override

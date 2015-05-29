@@ -4,8 +4,8 @@ import net.datafans.android.common.lib.refresh.pulldown.PullDownView;
 import net.datafans.android.common.lib.refresh.pulldown.PullDownView.OnPullDownListener;
 import net.datafans.android.common.widget.table.refresh.ListViewAdapter;
 import android.content.Context;
+import android.view.View;
 import android.widget.BaseAdapter;
-import android.widget.ListView;
 
 public class PullDownListViewAdapter extends ListViewAdapter implements
 		OnPullDownListener {
@@ -21,8 +21,8 @@ public class PullDownListViewAdapter extends ListViewAdapter implements
 	}
 
 	@Override
-	public ListView getListView() {
-		return pullDownView.getListView();
+	public View getListView() {
+		return pullDownView;
 	}
 
 	@Override

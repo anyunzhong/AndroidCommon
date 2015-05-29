@@ -3,37 +3,55 @@ package net.datafans.android.common.data.service;
 import org.apache.http.Header;
 
 import com.alibaba.fastjson.JSON;
-import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
 public abstract class DataService {
 
-	private AsyncHttpClient client = new AsyncHttpClient();
-
 	private DataServiceDelegate delegate;
+
+	private RequestType requestType;
+
+	private RequestParams params = new RequestParams();
 
 	public void execute() {
 		// 需要检查网络是否可用
 
+		if (requestType == null) {
+			requestType = RequestType.GET;
+		}
+		setRequestParams(params);
 		executeRequest();
 	}
 
 	protected void executeRequest() {
+		switch (requestType) {
+		case GET:
+			AsyncHttpClientHelper.get(getRequestUrl(), params, responseHandler);
+			break;
+		case POST:
+			AsyncHttpClientHelper
+					.post(getRequestUrl(), params, responseHandler);
+			break;
 
-		client.get(getRequestUrl(), new AsyncHttpResponseHandler() {
-			@Override
-			public void onFailure(int statusCode, Header[] headers,
-					byte[] errorResponse, Throwable throwable) {
-				onError(statusCode, errorResponse, throwable);
-			}
+		default:
+			break;
+		}
 
-			@Override
-			public void onSuccess(int statusCode, Header[] headers,
-					byte[] response) {
-				DataService.this.onSuccess(response);
-			}
-		});
 	}
+
+	private AsyncHttpResponseHandler responseHandler = new AsyncHttpResponseHandler() {
+		@Override
+		public void onFailure(int statusCode, Header[] headers,
+				byte[] errorResponse, Throwable throwable) {
+			onError(statusCode, errorResponse, throwable);
+		}
+
+		@Override
+		public void onSuccess(int statusCode, Header[] headers, byte[] response) {
+			DataService.this.onSuccess(response);
+		}
+	};
 
 	private void onError(int statusCode, byte[] errorResponse,
 			Throwable throwable) {
@@ -87,4 +105,13 @@ public abstract class DataService {
 	public void setDelegate(DataServiceDelegate delegate) {
 		this.delegate = delegate;
 	}
+
+	public void setRequestType(RequestType requestType) {
+		this.requestType = requestType;
+	}
+
+	protected void setRequestParams(RequestParams params) {
+
+	}
+
 }

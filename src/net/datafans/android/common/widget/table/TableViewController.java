@@ -2,6 +2,7 @@ package net.datafans.android.common.widget.table;
 
 import net.datafans.android.common.data.service.BaseResponse;
 import net.datafans.android.common.widget.base.Controller;
+import net.datafans.android.common.widget.table.refresh.RefreshControlType;
 import android.app.Fragment;
 import android.os.Bundle;
 
@@ -19,15 +20,14 @@ public abstract class TableViewController<T> extends Controller implements
 	protected Fragment getRootFragment() {
 
 		if (tableView == null) {
-			tableView = new TableView<T>(this);
+			tableView = new TableView<T>(this, getRefreshControlType());
 			tableView.setDataSource(this);
 			tableView.setDelegate(this);
 
 		}
 		return new TableViewFragment<T>(tableView);
 	}
-	
-	
+
 	@Override
 	protected void onStatusOk(BaseResponse response, Class<?> type) {
 		super.onStatusOk(response, type);
@@ -46,11 +46,14 @@ public abstract class TableViewController<T> extends Controller implements
 		super.onRequestError(errorCode, errorResponse, throwable);
 		onEnd();
 	}
-	
-	public void onEnd(){
+
+	public void onEnd() {
 		tableView.reloadData();
 		tableView.endRefresh();
 		tableView.endLoadMore();
 	}
 
+	protected RefreshControlType getRefreshControlType() {
+		return RefreshControlType.PullToRefresh;
+	}
 }

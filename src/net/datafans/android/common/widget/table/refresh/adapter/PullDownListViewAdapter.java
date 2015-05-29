@@ -1,4 +1,4 @@
-package net.datafans.android.common.widget.table.refresh.pulldown;
+package net.datafans.android.common.widget.table.refresh.adapter;
 
 import net.datafans.android.common.lib.refresh.pulldown.PullDownView;
 import net.datafans.android.common.lib.refresh.pulldown.PullDownView.OnPullDownListener;

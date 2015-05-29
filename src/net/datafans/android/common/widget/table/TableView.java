@@ -6,8 +6,9 @@ import java.util.Map;
 import net.datafans.android.common.widget.table.refresh.ListViewAdapter;
 import net.datafans.android.common.widget.table.refresh.ListViewListener;
 import net.datafans.android.common.widget.table.refresh.RefreshControlType;
-import net.datafans.android.common.widget.table.refresh.pulldown.PullDownListViewAdapter;
-import net.datafans.android.common.widget.table.refresh.pulldown.PullToRefreshListViewAdapter;
+import net.datafans.android.common.widget.table.refresh.adapter.PullDownListViewAdapter;
+import net.datafans.android.common.widget.table.refresh.adapter.PullToRefreshListViewAdapter;
+import net.datafans.android.common.widget.table.refresh.adapter.SwipeRefreshListViewAdapter;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,6 +54,10 @@ public class TableView<T> implements ListViewListener {
 				adapter = new PullToRefreshListViewAdapter(context,
 						tableViewAdapter);
 				break;
+			case SwipeRefresh:
+				adapter = new SwipeRefreshListViewAdapter(context,
+						tableViewAdapter);
+				break;
 			default:
 				break;
 			}
@@ -86,7 +91,6 @@ public class TableView<T> implements ListViewListener {
 		ListViewAdapter adapter = getAdapter();
 		adapter.setListener(this);
 	}
-
 
 	private class TableViewAdapter extends BaseAdapter {
 

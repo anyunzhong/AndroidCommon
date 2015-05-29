@@ -9,6 +9,7 @@ import net.datafans.android.common.widget.table.refresh.RefreshControlType;
 import net.datafans.android.common.widget.table.refresh.adapter.PullDownListViewAdapter;
 import net.datafans.android.common.widget.table.refresh.adapter.PullToRefreshListViewAdapter;
 import net.datafans.android.common.widget.table.refresh.adapter.SwipeRefreshListViewAdapter;
+import net.datafans.android.common.widget.table.refresh.adapter.UltraPullToRefreshListViewAdapter;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,6 +57,10 @@ public class TableView<T> implements ListViewListener {
 				break;
 			case SwipeRefresh:
 				adapter = new SwipeRefreshListViewAdapter(context,
+						tableViewAdapter);
+				break;
+			case UltraPullToRefresh:
+				adapter = new UltraPullToRefreshListViewAdapter(context,
 						tableViewAdapter);
 				break;
 			default:

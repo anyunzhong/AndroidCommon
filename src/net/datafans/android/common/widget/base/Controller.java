@@ -40,8 +40,12 @@ public abstract class Controller extends Activity {
 
 	protected void onRequestError(int errorCode, byte[] errorResponse,
 			Throwable throwable) {
+		if (errorCode == -2) {
+			Log.e("exception", "network exception");
+		}
+		
 		if (errorCode == -1) {
-			Log.e("network", "network exception");
+			Log.e("exception", "data_parse_exception");
 		}
 	}
 }

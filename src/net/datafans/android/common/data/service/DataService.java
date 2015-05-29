@@ -2,6 +2,8 @@ package net.datafans.android.common.data.service;
 
 import org.apache.http.Header;
 
+import android.content.Context;
+
 import com.alibaba.fastjson.JSON;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -15,8 +17,10 @@ public abstract class DataService {
 	private RequestParams params = new RequestParams();
 
 	public void execute() {
-		// 需要检查网络是否可用
 
+		if (!NetworkDetector.isAvailable(getContext())) {
+			onError(-2, null, null);
+		}
 		if (requestType == null) {
 			requestType = RequestType.GET;
 		}
@@ -97,6 +101,8 @@ public abstract class DataService {
 	protected void parseResponse(BaseResponse response) {
 
 	}
+	
+	protected abstract Context getContext();
 
 	public DataServiceDelegate getDelegate() {
 		return delegate;
@@ -113,5 +119,8 @@ public abstract class DataService {
 	protected void setRequestParams(RequestParams params) {
 
 	}
+	
+	
+	
 
 }

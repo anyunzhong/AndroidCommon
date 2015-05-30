@@ -2,22 +2,72 @@ package net.datafans.android.common.widget.base;
 
 import net.datafans.android.common.R;
 import net.datafans.android.common.data.service.BaseResponse;
+import net.datafans.android.common.lib.systembar.SystemBarTintManager;
+import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.pm.ActivityInfo;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Window;
+import android.view.WindowManager;
 
 public abstract class Controller extends Activity {
 
+	protected ActionBar actionBar;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_base);
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+		
+//		actionBar = getActionBar();
+//		actionBar.setHomeButtonEnabled(true);
+//		actionBar.setDisplayHomeAsUpEnabled(true);
+
+		initActionBar();
 		initFragment();
+	}
+
+	@TargetApi(Build.VERSION_CODES.KITKAT)
+	@SuppressLint("InlinedApi")
+	private void initActionBar() {
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+			Window window = getWindow();
+			// Translucent status bar
+			window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
+					WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+			// Translucent navigation bar
+			window.setFlags(
+					WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION,
+					WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+		}
+
+		// 创建状态栏的管理实例
+		SystemBarTintManager tintManager = new SystemBarTintManager(this);
+		// 激活状态栏设置
+		tintManager.setStatusBarTintEnabled(true);
+		// 激活导航栏设置
+		tintManager.setNavigationBarTintEnabled(true);
+
+		tintManager.setTintColor(getStatusBarColor());
+		
+		//tintManager.setNavigationBarTintColor(Color.RED);
+
+		// 设置一个样式背景给导航栏
+		// tintManager.setNavigationBarTintResource(R.drawable.back_comment_tab);
+		// 设置一个状态栏资源
+		// tintManager.setStatusBarTintDrawable(MyDrawable);
 	}
 
 	private void initFragment() {
@@ -29,6 +79,10 @@ public abstract class Controller extends Activity {
 	}
 
 	protected abstract Fragment getRootFragment();
+
+	protected int getStatusBarColor() {
+		return Color.BLACK;
+	}
 
 	protected void onStatusOk(BaseResponse response, Class<?> type) {
 
@@ -43,7 +97,7 @@ public abstract class Controller extends Activity {
 		if (errorCode == -2) {
 			Log.e("exception", "network exception");
 		}
-		
+
 		if (errorCode == -1) {
 			Log.e("exception", "data_parse_exception");
 		}

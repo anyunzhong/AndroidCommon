@@ -1,4 +1,4 @@
-package net.datafans.android.common.data.service;
+package net.datafans.android.common.network;
 
 import android.content.Context;
 import android.net.ConnectivityManager;

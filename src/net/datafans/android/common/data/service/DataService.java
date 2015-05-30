@@ -1,8 +1,9 @@
 package net.datafans.android.common.data.service;
 
-import org.apache.http.Header;
+import net.datafans.android.common.config.AndroidCommon;
+import net.datafans.android.common.network.NetworkDetector;
 
-import android.content.Context;
+import org.apache.http.Header;
 
 import com.alibaba.fastjson.JSON;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -18,7 +19,7 @@ public abstract class DataService {
 
 	public void execute() {
 
-		if (!NetworkDetector.isAvailable(getContext())) {
+		if (!NetworkDetector.isAvailable(AndroidCommon.getContext())) {
 			onError(-2, null, null);
 		}
 		if (requestType == null) {
@@ -102,8 +103,6 @@ public abstract class DataService {
 
 	}
 	
-	protected abstract Context getContext();
-
 	public DataServiceDelegate getDelegate() {
 		return delegate;
 	}

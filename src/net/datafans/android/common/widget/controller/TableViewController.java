@@ -59,4 +59,8 @@ public abstract class TableViewController<T> extends Controller implements
 	protected RefreshControlType getRefreshControlType() {
 		return RefreshControlType.PullToRefresh;
 	}
+
+	protected void loadOver() {
+		tableView.loadOver();
+	}
 }

@@ -73,7 +73,7 @@ public class TableView<T> implements ListViewListener {
 
 			adapter.enableRefresh(true);
 			adapter.enableLoadMore(true);
-			adapter.enableAutoLoadMore(true);
+			adapter.enableAutoLoadMore(false);
 
 			adapterMap.put(type, adapter);
 		}
@@ -183,6 +183,10 @@ public class TableView<T> implements ListViewListener {
 
 	public void endLoadMore() {
 		getAdapter().endLoadMore();
+	}
+
+	public void loadOver() {
+		getAdapter().loadOver();
 	}
 
 }

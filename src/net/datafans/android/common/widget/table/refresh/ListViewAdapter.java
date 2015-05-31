@@ -1,6 +1,5 @@
 package net.datafans.android.common.widget.table.refresh;
 
-import android.R.bool;
 import android.view.View;
 
 public abstract class ListViewAdapter {

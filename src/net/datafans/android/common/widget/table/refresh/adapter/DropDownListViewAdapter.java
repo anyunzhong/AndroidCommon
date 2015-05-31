@@ -19,6 +19,11 @@ public class DropDownListViewAdapter extends ListViewAdapter {
 		listView.setDropDownStyle(true);
 		listView.setOnBottomStyle(true);
 		listView.setShowFooterProgressBar(true);
+		listView.setShowFooterWhenNoMore(true);
+		
+		listView.setHeaderDefaultText("点击刷新");
+		listView.setHeaderPullText("下拉刷新");
+		listView.setHeaderReleaseText("释放刷新");
 
 	}
 
@@ -35,6 +40,8 @@ public class DropDownListViewAdapter extends ListViewAdapter {
 
 			@Override
 			public void onDropDown() {
+				//listView.setOnBottomStyle(true);
+				listView.setHasMore(true);
 				refresh();
 			}
 		});
@@ -47,6 +54,7 @@ public class DropDownListViewAdapter extends ListViewAdapter {
 
 			@Override
 			public void onClick(View v) {
+				listView.onBottomBegin();
 				loadMore();
 			}
 		});
@@ -70,6 +78,7 @@ public class DropDownListViewAdapter extends ListViewAdapter {
 	@Override
 	public void loadOver() {
 		listView.setHasMore(false);
+		//listView.setOnBottomStyle(false);
 	}
 
 }

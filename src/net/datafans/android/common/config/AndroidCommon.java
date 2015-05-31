@@ -6,6 +6,14 @@ public class AndroidCommon {
 
 	private static Context ctx;
 
+	private static GlobalAppearence appearence = new GlobalAppearence();
+
+	public final static AndroidCommon common = new AndroidCommon();
+
+	public static AndroidCommon sharedInstance() {
+		return common;
+	}
+
 	public static Context getContext() {
 		return ctx;
 	}
@@ -16,5 +24,9 @@ public class AndroidCommon {
 
 	public static void onTerminate() {
 
+	}
+
+	public static GlobalAppearence getAppearence() {
+		return appearence;
 	}
 }

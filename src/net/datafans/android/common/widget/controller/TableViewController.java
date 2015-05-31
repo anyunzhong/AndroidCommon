@@ -1,7 +1,10 @@
-package net.datafans.android.common.widget.table;
+package net.datafans.android.common.widget.controller;
 
 import net.datafans.android.common.data.service.BaseResponse;
-import net.datafans.android.common.widget.base.Controller;
+import net.datafans.android.common.widget.table.TableView;
+import net.datafans.android.common.widget.table.TableViewDataSource;
+import net.datafans.android.common.widget.table.TableViewDelegate;
+import net.datafans.android.common.widget.table.TableViewFragment;
 import net.datafans.android.common.widget.table.refresh.RefreshControlType;
 import android.app.Fragment;
 import android.os.Bundle;

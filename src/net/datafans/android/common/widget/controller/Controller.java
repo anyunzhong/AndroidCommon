@@ -1,6 +1,7 @@
-package net.datafans.android.common.widget.base;
+package net.datafans.android.common.widget.controller;
 
 import net.datafans.android.common.R;
+import net.datafans.android.common.config.AndroidCommon;
 import net.datafans.android.common.data.service.BaseResponse;
 import net.datafans.android.common.lib.systembar.SystemBarTintManager;
 import android.annotation.SuppressLint;
@@ -17,6 +18,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 public abstract class Controller extends Activity {
 
@@ -24,16 +26,16 @@ public abstract class Controller extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		
+
+		// requestWindowFeature(Window.FEATURE_NO_TITLE);
+
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_base);
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-		
-//		actionBar = getActionBar();
-//		actionBar.setHomeButtonEnabled(true);
-//		actionBar.setDisplayHomeAsUpEnabled(true);
+
+		// actionBar = getActionBar();
+		// actionBar.setHomeButtonEnabled(true);
+		// actionBar.setDisplayHomeAsUpEnabled(true);
 
 		initActionBar();
 		initFragment();
@@ -61,8 +63,8 @@ public abstract class Controller extends Activity {
 		tintManager.setNavigationBarTintEnabled(true);
 
 		tintManager.setTintColor(getStatusBarColor());
-		
-		//tintManager.setNavigationBarTintColor(Color.RED);
+
+		// tintManager.setNavigationBarTintColor(Color.RED);
 
 		// 设置一个样式背景给导航栏
 		// tintManager.setNavigationBarTintResource(R.drawable.back_comment_tab);
@@ -81,6 +83,10 @@ public abstract class Controller extends Activity {
 	protected abstract Fragment getRootFragment();
 
 	protected int getStatusBarColor() {
+		int color = AndroidCommon.getAppearence().getStatusBarTintColor();
+		if (color != 0) {
+			return color;
+		}
 		return Color.BLACK;
 	}
 
@@ -90,16 +96,23 @@ public abstract class Controller extends Activity {
 
 	protected void onStatusError(BaseResponse response) {
 		Log.e("statusError", response.toString());
+		Toast toast = Toast.makeText(this, response.getErrorMsg(),
+				Toast.LENGTH_SHORT);
+		toast.show();
 	}
 
 	protected void onRequestError(int errorCode, byte[] errorResponse,
 			Throwable throwable) {
 		if (errorCode == -2) {
 			Log.e("exception", "network exception");
+			Toast toast = Toast.makeText(this, "网络异常", Toast.LENGTH_SHORT);
+			toast.show();
 		}
 
 		if (errorCode == -1) {
 			Log.e("exception", "data_parse_exception");
+			Toast toast = Toast.makeText(this, "数据解析错误", Toast.LENGTH_SHORT);
+			toast.show();
 		}
 	}
 }

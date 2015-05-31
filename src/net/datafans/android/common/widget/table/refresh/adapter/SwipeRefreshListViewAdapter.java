@@ -54,10 +54,19 @@ public class SwipeRefreshListViewAdapter extends ListViewAdapter implements
 
 	@Override
 	public void onRefresh() {
-		if (listener == null) {
-			return;
-		}
-		listener.onRefresh();
+		refresh();
+	}
+
+	@Override
+	public void enableAutoLoadMore(boolean enable) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void loadOver() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

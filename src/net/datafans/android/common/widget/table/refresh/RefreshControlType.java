@@ -4,5 +4,6 @@ public enum RefreshControlType {
 	PullDown,
 	PullToRefresh,
 	SwipeRefresh,
-	UltraPullToRefresh
+	UltraPullToRefresh,
+	DropDown
 }

@@ -19,9 +19,10 @@ public class PullToRefreshListViewAdapter extends ListViewAdapter {
 		listView = new PullToRefreshListView(context);
 		listView.setAdapter(adapter);
 		listView.setMode(Mode.BOTH);
-		listView.getLoadingLayoutProxy(false, true).setPullLabel("下拉刷新");  
-		listView.getLoadingLayoutProxy(false, true).setRefreshingLabel("加载中...");  
-		listView.getLoadingLayoutProxy(false, true).setReleaseLabel("上拉加载更多");  
+		listView.getLoadingLayoutProxy(false, true).setPullLabel("下拉刷新");
+		listView.getLoadingLayoutProxy(false, true)
+				.setRefreshingLabel("加载中...");
+		listView.getLoadingLayoutProxy(false, true).setReleaseLabel("上拉加载更多");
 
 	}
 
@@ -39,21 +40,14 @@ public class PullToRefreshListViewAdapter extends ListViewAdapter {
 			public void onPullDownToRefresh(
 					PullToRefreshBase<ListView> refreshView) {
 
-				if (listener == null) {
-					return;
-				}
-				listener.onRefresh();
+				refresh();
 
 			}
 
 			@Override
 			public void onPullUpToRefresh(
 					PullToRefreshBase<ListView> refreshView) {
-				if (listener == null) {
-					return;
-				}
-				
-				listener.onLoadMore();
+				loadMore();
 
 			}
 		});
@@ -71,6 +65,18 @@ public class PullToRefreshListViewAdapter extends ListViewAdapter {
 	@Override
 	public void endLoadMore() {
 		listView.onRefreshComplete();
+	}
+
+	@Override
+	public void enableAutoLoadMore(boolean enable) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void loadOver() {
+		// TODO Auto-generated method stub
+
 	}
 
 }

@@ -51,10 +51,7 @@ public class UltraPullToRefreshListViewAdapter extends ListViewAdapter {
 		frameLayout.setPtrHandler(new PtrHandler() {
 			@Override
 			public void onRefreshBegin(PtrFrameLayout frame) {
-				if (listener == null) {
-					return;
-				}
-				listener.onRefresh();
+				refresh();
 			}
 
 			@Override
@@ -78,6 +75,18 @@ public class UltraPullToRefreshListViewAdapter extends ListViewAdapter {
 	@Override
 	public void endLoadMore() {
 		frameLayout.refreshComplete();
+	}
+
+	@Override
+	public void enableAutoLoadMore(boolean enable) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void loadOver() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

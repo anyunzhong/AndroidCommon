@@ -43,18 +43,12 @@ public class PullDownListViewAdapter extends ListViewAdapter implements
 
 	@Override
 	public void onRefresh() {
-		if (listener == null) {
-			return;
-		}
-		listener.onRefresh();
+		refresh();
 	}
 
 	@Override
 	public void onMore() {
-		if (listener == null) {
-			return;
-		}
-		listener.onLoadMore();
+		loadMore();
 	}
 
 	@Override
@@ -65,6 +59,16 @@ public class PullDownListViewAdapter extends ListViewAdapter implements
 	@Override
 	public void endLoadMore() {
 		pullDownView.notifyDidMore();
+	}
+
+	@Override
+	public void enableAutoLoadMore(boolean enable) {
+
+	}
+
+	@Override
+	public void loadOver() {
+
 	}
 
 }

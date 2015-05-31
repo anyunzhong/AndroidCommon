@@ -1,19 +1,25 @@
 package net.datafans.android.common.widget.table.refresh;
 
+import android.R.bool;
 import android.view.View;
 
 public abstract class ListViewAdapter {
-	
+
 	protected ListViewListener listener;
-	
+
 	public abstract View getListView();
 
 	public abstract void enableRefresh(boolean enable);
 
 	public abstract void enableLoadMore(boolean enable);
-	
+
+	public abstract void enableAutoLoadMore(boolean enable);
+
 	public abstract void endRefresh();
+
 	public abstract void endLoadMore();
+
+	public abstract void loadOver();
 
 	public ListViewListener getListener() {
 		return listener;
@@ -22,6 +28,20 @@ public abstract class ListViewAdapter {
 	public void setListener(ListViewListener listener) {
 		this.listener = listener;
 	}
-	
-	
+
+	protected void refresh() {
+		if (listener == null) {
+			return;
+		}
+
+		listener.onRefresh();
+	}
+
+	protected void loadMore() {
+		if (listener == null) {
+			return;
+		}
+		listener.onLoadMore();
+	}
+
 }

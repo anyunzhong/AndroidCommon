@@ -6,7 +6,9 @@ import android.view.View;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 
+import com.handmark.pulltorefresh.library.ILoadingLayout;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshBase.AnimationStyle;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
@@ -16,13 +18,13 @@ public class PullToRefreshListViewAdapter extends ListViewAdapter {
 	private PullToRefreshListView listView;
 
 	public PullToRefreshListViewAdapter(Context context, BaseAdapter adapter) {
-		listView = new PullToRefreshListView(context);
+		listView = new PullToRefreshListView(context,Mode.BOTH,AnimationStyle.ROTATE);
 		listView.setAdapter(adapter);
-		listView.setMode(Mode.BOTH);
-		listView.getLoadingLayoutProxy(false, true).setPullLabel("下拉刷新");
-		listView.getLoadingLayoutProxy(false, true)
-				.setRefreshingLabel("加载中...");
-		listView.getLoadingLayoutProxy(false, true).setReleaseLabel("上拉加载更多");
+		
+		ILoadingLayout layout = listView.getLoadingLayoutProxy(false,true);
+		layout.setPullLabel("上拉更多");
+		layout.setRefreshingLabel("加载中...");
+		layout.setReleaseLabel("松开加载");
 
 	}
 
@@ -39,7 +41,6 @@ public class PullToRefreshListViewAdapter extends ListViewAdapter {
 			@Override
 			public void onPullDownToRefresh(
 					PullToRefreshBase<ListView> refreshView) {
-
 				refresh();
 
 			}
@@ -59,6 +60,7 @@ public class PullToRefreshListViewAdapter extends ListViewAdapter {
 
 	@Override
 	public void endRefresh() {
+		listView.setMode(Mode.BOTH);
 		listView.onRefreshComplete();
 	}
 
@@ -75,8 +77,7 @@ public class PullToRefreshListViewAdapter extends ListViewAdapter {
 
 	@Override
 	public void loadOver() {
-		// TODO Auto-generated method stub
-
+		listView.setMode(Mode.PULL_FROM_START);
 	}
 
 }

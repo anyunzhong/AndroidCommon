@@ -20,6 +20,7 @@ public class DropDownListViewAdapter extends ListViewAdapter {
 		listView.setOnBottomStyle(true);
 		listView.setShowFooterProgressBar(true);
 		listView.setShowFooterWhenNoMore(true);
+	
 		
 		listView.setHeaderDefaultText("点击刷新");
 		listView.setHeaderPullText("下拉刷新");

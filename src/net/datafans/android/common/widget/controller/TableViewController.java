@@ -8,6 +8,7 @@ import net.datafans.android.common.widget.table.TableViewFragment;
 import net.datafans.android.common.widget.table.refresh.RefreshControlType;
 import android.app.Fragment;
 import android.os.Bundle;
+import android.widget.Toast;
 
 public abstract class TableViewController<T> extends Controller implements
 		TableViewDataSource<T>, TableViewDelegate {
@@ -61,6 +62,8 @@ public abstract class TableViewController<T> extends Controller implements
 	}
 
 	protected void loadOver() {
+		Toast toast = Toast.makeText(this, "加载完毕", Toast.LENGTH_SHORT);
+		toast.show();
 		tableView.loadOver();
 	}
 }

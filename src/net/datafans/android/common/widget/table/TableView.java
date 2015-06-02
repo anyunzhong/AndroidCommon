@@ -6,6 +6,7 @@ import java.util.Map;
 import net.datafans.android.common.widget.table.refresh.ListViewAdapter;
 import net.datafans.android.common.widget.table.refresh.ListViewListener;
 import net.datafans.android.common.widget.table.refresh.RefreshControlType;
+import net.datafans.android.common.widget.table.refresh.adapter.BGANormalListViewAdapter;
 import net.datafans.android.common.widget.table.refresh.adapter.DropDownListViewAdapter;
 import net.datafans.android.common.widget.table.refresh.adapter.PullDownListViewAdapter;
 import net.datafans.android.common.widget.table.refresh.adapter.PullToRefreshListViewAdapter;
@@ -66,6 +67,9 @@ public class TableView<T> implements ListViewListener {
 				break;
 			case DropDown:
 				adapter = new DropDownListViewAdapter(context, tableViewAdapter);
+				break;
+			case BGANormal:
+				adapter = new BGANormalListViewAdapter(context, tableViewAdapter);
 				break;
 			default:
 				break;

@@ -4,7 +4,7 @@ import android.view.View;
 
 public abstract class ListViewAdapter {
 
-	protected ListViewListener listener;
+	private ListViewListener listener;
 
 	public abstract View getListView();
 

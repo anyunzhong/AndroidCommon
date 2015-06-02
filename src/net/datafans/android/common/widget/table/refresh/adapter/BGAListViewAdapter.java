@@ -4,7 +4,6 @@ import net.datafans.android.common.R;
 import net.datafans.android.common.widget.table.refresh.ListViewAdapter;
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;

@@ -30,8 +30,23 @@ public class TableView<T> implements ListViewListener {
 
 	private Context context;
 
+	private boolean enableRefresh = false;
+	private boolean enableLoadMore = false;
+	private boolean enableAutoLoadMore = false;
+
 	public TableView(Context context, RefreshControlType type) {
 		this.context = context;
+		refreshType = type;
+		init();
+	}
+
+	public TableView(Context context, RefreshControlType type,
+			boolean enableRefresh, boolean enableLoadMore,
+			boolean enableAutoLoadMore) {
+		this.context = context;
+		this.enableRefresh = enableRefresh;
+		this.enableLoadMore = enableLoadMore;
+		this.enableAutoLoadMore = enableAutoLoadMore;
 		refreshType = type;
 		init();
 	}
@@ -85,9 +100,9 @@ public class TableView<T> implements ListViewListener {
 				break;
 			}
 
-			adapter.enableRefresh(true);
-			adapter.enableLoadMore(true);
-			adapter.enableAutoLoadMore(false);
+			adapter.enableRefresh(enableRefresh);
+			adapter.enableLoadMore(enableLoadMore);
+			adapter.enableAutoLoadMore(enableAutoLoadMore);
 
 			adapterMap.put(type, adapter);
 		}

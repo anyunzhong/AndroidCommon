@@ -24,7 +24,8 @@ public abstract class TableViewController<T> extends Controller implements
 	protected Fragment getRootFragment() {
 
 		if (tableView == null) {
-			tableView = new TableView<T>(this, getRefreshControlType());
+			tableView = new TableView<T>(this, getRefreshControlType(),
+					enableRefresh(), enableLoadMore(), enableAutoLoadMore());
 			tableView.setDataSource(this);
 			tableView.setDelegate(this);
 
@@ -67,5 +68,17 @@ public abstract class TableViewController<T> extends Controller implements
 			toast.show();
 		}
 		tableView.loadOver(over);
+	}
+
+	protected boolean enableRefresh() {
+		return true;
+	}
+
+	protected boolean enableLoadMore() {
+		return true;
+	}
+
+	protected boolean enableAutoLoadMore() {
+		return false;
 	}
 }

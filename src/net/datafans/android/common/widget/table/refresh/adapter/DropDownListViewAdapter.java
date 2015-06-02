@@ -77,7 +77,7 @@ public class DropDownListViewAdapter extends ListViewAdapter {
 	}
 
 	@Override
-	public void loadOver() {
+	public void loadOver(boolean over) {
 		listView.setHasMore(false);
 		//listView.setOnBottomStyle(false);
 	}

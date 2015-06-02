@@ -61,9 +61,11 @@ public abstract class TableViewController<T> extends Controller implements
 		return RefreshControlType.PullToRefresh;
 	}
 
-	protected void loadOver() {
-		Toast toast = Toast.makeText(this, "加载完毕", Toast.LENGTH_SHORT);
-		toast.show();
-		tableView.loadOver();
+	protected void loadOver(boolean over) {
+		if (over) {
+			Toast toast = Toast.makeText(this, "加载完毕", Toast.LENGTH_SHORT);
+			toast.show();
+		}
+		tableView.loadOver(over);
 	}
 }

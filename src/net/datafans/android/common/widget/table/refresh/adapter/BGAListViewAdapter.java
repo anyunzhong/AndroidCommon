@@ -4,17 +4,20 @@ import net.datafans.android.common.R;
 import net.datafans.android.common.widget.table.refresh.ListViewAdapter;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.BaseAdapter;
+import cn.bingoogolapple.refreshlayout.BGAMoocStyleRefreshViewHolder;
 import cn.bingoogolapple.refreshlayout.BGANormalRefreshViewHolder;
 import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
 import cn.bingoogolapple.refreshlayout.BGARefreshLayout.BGARefreshLayoutDelegate;
 import cn.bingoogolapple.refreshlayout.BGARefreshViewHolder;
+import cn.bingoogolapple.refreshlayout.BGAStickinessRefreshViewHolder;
 import cn.trinea.android.common.view.DropDownListView;
 
-public class BGANormalListViewAdapter extends ListViewAdapter implements
+public class BGAListViewAdapter extends ListViewAdapter implements
 		BGARefreshLayoutDelegate {
 
 	private BGARefreshLayout refreshLayout;
@@ -23,13 +26,29 @@ public class BGANormalListViewAdapter extends ListViewAdapter implements
 	private DropDownListView listView;
 
 	@SuppressLint("InflateParams")
-	public BGANormalListViewAdapter(Context context, BaseAdapter adapter) {
+	public BGAListViewAdapter(Context context, BaseAdapter adapter,
+			RefreshType type) {
 		View view = LayoutInflater.from(context).inflate(R.layout.bga, null);
 		refreshLayout = (BGARefreshLayout) view
 				.findViewById(R.id.rl_modulename_refresh);
 		refreshLayout.setDelegate(this);
 
-		refreshViewHolder = new BGANormalRefreshViewHolder(context, false);
+		switch (type) {
+		case Normal:
+			refreshViewHolder = new BGANormalRefreshViewHolder(context, false);
+			break;
+		case MoocStyle:
+			refreshViewHolder = new BGAMoocStyleRefreshViewHolder(context,
+					false);
+			break;
+		case Stickiness:
+			refreshViewHolder = new BGAStickinessRefreshViewHolder(context,
+					false);
+			break;
+		default:
+			break;
+		}
+
 		refreshLayout.setRefreshViewHolder(refreshViewHolder);
 
 		listView = (DropDownListView) view
@@ -40,6 +59,11 @@ public class BGANormalListViewAdapter extends ListViewAdapter implements
 		listView.setOnBottomStyle(true);
 		listView.setShowFooterProgressBar(true);
 		listView.setShowFooterWhenNoMore(true);
+		listView.setHasMore(false);
+
+		listView.setFooterDefaultText("查看更多");
+		listView.setFooterLoadingText("加载中...");
+		listView.setFooterNoMoreText("没有了");
 
 	}
 
@@ -79,18 +103,16 @@ public class BGANormalListViewAdapter extends ListViewAdapter implements
 
 	@Override
 	public void endLoadMore() {
-		// refreshLayout.endRefreshing();
 		listView.onBottomComplete();
 	}
 
 	@Override
-	public void loadOver() {
-		listView.setHasMore(false);
+	public void loadOver(boolean over) {
+		listView.setHasMore(!over);
 	}
 
 	@Override
 	public void onBGARefreshLayoutBeginRefreshing() {
-		listView.setHasMore(true);
 		refresh();
 	}
 
@@ -98,6 +120,10 @@ public class BGANormalListViewAdapter extends ListViewAdapter implements
 	public void onBGARefreshLayoutBeginLoadingMore() {
 
 		// loadMore();
+	}
+
+	public static enum RefreshType {
+		Normal, MoocStyle, Stickiness
 	}
 
 }

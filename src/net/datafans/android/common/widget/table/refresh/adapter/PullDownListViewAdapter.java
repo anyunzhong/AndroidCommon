@@ -67,7 +67,7 @@ public class PullDownListViewAdapter extends ListViewAdapter implements
 	}
 
 	@Override
-	public void loadOver() {
+	public void loadOver(boolean over) {
 
 	}
 

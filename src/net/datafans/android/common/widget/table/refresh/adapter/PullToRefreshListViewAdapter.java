@@ -76,7 +76,7 @@ public class PullToRefreshListViewAdapter extends ListViewAdapter {
 	}
 
 	@Override
-	public void loadOver() {
+	public void loadOver(boolean over) {
 		listView.setMode(Mode.PULL_FROM_START);
 	}
 

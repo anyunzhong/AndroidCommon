@@ -64,7 +64,7 @@ public class SwipeRefreshListViewAdapter extends ListViewAdapter implements
 	}
 
 	@Override
-	public void loadOver() {
+	public void loadOver(boolean over) {
 		// TODO Auto-generated method stub
 		
 	}

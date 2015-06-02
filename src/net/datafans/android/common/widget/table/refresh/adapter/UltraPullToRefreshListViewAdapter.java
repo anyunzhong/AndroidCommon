@@ -84,7 +84,7 @@ public class UltraPullToRefreshListViewAdapter extends ListViewAdapter {
 	}
 
 	@Override
-	public void loadOver() {
+	public void loadOver(boolean over) {
 		// TODO Auto-generated method stub
 		
 	}

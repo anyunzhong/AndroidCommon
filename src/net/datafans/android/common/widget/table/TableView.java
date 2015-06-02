@@ -6,7 +6,8 @@ import java.util.Map;
 import net.datafans.android.common.widget.table.refresh.ListViewAdapter;
 import net.datafans.android.common.widget.table.refresh.ListViewListener;
 import net.datafans.android.common.widget.table.refresh.RefreshControlType;
-import net.datafans.android.common.widget.table.refresh.adapter.BGANormalListViewAdapter;
+import net.datafans.android.common.widget.table.refresh.adapter.BGAListViewAdapter;
+import net.datafans.android.common.widget.table.refresh.adapter.BGAListViewAdapter.RefreshType;
 import net.datafans.android.common.widget.table.refresh.adapter.DropDownListViewAdapter;
 import net.datafans.android.common.widget.table.refresh.adapter.PullDownListViewAdapter;
 import net.datafans.android.common.widget.table.refresh.adapter.PullToRefreshListViewAdapter;
@@ -69,7 +70,16 @@ public class TableView<T> implements ListViewListener {
 				adapter = new DropDownListViewAdapter(context, tableViewAdapter);
 				break;
 			case BGANormal:
-				adapter = new BGANormalListViewAdapter(context, tableViewAdapter);
+				adapter = new BGAListViewAdapter(context, tableViewAdapter,
+						RefreshType.Normal);
+				break;
+			case BGAMooc:
+				adapter = new BGAListViewAdapter(context, tableViewAdapter,
+						RefreshType.MoocStyle);
+				break;
+			case BGAStickiness:
+				adapter = new BGAListViewAdapter(context, tableViewAdapter,
+						RefreshType.Stickiness);
 				break;
 			default:
 				break;
@@ -189,8 +199,8 @@ public class TableView<T> implements ListViewListener {
 		getAdapter().endLoadMore();
 	}
 
-	public void loadOver() {
-		getAdapter().loadOver();
+	public void loadOver(boolean over) {
+		getAdapter().loadOver(over);
 	}
 
 }

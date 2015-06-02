@@ -1,5 +1,6 @@
 package net.datafans.android.common.widget.table.refresh;
 
+import android.R.bool;
 import android.view.View;
 
 public abstract class ListViewAdapter {
@@ -18,7 +19,7 @@ public abstract class ListViewAdapter {
 
 	public abstract void endLoadMore();
 
-	public abstract void loadOver();
+	public abstract void loadOver(boolean over);
 
 	public ListViewListener getListener() {
 		return listener;

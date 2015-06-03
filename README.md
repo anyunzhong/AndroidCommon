@@ -127,6 +127,8 @@ public class ShopListController extends TableViewController<Shop> implements
 
 	}
 
+//是否允许自动加载更多
+
 	@Override
 	protected boolean enableAutoLoadMore() {
 		return true;

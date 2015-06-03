@@ -6,7 +6,7 @@
 
 增加类似iOS的Controller
 
-增加TabelViewController 及 TabelView
+增加TableViewController 及 TabelView
 
 TableView支持多种下拉刷新风格:
 PullDown, PullToRefresh, SwipeRefresh, UltraPullToRefresh, DropDown, BGANormal, BGAMooc, BGAStickiness
@@ -134,6 +134,33 @@ public class ShopListController extends TableViewController<Shop> implements
 	@Override
 	protected boolean enableAutoLoadMore() {
 		return true;
+	}
+
+}
+
+
+
+# TabelViewCell
+
+public class ShopListTableViewCell extends TableViewCell<Shop> {
+
+	private TextView name;
+	private CommonImageView imageView;
+
+	public ShopListTableViewCell(int layout, LayoutInflater flater) {
+		super(layout, flater);
+
+		name = (TextView) cell.findViewById(R.id.name);
+		imageView = (CommonImageView) cell.findViewById(R.id.avatar);
+	}
+
+
+// 更新数据 
+
+	@Override
+	protected void refresh(Shop shop) {
+		name.setText(shop.getNoteName());
+		imageView.loadImage("path/your/image");
 	}
 
 }

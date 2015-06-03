@@ -164,3 +164,48 @@ public class ShopListTableViewCell extends TableViewCell<Shop> {
 	}
 
 }
+
+
+
+# DataService
+
+
+public class ShopListDataService extends DataService {
+
+	private List<Shop> shopList = new ArrayList<Shop>();
+
+ // api根域名地址 
+ 
+	@Override
+	protected String getRequestDomain() {
+		return "http://www.yourdomain.com";
+	}
+//请求路径
+
+	@Override
+	protected String getRequestPath() {
+		return "/path/user/list/";
+	}
+
+	@Override
+	protected void setRequestParams(RequestParams params) {
+		super.setRequestParams(params);
+		params.put("api_version", 1);
+		params.put("token", "348a72103c774384697ac1eb8b2230");
+		params.put("user_id", 100002);
+	}
+
+	@Override
+	protected void parseResponse(BaseResponse response) {
+	
+	//解析数据
+	
+		JSONObject o = (JSONObject) JSON.parse(response.getData());
+		shopList.addAll(JSON.parseArray(o.getString("friends"), Shop.class));
+	}
+
+	public List<Shop> getShopList() {
+		return shopList;
+	}
+
+}

@@ -66,6 +66,7 @@ public class ShopListController extends TableViewController<Shop> implements
 	}
 
   // tableView的总行数
+  
 	@Override
 	public int getRows() {
 		return shopList.size();

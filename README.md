@@ -17,7 +17,7 @@ http接口协议请参考 x-common项目 当然你也可以灵活定制
 
 # 快速开始
 
-# TabelViewController
+# TableViewController
 
 public class ShopListController extends TableViewController<Shop> implements
 		DataServiceDelegate {

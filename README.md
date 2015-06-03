@@ -38,6 +38,7 @@ public class ShopListController extends TableViewController<Shop> implements
 		super.onCreate(savedInstanceState);
 
     //开始加载数据
+    
 		dataService.execute();
 	}
 
@@ -57,6 +58,7 @@ public class ShopListController extends TableViewController<Shop> implements
 	}
 
   //设置下来刷新的类型 目前不是所有类型都支持上拉更多
+  
 	@Override
 	protected RefreshControlType getRefreshControlType() {
 		return RefreshControlType.BGANormal;
@@ -70,6 +72,7 @@ public class ShopListController extends TableViewController<Shop> implements
 	}
 
   // 返回某一行具体的cell 已经重用
+  
 	@Override
 	public TableViewCell<Shop> getTableViewCell(int row) {
 		return new ShopListTableViewCell(R.layout.shop_list,
@@ -82,12 +85,14 @@ public class ShopListController extends TableViewController<Shop> implements
 	}
 
   //返回具体某一行需要显示的数据
+  
 	@Override
 	public Shop getEntity(int row) {
 		return shopList.get(row);
 	}
 
   //下来刷新回调
+  
 	@Override
 	public void onRefresh() {
 
@@ -99,6 +104,7 @@ public class ShopListController extends TableViewController<Shop> implements
 	}
 
 //上拉更多回调 
+
 	@Override
 	public void onLoadMore() {
 		dataService.execute();
@@ -108,6 +114,7 @@ public class ShopListController extends TableViewController<Shop> implements
 	public void onStatusOk(BaseResponse response, Class<?> type) {
 
 //判断是否还有更多数据
+
 		if (shopList.size() > 4) {
 			loadOver(true);
 		} else {

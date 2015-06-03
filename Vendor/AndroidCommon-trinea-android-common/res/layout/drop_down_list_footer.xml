@@ -4,7 +4,7 @@
     android:layout_height="match_parent" >
 
     <ProgressBar
-        android:id="@+id/drop_down_list_footer_progress_bar"
+        android:id="@+id/drop_down_list_footer_progress_bar1"
         style="@style/drop_down_list_footer_progress_bar_style"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -12,11 +12,20 @@
         android:layout_toLeftOf="@+id/drop_down_list_footer_button"
         android:indeterminate="true"
         android:visibility="gone" />
+    
+    <ImageView
+            android:id="@+id/iv_normal_refresh_header_chrysanthemum"
+            android:visibility="invisible"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/drop_down_list_footer_button"
+            android:src="@anim/bga_refresh_loding1"/>
 
     <Button
         android:id="@+id/drop_down_list_footer_button"
         style="@style/drop_down_list_footer_font_style"
-        android:layout_width="150dp"
+        android:layout_width="wrap_content"
         android:layout_height="@dimen/drop_down_list_footer_button_height"
         android:layout_centerInParent="true"
         android:layout_marginLeft="@dimen/drop_down_list_footer_button_margin_left"

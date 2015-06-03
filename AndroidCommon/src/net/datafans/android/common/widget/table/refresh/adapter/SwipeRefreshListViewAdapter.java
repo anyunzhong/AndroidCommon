@@ -1,11 +1,14 @@
 package net.datafans.android.common.widget.table.refresh.adapter;
 
+import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
 import android.content.Context;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
+import net.datafans.android.common.R;
 import net.datafans.android.common.widget.table.refresh.ListViewAdapter;
 
 public class SwipeRefreshListViewAdapter extends ListViewAdapter implements
@@ -15,9 +18,19 @@ public class SwipeRefreshListViewAdapter extends ListViewAdapter implements
 	private SwipeRefreshLayout refreshLayout;
 
 	public SwipeRefreshListViewAdapter(Context context, BaseAdapter adapter) {
-		refreshLayout = new SwipeRefreshLayout(context);
-		listView = new ListView(context);
-		refreshLayout.addView(listView);
+
+		View view = LayoutInflater.from(context).inflate(
+				R.layout.swipe_refresh, null);
+		refreshLayout = (SwipeRefreshLayout) view
+				.findViewById(R.id.id_swipe_ly);
+
+		//
+		// refreshLayout = new SwipeRefreshLayout(context);
+		// listView = new ListView(context);
+		// refreshLayout.addView(listView);
+
+		listView = (ListView) view.findViewById(R.id.id_listview);
+
 		listView.setAdapter(adapter);
 
 		refreshLayout.setColorSchemeResources(android.R.color.holo_blue_light,
@@ -60,13 +73,13 @@ public class SwipeRefreshListViewAdapter extends ListViewAdapter implements
 	@Override
 	public void enableAutoLoadMore(boolean enable) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void loadOver(boolean over) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

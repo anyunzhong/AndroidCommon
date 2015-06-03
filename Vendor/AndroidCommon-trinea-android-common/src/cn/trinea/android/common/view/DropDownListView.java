@@ -77,7 +77,7 @@ public class DropDownListView extends ListView implements OnScrollListener {
 
     /** footer layout view **/
     private RelativeLayout     footerLayout;
-    private ProgressBar        footerProgressBar;
+    private ImageView        footerProgressBar;
     private Button             footerButton;
 
     private OnDropDownListener onDropDownListener;
@@ -225,7 +225,7 @@ public class DropDownListView extends ListView implements OnScrollListener {
         footerButton.setDrawingCacheBackgroundColor(0);
         footerButton.setEnabled(true);
 
-        footerProgressBar = (ProgressBar)footerLayout.findViewById(R.id.drop_down_list_footer_progress_bar);
+        footerProgressBar = (ImageView)footerLayout.findViewById(R.id.iv_normal_refresh_header_chrysanthemum);
         addFooterView(footerLayout);
     }
 

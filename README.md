@@ -21,10 +21,12 @@ public class ShopListController extends TableViewController<Shop> implements
 		DataServiceDelegate {
 
   //数据列表
-	private List<Shop> shopList;
+
+  private List<Shop> shopList;
 
   // http请求
-	private ShopListDataService dataService;
+  
+  private ShopListDataService dataService;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -96,7 +98,7 @@ public class ShopListController extends TableViewController<Shop> implements
 
 	}
 
-
+//上拉更多回调 
 	@Override
 	public void onLoadMore() {
 		dataService.execute();
@@ -105,6 +107,7 @@ public class ShopListController extends TableViewController<Shop> implements
 	@Override
 	public void onStatusOk(BaseResponse response, Class<?> type) {
 
+//判断是否还有更多数据
 		if (shopList.size() > 4) {
 			loadOver(true);
 		} else {

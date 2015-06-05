@@ -7,16 +7,21 @@ import net.datafans.android.test.data.service.Shop;
 import android.view.LayoutInflater;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+
 public class ShopListTableViewCell extends TableViewCell<Shop> {
 
-	private TextView name;
-	private CommonImageView imageView;
+	@InjectView(R.id.name)
+	TextView name;
+
+	@InjectView(R.id.avatar)
+	CommonImageView imageView;
 
 	public ShopListTableViewCell(int layout, LayoutInflater flater) {
 		super(layout, flater);
-
-		name = (TextView) cell.findViewById(R.id.name);
-		imageView = (CommonImageView) cell.findViewById(R.id.avatar);
 	}
 
 

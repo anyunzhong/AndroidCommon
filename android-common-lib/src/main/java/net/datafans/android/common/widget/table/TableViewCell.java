@@ -3,18 +3,22 @@ package net.datafans.android.common.widget.table;
 import android.view.LayoutInflater;
 import android.view.View;
 
+import butterknife.ButterKnife;
+
 public abstract class TableViewCell<T> {
 
-	protected View cell;
+    protected View cell;
 
-	public TableViewCell(int layout, LayoutInflater flater) {
-		cell = flater.inflate(layout, null);
-	}
+    public TableViewCell(int layout, LayoutInflater flater) {
+        cell = flater.inflate(layout, null);
 
-	protected View getView() {
-		return cell;
-	}
-	
-	protected abstract void refresh(T t);
+        ButterKnife.inject(this, cell);
+    }
+
+    protected View getView() {
+        return cell;
+    }
+
+    protected abstract void refresh(T t);
 
 }

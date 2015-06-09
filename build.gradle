@@ -13,12 +13,5 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
-
-        //mavenLocal()
-        //mavenCentral()
-
-        maven {
-            url  "http://dl.bintray.com/anyunzhong/maven"
-        }
     }
 }

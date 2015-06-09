@@ -20,10 +20,11 @@ android {
 
 dependencies {
 
-    compile 'com.android.support:support-v4:22.2.0'
+    //compile 'com.android.support:support-v4:22.2.0'
+    compile 'com.android.support:appcompat-v7:19.+'
+    //compile 'com.android.support:recyclerview-v7:22.2.0'
+    //compile 'com.nineoldandroids:library:2.4.0'
 
-    compile 'com.android.support:recyclerview-v7:22.2.0'
-    compile 'com.nineoldandroids:library:2.4.0'
 
 
     compile 'com.loopj.android:android-async-http:1.4.7'
@@ -36,6 +37,7 @@ dependencies {
     compile 'in.srain.cube:clog:1.0.2'
 
     compile 'com.jakewharton:butterknife:6.1.0'
+
 }
 
 apply from: 'bintray-publish-github.gradle'

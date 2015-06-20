@@ -21,6 +21,13 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile project(':android-common-lib')
+   compile project(':android-common-lib')
+
+//    compile('net.datafans:android-common-lib:1.1.6')
+//            {
+//                exclude group: 'com.android.support', module: 'support-v4'
+//                exclude module: 'support-annotations', group: 'com.android.support'
+//            }
+
     //compile 'net.datafans:android-common-lib:1.0.0'
 }

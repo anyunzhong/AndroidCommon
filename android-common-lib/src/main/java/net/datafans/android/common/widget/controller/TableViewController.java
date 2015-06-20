@@ -10,7 +10,7 @@ import android.app.Fragment;
 import android.os.Bundle;
 import android.widget.Toast;
 
-public abstract class TableViewController<T> extends Controller implements
+public abstract class TableViewController<T> extends FragmentController implements
 		TableViewDataSource<T>, TableViewDelegate {
 
 	private TableView<T> tableView;

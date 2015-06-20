@@ -1,87 +1,29 @@
 package net.datafans.android.test.activity;
 
-import android.app.Activity;
-import android.graphics.Color;
+import android.app.Fragment;
 import android.os.Bundle;
-import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
 
-import com.shizhefei.view.indicator.FixedIndicatorView;
-import com.shizhefei.view.indicator.IndicatorViewPager;
-import com.shizhefei.view.indicator.slidebar.ColorBar;
-import com.shizhefei.view.indicator.transition.OnTransitionTextListener;
-
+import net.datafans.android.common.widget.controller.FragmentController;
 import net.datafans.android.test.R;
 
-public class ViewPagerActivity extends Activity {
-
-    private IndicatorViewPager indicatorViewPager;
-    private LayoutInflater inflater;
+public class ViewPagerActivity extends FragmentController {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_pager);
-
-        inflater = LayoutInflater.from(this);
-
-        initView();
 
     }
 
-
-    private void initView() {
-
-        ViewPager viewPager = (ViewPager) findViewById(R.id.fragment_tabmain_viewPager);
-        FixedIndicatorView indicator = (FixedIndicatorView) findViewById(R.id.fragment_tabmain_indicator);
-
-        indicator.setScrollBar(new ColorBar(this, Color.RED, 10));
-        float unSelectSize = 20;
-        float selectSize = unSelectSize * 1.0f;
-
-        int selectColor = Color.RED;
-        int unSelectColor = Color.GRAY;
-        indicator.setOnTransitionListener(new OnTransitionTextListener(selectSize, unSelectSize, selectColor, unSelectColor));
-
-        viewPager.setOffscreenPageLimit(4);
-
-        indicatorViewPager = new IndicatorViewPager(indicator, viewPager);
-
-        indicatorViewPager.setAdapter(new TabAdapter());
+    @Override
+    protected Fragment getRootFragment() {
+        return new ViewPagerFragment();
     }
 
-
-    private class TabAdapter extends IndicatorViewPager.IndicatorViewPagerAdapter {
-        @Override
-        public int getCount() {
-            return 4;
-        }
-
-        @Override
-        public View getViewForTab(int i, View view, ViewGroup viewGroup) {
-            if (view == null) {
-                view = inflater.inflate(R.layout.tab_top, viewGroup, false);
-            }
-            TextView textView = (TextView) view;
-            textView.setText("tab" + i);
-            return view;
-        }
-
-        @Override
-        public View getViewForPage(int i, View view, ViewGroup viewGroup) {
-            if (view == null) {
-                view = inflater.inflate(R.layout.tab_content, viewGroup, false);
-            }
-
-            TextView textView = (TextView) view.findViewById(R.id.tab_content_textview);
-            textView.setText("content" + i);
-            return view;
-        }
+    @Override
+    protected String getNavTitle() {
+        return "俱乐部";
     }
 
     @Override

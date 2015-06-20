@@ -1,13 +1,7 @@
 package net.datafans.android.common.widget.controller;
 
-import net.datafans.android.common.R;
-import net.datafans.android.common.config.AndroidCommon;
-import net.datafans.android.common.data.service.BaseResponse;
-import net.datafans.android.common.lib.systembar.SystemBarTintManager;
-
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
-import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -21,33 +15,23 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import net.datafans.android.common.R;
+import net.datafans.android.common.config.AndroidCommon;
+import net.datafans.android.common.data.service.BaseResponse;
+import net.datafans.android.common.lib.systembar.SystemBarTintManager;
+
 public abstract class Controller extends Activity {
-
-    protected ActionBar actionBar;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        // requestWindowFeature(Window.FEATURE_NO_TITLE);
-
         super.onCreate(savedInstanceState);
-        if (enableMargin())
-            setContentView(R.layout.activity_base);
-        else
-            setContentView(R.layout.activity_base_no_margin);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-
-        // actionBar = getActionBar();
-        // actionBar.setHomeButtonEnabled(true);
-        // actionBar.setDisplayHomeAsUpEnabled(true);
-
-        initActionBar();
-        initFragment();
+        initStatusBar();
     }
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
     @SuppressLint("InlinedApi")
-    private void initActionBar() {
+    private void initStatusBar() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             Window window = getWindow();
             // Translucent status bar
@@ -75,21 +59,6 @@ public abstract class Controller extends Activity {
         // 设置一个状态栏资源
         // tintManager.setStatusBarTintDrawable(MyDrawable);
     }
-
-    private void initFragment() {
-
-        FragmentManager fm = getFragmentManager();
-        FragmentTransaction transaction = fm.beginTransaction();
-        transaction.replace(R.id.container, getRootFragment());
-        transaction.commit();
-    }
-
-    protected abstract Fragment getRootFragment();
-
-    protected boolean enableMargin() {
-        return true;
-    }
-
     protected int getStatusBarColor() {
         int color = AndroidCommon.getAppearence().getStatusBarTintColor();
         if (color != 0) {

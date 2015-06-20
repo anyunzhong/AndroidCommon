@@ -2,15 +2,81 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="70dp" >
+    android:orientation="vertical">
 
-    <FrameLayout
-        android:id="@+id/container"
+    <LinearLayout
+        android:id="@+id/navbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-    </FrameLayout>
+        android:layout_height="60dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/navbar_left"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <LinearLayout
+                android:id="@+id/navbar_return_button"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="8.5dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/navbar_left_arrow" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/navbar_divider"
+                android:layout_width="1dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="8.5dp"
+                android:background="#0fffffff"/>
+
+            <TextView
+                android:id="@+id/navbar_title"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="7dp"
+                android:textSize="18sp"
+                android:textColor="@android:color/white"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/navbar_right"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/container_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white">
+
+        <FrameLayout
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></FrameLayout>
+    </LinearLayout>
+
 
 </LinearLayout>

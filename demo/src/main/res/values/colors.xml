@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- 公共的 -->
+    <color name="tab_main_text_1">#09bb07</color>
+    <color name="tab_main_text_2">@android:color/darker_gray</color>
+
+</resources>

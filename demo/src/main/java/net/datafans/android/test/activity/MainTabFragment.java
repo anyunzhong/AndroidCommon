@@ -58,6 +58,7 @@ public class MainTabFragment extends Fragment {
 
         indicatorViewPager = new IndicatorViewPager(indicator, viewPager);
         indicatorViewPager.setAdapter(new TabMainAdapter());
+
         // 禁止viewpager的滑动事件
         //viewPager.setCanScroll(true);
         // 设置viewpager保留界面不重新加载的页面数量

@@ -213,4 +213,11 @@ public class TableView<T> implements ListViewListener {
 		getAdapter().loadOver(over);
 	}
 
+	public void hideDivider(){
+
+
+	}
+
+
+
 }

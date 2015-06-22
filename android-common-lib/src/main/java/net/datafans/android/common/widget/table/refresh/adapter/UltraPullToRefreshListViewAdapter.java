@@ -89,4 +89,9 @@ public class UltraPullToRefreshListViewAdapter extends ListViewAdapter {
 		
 	}
 
+	@Override
+	public void hideDivider() {
+
+	}
+
 }

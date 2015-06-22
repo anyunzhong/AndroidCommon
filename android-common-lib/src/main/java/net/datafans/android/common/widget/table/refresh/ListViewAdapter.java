@@ -20,6 +20,10 @@ public abstract class ListViewAdapter {
 
 	public abstract void loadOver(boolean over);
 
+
+	public abstract void hideDivider();
+
+
 	public ListViewListener getListener() {
 		return listener;
 	}

@@ -125,4 +125,8 @@ public class BGAListViewAdapter extends ListViewAdapter implements
 		Normal, MoocStyle, Stickiness
 	}
 
+	@Override
+	public void hideDivider() {
+
+	}
 }

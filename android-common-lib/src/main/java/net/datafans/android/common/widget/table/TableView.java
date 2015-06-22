@@ -215,6 +215,7 @@ public class TableView<T> implements ListViewListener {
 
 	public void hideDivider(){
 
+		getAdapter().hideDivider();
 
 	}
 

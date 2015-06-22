@@ -84,7 +84,7 @@ public class DropDownListViewAdapter extends ListViewAdapter {
 
 	@Override
 	public void hideDivider() {
-
+		listView.setDivider(null);
 	}
 
 }

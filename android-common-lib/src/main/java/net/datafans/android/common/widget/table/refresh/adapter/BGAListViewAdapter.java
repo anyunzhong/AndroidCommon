@@ -127,6 +127,6 @@ public class BGAListViewAdapter extends ListViewAdapter implements
 
 	@Override
 	public void hideDivider() {
-
+		listView.setDivider(null);
 	}
 }

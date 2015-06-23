@@ -1,14 +1,12 @@
 package net.datafans.android.test.activity;
 
-import android.app.Fragment;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuItem;
 
-import net.datafans.android.common.widget.controller.FragmentController;
+import net.datafans.android.common.widget.controller.TabbarController;
 import net.datafans.android.test.R;
 
-public class MainTabActivity extends FragmentController {
+public class MainTabActivity extends TabbarController {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,28 +22,29 @@ public class MainTabActivity extends FragmentController {
 
 
     @Override
-    protected Fragment getRootFragment() {
-        return new MainTabFragment();
-    }
-
-
-    @Override
     protected String getNavTitle() {
         return "微信";
     }
 
+
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+    public String[] getTabItemNames() {
+        return new String[]{ "微信", "通讯录", "发现", "我" };
+    }
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+    @Override
+    public int[] getTabItemIcons() {
+        return new int[]{ R.drawable.maintab_1_selector, R.drawable.maintab_2_selector, R.drawable.maintab_3_selector,
+                R.drawable.maintab_4_selector };
+    }
 
-        return super.onOptionsItemSelected(item);
+    @Override
+    public int getTabItemColor() {
+        return R.color.tab_main_selector;
+    }
+
+    @Override
+    public android.support.v4.app.Fragment getFragment(int index) {
+        return new MessageFragment();
     }
 }

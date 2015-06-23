@@ -1,5 +1,7 @@
 package net.datafans.android.common.widget.tabbar;
 
+import android.content.res.ColorStateList;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -86,7 +88,11 @@ public class TabbarFragment extends Fragment {
 
             TextView textView = (TextView) view.findViewById(R.id.tab_item_text);
             textView.setText(controller.getTabItemNames()[i]);
-            textView.setTextColor(controller.getTabItemColor());
+            Resources resource = getActivity().getResources();
+            ColorStateList csl = resource.getColorStateList(controller.getTabItemColor());
+            if (csl != null) {
+                textView.setTextColor(csl);
+            }
 
             return view;
         }

@@ -42,8 +42,14 @@ public class SwipeRefreshListViewAdapter extends ListViewAdapter implements
 	}
 
 	@Override
-	public View getListView() {
+	public View getRootView() {
 		return refreshLayout;
+	}
+
+
+	@Override
+	public ListView getListView() {
+		return listView;
 	}
 
 	@Override

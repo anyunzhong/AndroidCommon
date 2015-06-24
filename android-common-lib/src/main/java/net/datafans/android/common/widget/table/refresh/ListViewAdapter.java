@@ -1,12 +1,15 @@
 package net.datafans.android.common.widget.table.refresh;
 
 import android.view.View;
+import android.widget.ListView;
 
 public abstract class ListViewAdapter {
 
 	private ListViewListener listener;
 
-	public abstract View getListView();
+	public abstract View getRootView();
+
+	public abstract ListView getListView();
 
 	public abstract void enableRefresh(boolean enable);
 

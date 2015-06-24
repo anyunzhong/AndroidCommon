@@ -6,6 +6,8 @@ import android.content.Context;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.BaseAdapter;
+import android.widget.ListView;
+
 import net.datafans.android.common.widget.table.refresh.ListViewAdapter;
 
 public class DropDownListViewAdapter extends ListViewAdapter {
@@ -29,8 +31,13 @@ public class DropDownListViewAdapter extends ListViewAdapter {
 	}
 
 	@Override
-	public View getListView() {
+	public View getRootView() {
 
+		return listView;
+	}
+
+	@Override
+	public ListView getListView() {
 		return listView;
 	}
 

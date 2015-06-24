@@ -6,6 +6,7 @@ import net.datafans.android.common.widget.table.refresh.ListViewAdapter;
 import android.content.Context;
 import android.view.View;
 import android.widget.BaseAdapter;
+import android.widget.ListView;
 
 public class PullDownListViewAdapter extends ListViewAdapter implements
 		OnPullDownListener {
@@ -21,8 +22,13 @@ public class PullDownListViewAdapter extends ListViewAdapter implements
 	}
 
 	@Override
-	public View getListView() {
+	public View getRootView() {
 		return pullDownView;
+	}
+
+	@Override
+	public ListView getListView() {
+		return pullDownView.getListView();
 	}
 
 	@Override

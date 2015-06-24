@@ -41,8 +41,15 @@ public class UltraPullToRefreshListViewAdapter extends ListViewAdapter {
 	}
 
 	@Override
-	public View getListView() {
+	public View getRootView() {
 		return frameLayout;
+	}
+
+
+
+	@Override
+	public ListView getListView() {
+		return listView;
 	}
 
 	@Override

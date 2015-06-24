@@ -15,7 +15,9 @@ import net.datafans.android.common.widget.table.refresh.adapter.UltraPullToRefre
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.ListView;
 
 public class TableView<T> implements ListViewListener {
 
@@ -109,7 +111,7 @@ public class TableView<T> implements ListViewListener {
 	}
 
 	public View getView() {
-		return getAdapter().getListView();
+		return getAdapter().getRootView();
 	}
 
 	public BaseAdapter getTableViewAdapter() {
@@ -124,6 +126,15 @@ public class TableView<T> implements ListViewListener {
 
 		ListViewAdapter adapter = getAdapter();
 		adapter.setListener(this);
+
+		ListView listView = adapter.getListView();
+		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+				if (delegate == null) return;
+				delegate.onClickRow(i);
+			}
+		});
 	}
 
 	private class TableViewAdapter extends BaseAdapter {

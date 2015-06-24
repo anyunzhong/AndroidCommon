@@ -89,9 +89,4 @@ public class SwipeRefreshListViewAdapter extends ListViewAdapter implements
 
 	}
 
-	@Override
-	public void hideDivider() {
-		listView.setDivider(null);
-	}
-
 }

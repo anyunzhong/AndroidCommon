@@ -6,6 +6,7 @@ import net.datafans.android.common.data.service.BaseResponse;
 import net.datafans.android.common.data.service.DataServiceDelegate;
 import net.datafans.android.common.widget.controller.TableViewController;
 import net.datafans.android.common.widget.table.TableViewCell;
+import net.datafans.android.common.widget.table.TableViewStyle;
 import net.datafans.android.common.widget.table.refresh.RefreshControlType;
 import net.datafans.android.test.R;
 import net.datafans.android.test.data.service.Shop;
@@ -30,6 +31,9 @@ public class ShopListController extends TableViewController<Shop> implements
         dataService = new ShopListDataService();
         dataService.setDelegate(this);
         shopList = dataService.getShopList();
+
+
+        setStyle(TableViewStyle.PLAIN);
 
         super.onCreate(savedInstanceState);
 

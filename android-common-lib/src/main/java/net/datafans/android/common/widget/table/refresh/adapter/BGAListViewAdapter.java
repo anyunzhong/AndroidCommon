@@ -142,9 +142,4 @@ public class BGAListViewAdapter extends ListViewAdapter implements
     public static enum RefreshType {
         Normal, MoocStyle, Stickiness
     }
-
-    @Override
-    public void hideDivider() {
-        //listView.setDivider(null);
-    }
 }

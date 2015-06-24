@@ -1,84 +1,98 @@
 package net.datafans.android.common.widget.controller;
 
 import net.datafans.android.common.data.service.BaseResponse;
+import net.datafans.android.common.widget.table.GroupTableView;
+import net.datafans.android.common.widget.table.PlainTableView;
 import net.datafans.android.common.widget.table.TableView;
 import net.datafans.android.common.widget.table.TableViewDataSource;
 import net.datafans.android.common.widget.table.TableViewDelegate;
 import net.datafans.android.common.widget.table.TableViewFragment;
+import net.datafans.android.common.widget.table.TableViewStyle;
 import net.datafans.android.common.widget.table.refresh.RefreshControlType;
+
 import android.app.Fragment;
 import android.os.Bundle;
 import android.widget.Toast;
 
 public abstract class TableViewController<T> extends FragmentController implements
-		TableViewDataSource<T>, TableViewDelegate {
+        TableViewDataSource<T>, TableViewDelegate {
 
-	private TableView<T> tableView;
+    private TableView<T> tableView;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-	}
+    private TableViewStyle style;
 
-	@Override
-	protected Fragment getRootFragment() {
+    public void setStyle(TableViewStyle style) {
+        this.style = style;
+    }
 
-		if (tableView == null) {
-			tableView = new TableView<T>(this, getRefreshControlType(),
-					enableRefresh(), enableLoadMore(), enableAutoLoadMore());
-			tableView.setDataSource(this);
-			tableView.setDelegate(this);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
-		}
-		return new TableViewFragment<T>(tableView);
-	}
+    @Override
+    protected Fragment getRootFragment() {
 
-	@Override
-	protected void onStatusOk(BaseResponse response, Class<?> type) {
-		super.onStatusOk(response, type);
-		onEnd();
-	}
+        if (tableView == null) {
+            if (style == TableViewStyle.GROUP)
+                tableView = new GroupTableView<T>(this, getRefreshControlType(),
+                        enableRefresh(), enableLoadMore(), enableAutoLoadMore());
+            else
+                tableView = new PlainTableView<T>(this, getRefreshControlType(),
+                        enableRefresh(), enableLoadMore(), enableAutoLoadMore());
+            tableView.setDataSource(this);
+            tableView.setDelegate(this);
 
-	@Override
-	public void onStatusError(BaseResponse response) {
-		super.onStatusError(response);
-		onEnd();
-	}
+        }
+        return new TableViewFragment<T>(tableView);
+    }
 
-	@Override
-	public void onRequestError(int errorCode, byte[] errorResponse,
-			Throwable throwable) {
-		super.onRequestError(errorCode, errorResponse, throwable);
-		onEnd();
-	}
+    @Override
+    protected void onStatusOk(BaseResponse response, Class<?> type) {
+        super.onStatusOk(response, type);
+        onEnd();
+    }
 
-	public void onEnd() {
-		tableView.reloadData();
-		tableView.endRefresh();
-		tableView.endLoadMore();
-	}
+    @Override
+    public void onStatusError(BaseResponse response) {
+        super.onStatusError(response);
+        onEnd();
+    }
 
-	protected RefreshControlType getRefreshControlType() {
-		return RefreshControlType.BGANormal;
-	}
+    @Override
+    public void onRequestError(int errorCode, byte[] errorResponse,
+                               Throwable throwable) {
+        super.onRequestError(errorCode, errorResponse, throwable);
+        onEnd();
+    }
 
-	protected void loadOver(boolean over) {
-		if (over) {
-			Toast toast = Toast.makeText(this, "加载完毕", Toast.LENGTH_SHORT);
-			toast.show();
-		}
-		tableView.loadOver(over);
-	}
+    public void onEnd() {
+        tableView.reloadData();
+        tableView.endRefresh();
+        tableView.endLoadMore();
+    }
 
-	protected boolean enableRefresh() {
-		return true;
-	}
+    protected RefreshControlType getRefreshControlType() {
+        return RefreshControlType.BGANormal;
+    }
 
-	protected boolean enableLoadMore() {
-		return true;
-	}
+    protected void loadOver(boolean over) {
+        if (over) {
+            Toast toast = Toast.makeText(this, "加载完毕", Toast.LENGTH_SHORT);
+            toast.show();
+        }
+        tableView.loadOver(over);
+    }
 
-	protected boolean enableAutoLoadMore() {
-		return false;
-	}
+    protected boolean enableRefresh() {
+        return true;
+    }
+
+    protected boolean enableLoadMore() {
+        return true;
+    }
+
+    protected boolean enableAutoLoadMore() {
+        return false;
+    }
 }

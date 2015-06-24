@@ -12,6 +12,7 @@ import net.datafans.android.common.widget.table.refresh.adapter.DropDownListView
 import net.datafans.android.common.widget.table.refresh.adapter.PullDownListViewAdapter;
 import net.datafans.android.common.widget.table.refresh.adapter.SwipeRefreshListViewAdapter;
 import net.datafans.android.common.widget.table.refresh.adapter.UltraPullToRefreshListViewAdapter;
+
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,215 +22,216 @@ import android.widget.ListView;
 
 public class TableView<T> implements ListViewListener {
 
-	private Map<RefreshControlType, ListViewAdapter> adapterMap = new HashMap<RefreshControlType, ListViewAdapter>();
+    private Map<RefreshControlType, ListViewAdapter> adapterMap = new HashMap<RefreshControlType, ListViewAdapter>();
 
-	private RefreshControlType refreshType;
+    private RefreshControlType refreshType;
 
-	private TableViewAdapter tableViewAdapter;
-	private TableViewDataSource<T> dataSource;
-	private TableViewDelegate delegate;
+    private TableViewAdapter tableViewAdapter;
+    private TableViewDataSource<T> dataSource;
+    private TableViewDelegate delegate;
 
-	private Context context;
+    private Context context;
 
-	private boolean enableRefresh = false;
-	private boolean enableLoadMore = false;
-	private boolean enableAutoLoadMore = false;
+    public Context getContext() {
+        return context;
+    }
 
-	public TableView(Context context, RefreshControlType type) {
-		this.context = context;
-		refreshType = type;
-		init();
-	}
+    private boolean enableRefresh = false;
+    private boolean enableLoadMore = false;
+    private boolean enableAutoLoadMore = false;
 
-	public TableView(Context context, RefreshControlType type,
-			boolean enableRefresh, boolean enableLoadMore,
-			boolean enableAutoLoadMore) {
-		this.context = context;
-		this.enableRefresh = enableRefresh;
-		this.enableLoadMore = enableLoadMore;
-		this.enableAutoLoadMore = enableAutoLoadMore;
-		refreshType = type;
-		init();
-	}
+    public TableView(Context context, RefreshControlType type) {
+        this.context = context;
+        refreshType = type;
+        init();
+    }
 
-	public TableView(Context context) {
-		this.context = context;
-		this.refreshType = RefreshControlType.BGANormal;
-		init();
-	}
+    public TableView(Context context, RefreshControlType type,
+                     boolean enableRefresh, boolean enableLoadMore,
+                     boolean enableAutoLoadMore) {
+        this.context = context;
+        this.enableRefresh = enableRefresh;
+        this.enableLoadMore = enableLoadMore;
+        this.enableAutoLoadMore = enableAutoLoadMore;
+        refreshType = type;
+        init();
+    }
 
-	private void init() {
-		tableViewAdapter = new TableViewAdapter();
-		initView();
-	}
+    public TableView(Context context) {
+        this.context = context;
+        this.refreshType = RefreshControlType.BGANormal;
+        init();
+    }
 
-	private ListViewAdapter getAdapter(RefreshControlType type) {
-		ListViewAdapter adapter = adapterMap.get(type);
-		if (adapter == null) {
-			switch (type) {
-			case PullDown:
-				adapter = new PullDownListViewAdapter(context, tableViewAdapter);
-				break;
-			case SwipeRefresh:
-				adapter = new SwipeRefreshListViewAdapter(context,
-						tableViewAdapter);
-				break;
-			case UltraPullToRefresh:
-				adapter = new UltraPullToRefreshListViewAdapter(context,
-						tableViewAdapter);
-				break;
-			case DropDown:
-				adapter = new DropDownListViewAdapter(context, tableViewAdapter);
-				break;
-			case BGANormal:
-				adapter = new BGAListViewAdapter(context, tableViewAdapter,
-						RefreshType.Normal);
-				break;
-			case BGAMooc:
-				adapter = new BGAListViewAdapter(context, tableViewAdapter,
-						RefreshType.MoocStyle);
-				break;
-			case BGAStickiness:
-				adapter = new BGAListViewAdapter(context, tableViewAdapter,
-						RefreshType.Stickiness);
-				break;
-			default:
-				break;
-			}
+    private void init() {
+        tableViewAdapter = new TableViewAdapter();
+        initView();
+    }
 
-			adapter.enableRefresh(enableRefresh);
-			adapter.enableLoadMore(enableLoadMore);
-			adapter.enableAutoLoadMore(enableAutoLoadMore);
+    private ListViewAdapter getAdapter(RefreshControlType type) {
+        ListViewAdapter adapter = adapterMap.get(type);
+        if (adapter == null) {
+            switch (type) {
+                case PullDown:
+                    adapter = new PullDownListViewAdapter(context, tableViewAdapter);
+                    break;
+                case SwipeRefresh:
+                    adapter = new SwipeRefreshListViewAdapter(context,
+                            tableViewAdapter);
+                    break;
+                case UltraPullToRefresh:
+                    adapter = new UltraPullToRefreshListViewAdapter(context,
+                            tableViewAdapter);
+                    break;
+                case DropDown:
+                    adapter = new DropDownListViewAdapter(context, tableViewAdapter);
+                    break;
+                case BGANormal:
+                    adapter = new BGAListViewAdapter(context, tableViewAdapter,
+                            RefreshType.Normal);
+                    break;
+                case BGAMooc:
+                    adapter = new BGAListViewAdapter(context, tableViewAdapter,
+                            RefreshType.MoocStyle);
+                    break;
+                case BGAStickiness:
+                    adapter = new BGAListViewAdapter(context, tableViewAdapter,
+                            RefreshType.Stickiness);
+                    break;
+                default:
+                    break;
+            }
 
-			adapterMap.put(type, adapter);
-		}
-		return adapter;
-	}
+            adapter.enableRefresh(enableRefresh);
+            adapter.enableLoadMore(enableLoadMore);
+            adapter.enableAutoLoadMore(enableAutoLoadMore);
 
-	private ListViewAdapter getAdapter() {
-		return getAdapter(refreshType);
-	}
+            adapterMap.put(type, adapter);
+        }
+        return adapter;
+    }
 
-	public View getView() {
-		return getAdapter().getRootView();
-	}
+    public ListViewAdapter getAdapter() {
+        return getAdapter(refreshType);
+    }
 
-	public BaseAdapter getTableViewAdapter() {
-		return tableViewAdapter;
-	}
+    public View getView() {
+        return getAdapter().getRootView();
+    }
 
-	public void reloadData() {
-		tableViewAdapter.notifyDataSetChanged();
-	}
+    public BaseAdapter getTableViewAdapter() {
+        return tableViewAdapter;
+    }
 
-	private void initView() {
+    public void reloadData() {
+        tableViewAdapter.notifyDataSetChanged();
+    }
 
-		ListViewAdapter adapter = getAdapter();
-		adapter.setListener(this);
+    private void initView() {
 
-		ListView listView = adapter.getListView();
-		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-				if (delegate == null) return;
-				delegate.onClickRow(i);
-			}
-		});
-	}
+        ListViewAdapter adapter = getAdapter();
+        adapter.setListener(this);
 
-	private class TableViewAdapter extends BaseAdapter {
+        ListView listView = adapter.getListView();
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                if (delegate == null) return;
+                delegate.onClickRow(i);
+            }
+        });
+    }
 
-		@Override
-		public int getCount() {
-			if (dataSource == null) {
-				return 0;
-			}
-			return dataSource.getRows();
-		}
+    private class TableViewAdapter extends BaseAdapter {
 
-		@Override
-		public Object getItem(int position) {
-			return position;
-		}
+        @Override
+        public int getCount() {
+            if (dataSource == null) {
+                return 0;
+            }
+            return dataSource.getRows();
+        }
 
-		@Override
-		public long getItemId(int position) {
-			return position;
-		}
+        @Override
+        public Object getItem(int position) {
+            return position;
+        }
 
-		@SuppressWarnings("unchecked")
-		@Override
-		public View getView(final int position, View convertView,
-				ViewGroup parent) {
-			View view = convertView;
-			TableViewCell<T> cell = null;
-			if (view == null) {
-				cell = dataSource.getTableViewCell(position);
-				view = ((TableViewCell<T>) cell).getView();
-				view.setTag(cell);
-			} else {
-				cell = (TableViewCell<T>) view.getTag();
-			}
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
 
-			cell.refresh((T) dataSource.getEntity(position));
+        @SuppressWarnings("unchecked")
+        @Override
+        public View getView(final int position, View convertView,
+                            ViewGroup parent) {
+            View view = convertView;
+            TableViewCell<T> cell = null;
+            if (view == null) {
+                cell = dataSource.getTableViewCell(position);
+                view = ((TableViewCell<T>) cell).getView();
+                view.setTag(cell);
+            } else {
+                cell = (TableViewCell<T>) view.getTag();
+            }
 
-			return view;
-		}
-	}
+            cell.refresh((T) dataSource.getEntity(position));
 
-	public TableViewDataSource<T> getDataSource() {
-		return dataSource;
-	}
+            return view;
+        }
+    }
 
-	public void setDataSource(TableViewDataSource<T> dataSource) {
-		this.dataSource = dataSource;
-	}
+    public TableViewDataSource<T> getDataSource() {
+        return dataSource;
+    }
 
-	public TableViewDelegate getDelegate() {
-		return delegate;
-	}
+    public void setDataSource(TableViewDataSource<T> dataSource) {
+        this.dataSource = dataSource;
+    }
 
-	public void setDelegate(TableViewDelegate delegate) {
-		this.delegate = delegate;
-	}
+    public TableViewDelegate getDelegate() {
+        return delegate;
+    }
 
-	@Override
-	public void onRefresh() {
+    public void setDelegate(TableViewDelegate delegate) {
+        this.delegate = delegate;
+    }
 
-		if (delegate == null) {
-			return;
-		}
+    @Override
+    public void onRefresh() {
 
-		delegate.onRefresh();
-	}
+        if (delegate == null) {
+            return;
+        }
 
-	@Override
-	public void onLoadMore() {
-		if (delegate == null) {
-			return;
-		}
+        delegate.onRefresh();
+    }
 
-		delegate.onLoadMore();
-	}
+    @Override
+    public void onLoadMore() {
+        if (delegate == null) {
+            return;
+        }
 
-	public void endRefresh() {
-		getAdapter().endRefresh();
-	}
+        delegate.onLoadMore();
+    }
 
-	public void endLoadMore() {
-		getAdapter().endLoadMore();
-	}
+    public void endRefresh() {
+        getAdapter().endRefresh();
+    }
 
-	public void loadOver(boolean over) {
-		getAdapter().loadOver(over);
-	}
+    public void endLoadMore() {
+        getAdapter().endLoadMore();
+    }
 
-	public void hideDivider(){
+    public void loadOver(boolean over) {
+        getAdapter().loadOver(over);
+    }
 
-		getAdapter().hideDivider();
-
-	}
-
+    public void hideDivider() {
+        getAdapter().getListView().setDivider(null);
+    }
 
 
 }

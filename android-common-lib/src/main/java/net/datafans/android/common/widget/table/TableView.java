@@ -176,11 +176,18 @@ public class TableView<T> implements ListViewListener {
                 cell = (TableViewCell<T>) view.getTag();
             }
 
+
+            setCellStyle(cell, position);
             cell.refresh((T) dataSource.getEntity(position));
 
             return view;
         }
     }
+
+
+    protected void setCellStyle(TableViewCell cell, int position) {
+    }
+
 
     public TableViewDataSource<T> getDataSource() {
         return dataSource;

@@ -33,7 +33,7 @@ public class ShopListController extends TableViewController<Shop> implements
         shopList = dataService.getShopList();
 
 
-        setStyle(TableViewStyle.PLAIN);
+        setStyle(TableViewStyle.GROUP);
 
         super.onCreate(savedInstanceState);
 

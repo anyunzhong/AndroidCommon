@@ -2,20 +2,21 @@ package net.datafans.android.common.widget.table;
 
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 import butterknife.ButterKnife;
 
 public abstract class TableViewCell<T> {
 
-    protected View cell;
+    protected ViewGroup cell;
 
     public TableViewCell(int layout, LayoutInflater flater) {
-        cell = flater.inflate(layout, null);
+        cell = (ViewGroup)flater.inflate(layout, null);
 
         ButterKnife.inject(this, cell);
     }
 
-    protected View getView() {
+    protected ViewGroup getView() {
         return cell;
     }
 

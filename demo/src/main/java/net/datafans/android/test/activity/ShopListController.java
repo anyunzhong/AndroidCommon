@@ -55,33 +55,62 @@ public class ShopListController extends TableViewController<Shop> implements
         return super.onOptionsItemSelected(item);
     }
 
+
+    @Override
+    protected String getNavTitle() {
+        return "商家";
+    }
+
+    @Override
+    protected boolean enableReturnButton() {
+        return true;
+    }
+
     @Override
     protected RefreshControlType getRefreshControlType() {
-        return RefreshControlType.BGANormal;
+        return RefreshControlType.None;
 
     }
 
     @Override
-    public int getRows() {
+    public int getRows(int section) {
         return shopList.size();
     }
 
+
     @Override
-    public TableViewCell<Shop> getTableViewCell(int row) {
+    public int getSections() {
+        return 1;
+    }
+
+    @Override
+    public TableViewCell<Shop> getTableViewCell(int section, int row) {
         return new ShopListTableViewCell(R.layout.shop_list,
                 LayoutInflater.from(this));
     }
 
-    @Override
-    public void onClickRow(int row) {
 
-        Log.e("row", "r:" + row);
+    @Override
+    public String getSectionHeaderTitle(int section) {
+        return "评论";
     }
 
     @Override
-    public Shop getEntity(int row) {
+    public String getSectionFooterTitle(int section) {
+        return "";
+    }
+
+    @Override
+    public void onClickRow(int section, int row) {
+
+        Log.e("section:row", section + ":" + row);
+    }
+
+    @Override
+    public Shop getEntity(int section, int row) {
         return shopList.get(row);
     }
+
 
     @Override
     public void onRefresh() {

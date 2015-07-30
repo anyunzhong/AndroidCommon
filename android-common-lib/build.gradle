@@ -1,12 +1,12 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 19
+    compileSdkVersion 22
     buildToolsVersion "22.0.1"
 
     defaultConfig {
         minSdkVersion 14
-        targetSdkVersion 19
+        targetSdkVersion 22
     }
 
     buildTypes {
@@ -21,10 +21,11 @@ android {
 dependencies {
 
     //compile 'com.android.support:support-v4:22.2.0'
-    compile('com.android.support:appcompat-v7:19.+')
-            {
-                exclude group: 'com.android.support', module: 'support-v4'
-            }
+    //compile('com.android.support:appcompat-v7:19.+')
+    compile('com.android.support:appcompat-v7:22.2.0')
+//            {
+//                exclude group: 'com.android.support', module: 'support-v4'
+//            }
     //compile 'com.android.support:recyclerview-v7:22.2.0'
     //compile 'com.nineoldandroids:library:2.4.0'
 
@@ -43,13 +44,21 @@ compile('net.datafans:bga-refresh-layout-lib:1.0.0')
             exclude group: 'com.android.support', module: 'support-v4'
         }
     compile 'net.datafans:trinea-android-common-lib:1.0.0'
-    compile 'net.datafans:viewPagerIndicator_Library:1.0.2'
+    compile('net.datafans:viewPagerIndicator_Library:1.0.2')
+
+                {
+                    exclude group: 'net.datafans', module: 'androidsupportv4'
+                }
+
+
+
     compile 'in.srain.cube:cube-sdk:1.0.44@aar'
     compile 'in.srain.cube:ultra-ptr:1.0.9'
     compile 'in.srain.cube:clog:1.0.2'
 
     compile 'com.jakewharton:butterknife:6.1.0'
-    compile 'me.relex:circleindicator:1.1.4@aar'
+    //compile 'me.relex:circleindicator:1.1.4@aar'
+    //compile 'net.datafans:circleindicator:1.0.0'
     compile 'de.greenrobot:eventbus:2.4.0'
 }
 

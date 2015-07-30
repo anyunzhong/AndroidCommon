@@ -2,67 +2,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="20dp"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:id="@+id/navbar"
+    <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:orientation="horizontal">
-
-        <LinearLayout
-            android:id="@+id/navbar_left"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
-
-            <LinearLayout
-                android:id="@+id/navbar_return_button"
-                android:layout_width="50dp"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical">
-
-                <ImageView
-                    android:layout_width="18dp"
-                    android:layout_height="18dp"
-                    android:layout_marginLeft="15dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/navbar_left_arrow" />
-            </LinearLayout>
-
-            <View
-                android:id="@+id/navbar_divider"
-                android:layout_width="1dp"
-                android:layout_height="20dp"
-                android:background="#0fffffff"/>
-
-            <TextView
-                android:id="@+id/navbar_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:layout_marginLeft="15dp"
-                android:textSize="18sp"
-                android:textColor="@android:color/white"/>
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:id="@+id/navbar_right"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="horizontal">
-
-
-        </LinearLayout>
-
-
-    </LinearLayout>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:minHeight="?attr/actionBarSize"
+        app:navigationIcon="?attr/homeAsUpIndicator"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        >
+    </android.support.v7.widget.Toolbar>
 
     <LinearLayout
         android:id="@+id/container_parent"

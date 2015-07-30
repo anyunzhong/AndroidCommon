@@ -1,7 +1,7 @@
 package net.datafans.android.common.widget.table;
 
 public interface TableViewDelegate {
-	void onClickRow(int row);
+	void onClickRow(int section, int row);
 
 	void onRefresh();
 

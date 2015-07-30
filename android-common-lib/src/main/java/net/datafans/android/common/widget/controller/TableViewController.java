@@ -10,8 +10,8 @@ import net.datafans.android.common.widget.table.TableViewFragment;
 import net.datafans.android.common.widget.table.TableViewStyle;
 import net.datafans.android.common.widget.table.refresh.RefreshControlType;
 
-import android.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.widget.Toast;
 
 public abstract class TableViewController<T> extends FragmentController implements
@@ -73,7 +73,7 @@ public abstract class TableViewController<T> extends FragmentController implemen
     }
 
     protected RefreshControlType getRefreshControlType() {
-        return RefreshControlType.BGANormal;
+        return RefreshControlType.None;
     }
 
     protected void loadOver(boolean over) {
@@ -94,5 +94,32 @@ public abstract class TableViewController<T> extends FragmentController implemen
 
     protected boolean enableAutoLoadMore() {
         return false;
+    }
+
+
+
+    @Override
+    public int getSections() {
+        return 1;
+    }
+
+    @Override
+    public int getSectionFooterHeight(int section) {
+        return style == TableViewStyle.GROUP?150:0;
+    }
+
+    @Override
+    public int getSectionHeaderHeight(int section) {
+        return style == TableViewStyle.GROUP?150:0;
+    }
+
+    @Override
+    public String getSectionFooterTitle(int section) {
+        return "";
+    }
+
+    @Override
+    public String getSectionHeaderTitle(int section) {
+        return "";
     }
 }

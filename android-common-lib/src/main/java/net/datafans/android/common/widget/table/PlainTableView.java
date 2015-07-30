@@ -11,10 +11,14 @@ public class PlainTableView<T> extends TableView<T> {
     public PlainTableView(Context context, RefreshControlType type,
                           boolean enableRefresh, boolean enableLoadMore,
                           boolean enableAutoLoadMore) {
-        super(context, type, enableRefresh, enableLoadMore, enableAutoLoadMore);
+        super(context, type, enableRefresh, enableLoadMore, enableAutoLoadMore, TableViewStyle.PLAIN);
 
-        getView().setBackgroundColor(Color.WHITE);
-        getAdapter().getListView().setDivider(new ColorDrawable(Color.LTGRAY));
+        //getView().setBackgroundColor(Color.WHITE);
+ //       getAdapter().getListView().setDivider(null);
+//        getAdapter().getListView().setHeaderDividersEnabled(false);
+//        //禁止底部出现分割线
+//        getAdapter().getListView().setFooterDividersEnabled(false);
+        getAdapter().getListView().setDivider(new ColorDrawable(Color.rgb(216,216,216)));
         getAdapter().getListView().setDividerHeight(1);
     }
 

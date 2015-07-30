@@ -3,22 +3,31 @@ package net.datafans.android.common.widget.table;
 import java.util.HashMap;
 import java.util.Map;
 
+import net.datafans.android.common.R;
 import net.datafans.android.common.widget.table.refresh.ListViewAdapter;
 import net.datafans.android.common.widget.table.refresh.ListViewListener;
 import net.datafans.android.common.widget.table.refresh.RefreshControlType;
 import net.datafans.android.common.widget.table.refresh.adapter.BGAListViewAdapter;
 import net.datafans.android.common.widget.table.refresh.adapter.BGAListViewAdapter.RefreshType;
 import net.datafans.android.common.widget.table.refresh.adapter.DropDownListViewAdapter;
+import net.datafans.android.common.widget.table.refresh.adapter.OriginListViewAdapter;
 import net.datafans.android.common.widget.table.refresh.adapter.PullDownListViewAdapter;
 import net.datafans.android.common.widget.table.refresh.adapter.SwipeRefreshListViewAdapter;
 import net.datafans.android.common.widget.table.refresh.adapter.UltraPullToRefreshListViewAdapter;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 public class TableView<T> implements ListViewListener {
 
@@ -30,6 +39,9 @@ public class TableView<T> implements ListViewListener {
     private TableViewDataSource<T> dataSource;
     private TableViewDelegate delegate;
 
+    private Map<Integer, Integer> sectionMap = new HashMap<Integer, Integer>();
+    private Map<Integer, Integer> rowMap = new HashMap<Integer, Integer>();
+
     private Context context;
 
     public Context getContext() {
@@ -40,6 +52,8 @@ public class TableView<T> implements ListViewListener {
     private boolean enableLoadMore = false;
     private boolean enableAutoLoadMore = false;
 
+    private TableViewStyle style;
+
     public TableView(Context context, RefreshControlType type) {
         this.context = context;
         refreshType = type;
@@ -48,11 +62,12 @@ public class TableView<T> implements ListViewListener {
 
     public TableView(Context context, RefreshControlType type,
                      boolean enableRefresh, boolean enableLoadMore,
-                     boolean enableAutoLoadMore) {
+                     boolean enableAutoLoadMore, TableViewStyle style) {
         this.context = context;
         this.enableRefresh = enableRefresh;
         this.enableLoadMore = enableLoadMore;
         this.enableAutoLoadMore = enableAutoLoadMore;
+        this.style = style;
         refreshType = type;
         init();
     }
@@ -72,6 +87,9 @@ public class TableView<T> implements ListViewListener {
         ListViewAdapter adapter = adapterMap.get(type);
         if (adapter == null) {
             switch (type) {
+                case None:
+                    adapter = new OriginListViewAdapter(context, tableViewAdapter);
+                    break;
                 case PullDown:
                     adapter = new PullDownListViewAdapter(context, tableViewAdapter);
                     break;
@@ -135,9 +153,13 @@ public class TableView<T> implements ListViewListener {
         ListView listView = adapter.getListView();
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 if (delegate == null) return;
-                delegate.onClickRow(i);
+                int section = getSection(position);
+                int row = getRow(position);
+                if (style == TableViewStyle.GROUP)
+                    row = row -1;
+                delegate.onClickRow(section, row);
             }
         });
     }
@@ -149,7 +171,7 @@ public class TableView<T> implements ListViewListener {
             if (dataSource == null) {
                 return 0;
             }
-            return dataSource.getRows();
+            return getTotalCellCount();
         }
 
         @Override
@@ -166,26 +188,146 @@ public class TableView<T> implements ListViewListener {
         @Override
         public View getView(final int position, View convertView,
                             ViewGroup parent) {
-            View view = convertView;
-            TableViewCell<T> cell = null;
-            if (view == null) {
-                cell = dataSource.getTableViewCell(position);
-                view = ((TableViewCell<T>) cell).getView();
+
+            int section = getSection(position);
+            int row = getRow(position);
+
+
+            if (style == TableViewStyle.GROUP){
+
+
+                if (row == 0 || row == dataSource.getRows(section) + 1) {
+
+                    View rootView = LayoutInflater.from(context).inflate(R.layout.table_view_header_footer, null);
+
+                    View topline = rootView.findViewById(R.id.topline);
+                    View bottomline = rootView.findViewById(R.id.bottomline);
+                    TextView titleView = (TextView) rootView.findViewById(R.id.title);
+
+                    if (row == 0) {
+                        topline.setVisibility(View.GONE);
+                        bottomline.setVisibility(View.VISIBLE);
+                        AbsListView.LayoutParams layoutParams = new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dataSource.getSectionHeaderHeight(section));
+                        rootView.setLayoutParams(layoutParams);
+                        titleView.setText(dataSource.getSectionHeaderTitle(section));
+
+                    } else {
+                        topline.setVisibility(View.VISIBLE);
+                        bottomline.setVisibility(View.GONE);
+                        AbsListView.LayoutParams layoutParams = new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dataSource.getSectionFooterHeight(section));
+                        rootView.setLayoutParams(layoutParams);
+                        titleView.setText(dataSource.getSectionFooterTitle(section));
+                    }
+
+                    if (style == TableViewStyle.GROUP){
+                        titleView.setVisibility(View.VISIBLE);
+                    }else{
+                        titleView.setVisibility(View.GONE);
+                        topline.setVisibility(View.GONE);
+                        bottomline.setVisibility(View.GONE);
+                    }
+
+                    return rootView;
+                } else {
+
+                    View view = convertView;
+                    TableViewCell<T> cell = null;
+                    //if (view == null && (view instanceof String)) {
+                    if (style == TableViewStyle.GROUP)
+                        cell = dataSource.getTableViewCell(section, row - 1);
+                    else
+                        cell = dataSource.getTableViewCell(section, row);
+                    view = cell.getView();
+                    view.setTag(cell);
+
+                    Log.e("CELL", "8888");
+
+//                } else {
+//
+//                    Log.e("CELL","9999");
+//                    cell = (TableViewCell<T>) view.getTag();
+//                }
+
+
+                    T t = null;
+                    if (style == TableViewStyle.GROUP)
+                        t = dataSource.getEntity(section, row - 1);
+                    else
+                        t = dataSource.getEntity(section, row);
+
+                    cell.refresh(t);
+
+                    return view;
+                }
+
+
+
+            }else{
+
+
+                View view = convertView;
+                TableViewCell<T> cell = null;
+                //if (view == null && (view instanceof String)) {
+                if (style == TableViewStyle.GROUP)
+                    cell = dataSource.getTableViewCell(section, row - 1);
+                else
+                    cell = dataSource.getTableViewCell(section, row);
+                view = cell.getView();
                 view.setTag(cell);
-            } else {
-                cell = (TableViewCell<T>) view.getTag();
+
+                Log.e("CELL", "8888");
+
+//                } else {
+//
+//                    Log.e("CELL","9999");
+//                    cell = (TableViewCell<T>) view.getTag();
+//                }
+
+
+                T t = null;
+                if (style == TableViewStyle.GROUP)
+                    t = dataSource.getEntity(section, row - 1);
+                else
+                    t = dataSource.getEntity(section, row);
+
+                cell.refresh(t);
+
+                return view;
             }
 
 
-            setCellStyle(cell, position);
-            cell.refresh((T) dataSource.getEntity(position));
 
-            return view;
+
         }
     }
 
 
-    protected void setCellStyle(TableViewCell cell, int position) {
+    private int getTotalCellCount() {
+        if (dataSource == null)
+            return 0;
+        int section = dataSource.getSections();
+        if (style == TableViewStyle.PLAIN)
+            section = 1;
+        int totalCount = 0;
+        for (int i = 0; i < section; i++) {
+            int row = dataSource.getRows(i);
+            if (style == TableViewStyle.GROUP)
+            row = row + 2; //加上header和footer两个特殊的row
+            for (int j = 0; j < row; j++) {
+                sectionMap.put(totalCount + j, i);
+                rowMap.put(totalCount + j, j);
+            }
+            totalCount += row;
+        }
+        return totalCount;
+    }
+
+    private int getSection(int postion) {
+        return sectionMap.get(postion);
+    }
+
+    private int getRow(int position) {
+        return rowMap.get(position);
     }
 
 

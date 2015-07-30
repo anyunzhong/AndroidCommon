@@ -1,6 +1,5 @@
 package net.datafans.android.common.widget.controller;
 
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
 import net.datafans.android.common.widget.tabbar.TabbarFragment;
@@ -8,7 +7,7 @@ import net.datafans.android.common.widget.tabbar.TabbarFragment;
 /**
  * Created by zhonganyun on 15/6/23.
  */
-public abstract class TabbarController extends SupportFragmentController {
+public abstract class TabbarController extends FragmentController {
 
     @Override
     protected Fragment getRootFragment() {

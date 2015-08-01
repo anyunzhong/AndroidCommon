@@ -14,7 +14,7 @@ public class ContextUtil extends Application {
 		AndroidCommon.onCreate(this);
 		AndroidCommon.getAppearence().setStatusBarTintColor(
 				Color.rgb(24, 30, 43));
-		AndroidCommon.setImageViewType(ImageViewType.Cube);
+		AndroidCommon.setImageViewType(ImageViewType.Smart);
 	}
 
 	@Override

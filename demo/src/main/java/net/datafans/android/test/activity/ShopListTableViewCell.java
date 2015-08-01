@@ -5,6 +5,7 @@ import net.datafans.android.common.widget.table.TableViewCell;
 import net.datafans.android.test.R;
 import net.datafans.android.test.data.service.Shop;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
@@ -22,6 +23,7 @@ public class ShopListTableViewCell extends TableViewCell<Shop> {
 
 	public ShopListTableViewCell(int layout, LayoutInflater flater) {
 		super(layout, flater);
+		arrow.setVisibility(View.VISIBLE);
 	}
 
 

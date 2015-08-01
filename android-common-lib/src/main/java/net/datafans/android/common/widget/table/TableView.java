@@ -242,6 +242,12 @@ public class TableView<T> implements ListViewListener {
 
                     Log.e("CELL", "8888");
 
+                    if (row == dataSource.getRows(section)){
+                        cell.divider.setVisibility(View.GONE);
+                    }else{
+                        cell.divider.setVisibility(View.VISIBLE);
+                    }
+
 //                } else {
 //
 //                    Log.e("CELL","9999");
@@ -254,6 +260,7 @@ public class TableView<T> implements ListViewListener {
                         t = dataSource.getEntity(section, row - 1);
                     else
                         t = dataSource.getEntity(section, row);
+
 
                     cell.refresh(t);
 
@@ -289,6 +296,9 @@ public class TableView<T> implements ListViewListener {
                     t = dataSource.getEntity(section, row - 1);
                 else
                     t = dataSource.getEntity(section, row);
+
+                cell.divider.setVisibility(View.GONE);
+
 
                 cell.refresh(t);
 

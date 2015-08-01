@@ -18,8 +18,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class ShopListController extends TableViewController<Shop> implements
-        DataServiceDelegate {
+public class ShopListController extends TableViewController<Shop>{
 
     private List<Shop> shopList;
 

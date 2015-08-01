@@ -48,7 +48,7 @@ public abstract class TableViewController<T> extends FragmentController implemen
     }
 
     @Override
-    protected void onStatusOk(BaseResponse response, Class<?> type) {
+    public void onStatusOk(BaseResponse response, Class<?> type) {
         super.onStatusOk(response, type);
         onEnd();
     }

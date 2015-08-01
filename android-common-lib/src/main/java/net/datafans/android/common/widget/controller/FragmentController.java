@@ -77,30 +77,4 @@ public abstract class FragmentController extends Controller {
         this.finish();
     }
 
-
-    protected void onStatusOk(BaseResponse response, Class<?> type) {
-
-    }
-
-    protected void onStatusError(BaseResponse response) {
-        Log.e("statusError", response.toString());
-        Toast toast = Toast.makeText(this, response.getErrorMsg(),
-                Toast.LENGTH_SHORT);
-        toast.show();
-    }
-
-    protected void onRequestError(int errorCode, byte[] errorResponse,
-                                  Throwable throwable) {
-        if (errorCode == -2) {
-            Log.e("exception", "network exception");
-            Toast toast = Toast.makeText(this, "网络异常", Toast.LENGTH_SHORT);
-            toast.show();
-        }
-
-        if (errorCode == -1) {
-            Log.e("exception", "data_parse_exception");
-            Toast toast = Toast.makeText(this, "数据解析错误", Toast.LENGTH_SHORT);
-            toast.show();
-        }
-    }
 }

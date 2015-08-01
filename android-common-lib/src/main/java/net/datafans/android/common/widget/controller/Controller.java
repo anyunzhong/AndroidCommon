@@ -20,9 +20,10 @@ import android.widget.Toast;
 import net.datafans.android.common.R;
 import net.datafans.android.common.config.AndroidCommon;
 import net.datafans.android.common.data.service.BaseResponse;
+import net.datafans.android.common.data.service.DataServiceDelegate;
 import net.datafans.android.common.lib.systembar.SystemBarTintManager;
 
-public abstract class Controller extends AppCompatActivity {
+public abstract class Controller extends AppCompatActivity implements DataServiceDelegate {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -72,18 +73,21 @@ public abstract class Controller extends AppCompatActivity {
         return Color.BLACK;
     }
 
-    protected void onStatusOk(BaseResponse response, Class<?> type) {
+    @Override
+    public void onStatusOk(BaseResponse response, Class<?> type) {
 
     }
 
-    protected void onStatusError(BaseResponse response) {
+    @Override
+    public void onStatusError(BaseResponse response) {
         Log.e("statusError", response.toString());
         Toast toast = Toast.makeText(this, response.getErrorMsg(),
                 Toast.LENGTH_SHORT);
         toast.show();
     }
 
-    protected void onRequestError(int errorCode, byte[] errorResponse,
+    @Override
+    public void onRequestError(int errorCode, byte[] errorResponse,
                                   Throwable throwable) {
         if (errorCode == -2) {
             Log.e("exception", "network exception");

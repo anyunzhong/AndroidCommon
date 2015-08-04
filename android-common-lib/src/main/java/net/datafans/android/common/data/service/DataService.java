@@ -83,14 +83,14 @@ public abstract class DataService {
 			onError(-1, null, null);
 		}
 
+		parseResponse(baseResponse);
+
 		if (delegate == null) {
 			return;
 		}
 		if (baseResponse.getStatus() == 1) {
-			parseResponse(baseResponse);
 			delegate.onStatusOk(baseResponse, this.getClass());
 		} else {
-
 			delegate.onStatusError(baseResponse);
 		}
 	}

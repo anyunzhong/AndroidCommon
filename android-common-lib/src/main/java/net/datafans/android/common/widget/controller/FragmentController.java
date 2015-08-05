@@ -17,6 +17,7 @@ import net.datafans.android.common.data.service.BaseResponse;
 
 public abstract class FragmentController extends Controller {
 
+    private Toolbar mToolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -33,7 +34,7 @@ public abstract class FragmentController extends Controller {
 
     private void initNavbar() {
 
-        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
 
         if (!enableReturnButton())
             mToolbar.setNavigationIcon(null);
@@ -48,6 +49,10 @@ public abstract class FragmentController extends Controller {
                 onClickReturnButton();
             }
         });
+    }
+
+    public void changeTitle(String title){
+        mToolbar.setTitle(title);
     }
 
     private void initFragment() {

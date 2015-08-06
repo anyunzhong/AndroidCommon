@@ -42,11 +42,7 @@
         <activity
             android:name=".activity.ShopListController"
             android:label="@string/title_activity_shop_list" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".activity.ViewPagerActivity"
@@ -55,6 +51,12 @@
         <activity
             android:name=".activity.MainTabActivity"
             android:label="@string/title_activity_main_tab" >
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
         </activity>
     </application>

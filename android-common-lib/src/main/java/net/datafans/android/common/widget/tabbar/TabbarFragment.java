@@ -1,11 +1,14 @@
 package net.datafans.android.common.widget.tabbar;
 
+import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +19,13 @@ import com.shizhefei.view.indicator.Indicator;
 import com.shizhefei.view.indicator.IndicatorViewPager;
 
 import net.datafans.android.common.R;
+import net.datafans.android.common.widget.badge.BadgeView;
 import net.datafans.android.common.widget.controller.TabbarController;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,6 +38,10 @@ public class TabbarFragment extends Fragment {
     private LayoutInflater inflater;
 
     private TabbarController controller;
+
+    private Map<Integer, ImageView> iconMap = new HashMap<>();
+    private Map<Integer, BadgeView> iconBadgeMap = new HashMap<>();
+
 
     public TabbarFragment(TabbarController controller) {
         this.controller = controller;
@@ -86,6 +99,8 @@ public class TabbarFragment extends Fragment {
             ImageView icon = (ImageView) view.findViewById(R.id.tab_item_icon);
             icon.setImageDrawable(getResources().getDrawable(controller.getTabItemIcons()[i]));
 
+            iconMap.put(i, icon);
+
             TextView textView = (TextView) view.findViewById(R.id.tab_item_text);
             textView.setText(controller.getTabItemNames()[i]);
             Resources resource = getActivity().getResources();
@@ -102,6 +117,39 @@ public class TabbarFragment extends Fragment {
 
             return controller.getFragment(index);
         }
+
+
+
+    }
+
+
+    public void setBadge(int index, int value, Context context){
+
+        if (index >= controller.getTabItemNames().length) return;
+
+        BadgeView badge = iconBadgeMap.get(index);
+        ImageView icon = iconMap.get(index);
+
+        if (badge == null) {
+            badge = new BadgeView(context, icon);
+            badge.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);
+            badge.setTextColor(Color.WHITE);
+            badge.setBadgeBackgroundColor(Color.RED);
+            badge.setTextSize(12);
+            badge.setBadgeMargin(65, 0);
+
+            iconBadgeMap.put(index, badge);
+
+
+
+        }
+        badge.setText(String.valueOf(value));
+        if (value > 0)
+            badge.show();
+        else
+            badge.hide();
+
+
     }
 
 }

@@ -192,106 +192,126 @@ public class TableView<T> implements ListViewListener {
 
         @Override
         public int getItemViewType(int position) {
-            if (dataSource == null) {
-                return super.getItemViewType(position);
-            }
 
             int section = getSection(position);
             int row = getRow(position);
 
             int type = dataSource.getItemViewType(section, row);
-            Log.e("CELL", "获取TYPE:"+type + " POSITION: " +position);
+
+            if (style == TableViewStyle.GROUP) {
+                if (row == 0) type = 0;
+                else if (row == dataSource.getRows(section) + 1) type = 0;
+                else type = dataSource.getItemViewType(section, row - 1) + 1;
+            }
+            //Log.d("CELL", "获取TYPE:" + type + " POSITION: " + position);
             return type;
         }
 
         @Override
         public int getViewTypeCount() {
-            return dataSource.getItemViewTypeCount();
+            int count = dataSource.getItemViewTypeCount();
+            return style == TableViewStyle.GROUP ? count + 2 : count;
         }
 
-        @SuppressWarnings("unchecked")
+
+        private ViewHolder getViewHolder() {
+
+            View rootView = LayoutInflater.from(context).inflate(R.layout.table_view_header_footer, null);
+
+            View topline = rootView.findViewById(R.id.topline);
+            View bottomline = rootView.findViewById(R.id.bottomline);
+            TextView titleView = (TextView) rootView.findViewById(R.id.title);
+
+            ViewHolder holder = new ViewHolder();
+            holder.rootView = rootView;
+            holder.topline = topline;
+            holder.bottomline = bottomline;
+            holder.titleView = titleView;
+
+            return holder;
+        }
+
+        public class ViewHolder {
+            View rootView;
+            View topline;
+            View bottomline;
+            TextView titleView;
+        }
+
+
         @Override
         public View getView(final int position, View convertView,
                             ViewGroup parent) {
 
+
             int section = getSection(position);
             int row = getRow(position);
 
+            int type = getItemViewType(position);
+            int typeCount = getViewTypeCount();
 
             if (style == TableViewStyle.GROUP) {
 
 
-                if (row == 0 || row == dataSource.getRows(section) + 1) {
+                TableViewCell<T> cell = null;
+                ViewHolder holder = null;
 
-                    View rootView = LayoutInflater.from(context).inflate(R.layout.table_view_header_footer, null);
+                if (convertView == null) {
+                    if (type == 0) {
+                        holder = getViewHolder();
+                        convertView = holder.rootView;
+                        convertView.setTag(holder);
 
-                    View topline = rootView.findViewById(R.id.topline);
-                    View bottomline = rootView.findViewById(R.id.bottomline);
-                    TextView titleView = (TextView) rootView.findViewById(R.id.title);
-
-                    if (row == 0) {
-                        topline.setVisibility(View.GONE);
-                        bottomline.setVisibility(View.VISIBLE);
-                        AbsListView.LayoutParams layoutParams = new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dataSource.getSectionHeaderHeight(section));
-                        rootView.setLayoutParams(layoutParams);
-                        titleView.setText(dataSource.getSectionHeaderTitle(section));
-
+                        Log.d("CELL", "GROUP: 创建HEADER OR FOOTER");
                     } else {
-                        topline.setVisibility(View.VISIBLE);
-                        bottomline.setVisibility(View.GONE);
-                        AbsListView.LayoutParams layoutParams = new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dataSource.getSectionFooterHeight(section));
-                        rootView.setLayoutParams(layoutParams);
-                        titleView.setText(dataSource.getSectionFooterTitle(section));
+                        cell = dataSource.getTableViewCell(section, row - 1);
+                        convertView = cell.getView();
+                        convertView.setTag(cell);
+                        Log.d("CELL", "GROUP: 创建CELL");
                     }
 
-                    if (style == TableViewStyle.GROUP) {
-                        titleView.setVisibility(View.VISIBLE);
-                    } else {
-                        titleView.setVisibility(View.GONE);
-                        topline.setVisibility(View.GONE);
-                        bottomline.setVisibility(View.GONE);
-                    }
-
-                    return rootView;
                 } else {
 
-                    View view = convertView;
-                    TableViewCell<T> cell = null;
-                    //if (view == null && (view instanceof String)) {
-                    if (style == TableViewStyle.GROUP)
-                        cell = dataSource.getTableViewCell(section, row - 1);
-                    else
-                        cell = dataSource.getTableViewCell(section, row);
-                    view = cell.getView();
-                    view.setTag(cell);
+                    if (type == 0) {
+                        Log.d("CELL", "GROUP: 重用HEADER OR FOOTER");
+                        holder = (ViewHolder) convertView.getTag();
+                    } else {
+                        Log.d("CELL", "GROUP: 重用CELL");
+                        cell = (TableViewCell<T>) convertView.getTag();
+                    }
+                }
 
-                    Log.e("CELL", "GROUP: 创建CELL");
+                if (row == 0) {
+                    holder.topline.setVisibility(View.GONE);
+                    holder.bottomline.setVisibility(View.VISIBLE);
+                    AbsListView.LayoutParams layoutParams = new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dataSource.getSectionHeaderHeight(section));
+                    holder.rootView.setLayoutParams(layoutParams);
+                    holder.titleView.setText(dataSource.getSectionHeaderTitle(section));
+                }
+
+                if (row == dataSource.getRows(section) + 1) {
+                    holder.topline.setVisibility(View.VISIBLE);
+                    holder.bottomline.setVisibility(View.GONE);
+                    AbsListView.LayoutParams layoutParams = new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dataSource.getSectionFooterHeight(section));
+                    holder.rootView.setLayoutParams(layoutParams);
+                    holder.titleView.setText(dataSource.getSectionFooterTitle(section));
+                }
+
+
+                if (type != 0) {
 
                     if (row == dataSource.getRows(section)) {
                         cell.divider.setVisibility(View.GONE);
                     } else {
                         cell.divider.setVisibility(View.VISIBLE);
                     }
-
-//                } else {
-//
-//                    Log.e("CELL","9999");
-//                    cell = (TableViewCell<T>) view.getTag();
-//                }
-
-
                     T t = dataSource.getEntity(section, row - 1);
                     cell.refresh(t);
-
-                    return view;
                 }
 
-
+                return convertView;
             } else {
 
-                int type = getItemViewType(position);
-
-                int typeCount = getViewTypeCount();
 
                 TableViewCell<T> cell = null;
 
@@ -302,7 +322,7 @@ public class TableView<T> implements ListViewListener {
                             convertView = cell.getView();
                             convertView.setTag(cell);
 
-                            Log.e("CELL", "PLAIN: 创建CELL  POSTION: " +position+"  TYPE:"+type + "   " + cell);
+                            Log.d("CELL", "PLAIN: 创建CELL  POSTION: " + position + "  TYPE:" + type + "   " + cell);
                         }
                     }
 
@@ -311,7 +331,7 @@ public class TableView<T> implements ListViewListener {
                         if (type == i) {
 
                             cell = (TableViewCell<T>) convertView.getTag();
-                            Log.e("CELL", "PLAIN: 重用CELL   POSTION:" + position+ "  TYPE:"+type + "   " + cell);
+                            Log.d("CELL", "PLAIN: 重用CELL   POSTION:" + position + "  TYPE:" + type + "   " + cell);
                         }
                     }
                 }

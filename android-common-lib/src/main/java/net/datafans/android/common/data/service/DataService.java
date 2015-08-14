@@ -79,7 +79,7 @@ public abstract class DataService {
 		BaseResponse baseResponse = JSON.parseObject(data, BaseResponse.class);
 		if (baseResponse == null) {
 			// 数据解析错误
-			Log.e("data_parse_error", "data_parse_error");
+			Log.e("ANDROID_COMMON", "data_parse_error");
 			onError(-1, null, null);
 		}
 

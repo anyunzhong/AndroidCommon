@@ -80,7 +80,7 @@ public abstract class Controller extends AppCompatActivity implements DataServic
 
     @Override
     public void onStatusError(BaseResponse response) {
-        Log.e("statusError", response.toString());
+        Log.e("ANDROID_COMMON", response.toString());
         Toast toast = Toast.makeText(this, response.getErrorMsg(),
                 Toast.LENGTH_SHORT);
         toast.show();
@@ -90,13 +90,13 @@ public abstract class Controller extends AppCompatActivity implements DataServic
     public void onRequestError(int errorCode, byte[] errorResponse,
                                   Throwable throwable) {
         if (errorCode == -2) {
-            Log.e("exception", "network exception");
+            Log.e("ANDROID_COMMON", "network exception");
             Toast toast = Toast.makeText(this, "网络异常", Toast.LENGTH_SHORT);
             toast.show();
         }
 
         if (errorCode == -1) {
-            Log.e("exception", "data_parse_exception");
+            Log.e("ANDROID_COMMON", "data_parse_exception");
             Toast toast = Toast.makeText(this, "数据解析错误", Toast.LENGTH_SHORT);
             toast.show();
         }

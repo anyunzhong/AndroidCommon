@@ -32,7 +32,7 @@ public class ShopListController extends TableViewController<Shop> {
         shopList = dataService.getShopList();
 
 
-        setStyle(TableViewStyle.PLAIN);
+        setStyle(TableViewStyle.GROUP);
 
         super.onCreate(savedInstanceState);
 
@@ -106,7 +106,7 @@ public class ShopListController extends TableViewController<Shop> {
     @Override
     public void onClickRow(int section, int row) {
 
-        Log.e("section:row", section + ":" + row);
+        Log.d("section:row", section + ":" + row);
     }
 
     @Override
@@ -150,7 +150,7 @@ public class ShopListController extends TableViewController<Shop> {
         }
 
         super.onStatusOk(response, type);
-        Log.e("response", response.toString());
+        Log.d("response", response.toString());
 
     }
 

@@ -36,10 +36,10 @@ public abstract class TableViewController<T> extends FragmentController implemen
         if (tableView == null) {
             if (style == TableViewStyle.GROUP)
                 tableView = new GroupTableView<T>(this, getRefreshControlType(),
-                        enableRefresh(), enableLoadMore(), enableAutoLoadMore());
+                        enableRefresh(), enableLoadMore(), enableAutoLoadMore(), this, this);
             else
                 tableView = new PlainTableView<T>(this, getRefreshControlType(),
-                        enableRefresh(), enableLoadMore(), enableAutoLoadMore());
+                        enableRefresh(), enableLoadMore(), enableAutoLoadMore(), this, this);
             tableView.setDataSource(this);
             tableView.setDelegate(this);
 
@@ -121,5 +121,16 @@ public abstract class TableViewController<T> extends FragmentController implemen
     @Override
     public String getSectionHeaderTitle(int section) {
         return "";
+    }
+
+
+    @Override
+    public int getItemViewType(int section, int row) {
+        return 0;
+    }
+
+    @Override
+    public int getItemViewTypeCount() {
+        return 1;
     }
 }

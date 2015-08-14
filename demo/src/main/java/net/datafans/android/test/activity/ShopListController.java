@@ -18,7 +18,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class ShopListController extends TableViewController<Shop>{
+public class ShopListController extends TableViewController<Shop> {
 
     private List<Shop> shopList;
 
@@ -32,7 +32,7 @@ public class ShopListController extends TableViewController<Shop>{
         shopList = dataService.getShopList();
 
 
-        setStyle(TableViewStyle.GROUP);
+        setStyle(TableViewStyle.PLAIN);
 
         super.onCreate(savedInstanceState);
 
@@ -84,8 +84,12 @@ public class ShopListController extends TableViewController<Shop>{
 
     @Override
     public TableViewCell<Shop> getTableViewCell(int section, int row) {
-        return new ShopListTableViewCell(R.layout.shop_list,
-                LayoutInflater.from(this));
+        if (row % 2 == 0)
+            return new ShopListTableViewCell(R.layout.shop_list,
+                    LayoutInflater.from(this));
+        else
+            return new ShopListTableViewRedCell(R.layout.shop_list_red,
+                    LayoutInflater.from(this));
     }
 
 
@@ -110,6 +114,16 @@ public class ShopListController extends TableViewController<Shop>{
         return shopList.get(row);
     }
 
+
+    @Override
+    public int getItemViewTypeCount() {
+        return 2;
+    }
+
+    @Override
+    public int getItemViewType(int section, int row) {
+        return row % 2;
+    }
 
     @Override
     public void onRefresh() {

@@ -30,5 +30,11 @@ public abstract class TabbarController extends FragmentController {
         fragment.setBadge(index,value,context);
     }
 
+    public void showTip(int index, boolean show){
+        if (fragment == null) return;
+        fragment.showTip(index,show);
+    }
+
+
 
 }

@@ -10,7 +10,6 @@ public interface TableViewDataSource<T> {
 
 	int getSectionFooterHeight(int section);
 
-
 	String getSectionHeaderTitle(int section);
 
 	String getSectionFooterTitle(int section);
@@ -18,4 +17,8 @@ public interface TableViewDataSource<T> {
 	TableViewCell<T> getTableViewCell(int section, int row);
 	
 	T getEntity(int section, int row);
+
+	int getItemViewType(int section, int row);
+
+	int getItemViewTypeCount();
 }

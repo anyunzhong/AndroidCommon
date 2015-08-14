@@ -29,6 +29,8 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import javax.sql.DataSource;
+
 public class TableView<T> implements ListViewListener {
 
     private Map<RefreshControlType, ListViewAdapter> adapterMap = new HashMap<RefreshControlType, ListViewAdapter>();
@@ -62,13 +64,15 @@ public class TableView<T> implements ListViewListener {
 
     public TableView(Context context, RefreshControlType type,
                      boolean enableRefresh, boolean enableLoadMore,
-                     boolean enableAutoLoadMore, TableViewStyle style) {
+                     boolean enableAutoLoadMore, TableViewStyle style, TableViewDataSource dataSource, TableViewDelegate delegate) {
         this.context = context;
         this.enableRefresh = enableRefresh;
         this.enableLoadMore = enableLoadMore;
         this.enableAutoLoadMore = enableAutoLoadMore;
         this.style = style;
         refreshType = type;
+        this.dataSource = dataSource;
+        this.delegate = delegate;
         init();
     }
 
@@ -158,7 +162,7 @@ public class TableView<T> implements ListViewListener {
                 int section = getSection(position);
                 int row = getRow(position);
                 if (style == TableViewStyle.GROUP)
-                    row = row -1;
+                    row = row - 1;
                 delegate.onClickRow(section, row);
             }
         });
@@ -174,6 +178,7 @@ public class TableView<T> implements ListViewListener {
             return getTotalCellCount();
         }
 
+
         @Override
         public Object getItem(int position) {
             return position;
@@ -182,6 +187,26 @@ public class TableView<T> implements ListViewListener {
         @Override
         public long getItemId(int position) {
             return position;
+        }
+
+
+        @Override
+        public int getItemViewType(int position) {
+            if (dataSource == null) {
+                return super.getItemViewType(position);
+            }
+
+            int section = getSection(position);
+            int row = getRow(position);
+
+            int type = dataSource.getItemViewType(section, row);
+            Log.e("CELL", "获取TYPE:"+type + " POSITION: " +position);
+            return type;
+        }
+
+        @Override
+        public int getViewTypeCount() {
+            return dataSource.getItemViewTypeCount();
         }
 
         @SuppressWarnings("unchecked")
@@ -193,7 +218,7 @@ public class TableView<T> implements ListViewListener {
             int row = getRow(position);
 
 
-            if (style == TableViewStyle.GROUP){
+            if (style == TableViewStyle.GROUP) {
 
 
                 if (row == 0 || row == dataSource.getRows(section) + 1) {
@@ -219,9 +244,9 @@ public class TableView<T> implements ListViewListener {
                         titleView.setText(dataSource.getSectionFooterTitle(section));
                     }
 
-                    if (style == TableViewStyle.GROUP){
+                    if (style == TableViewStyle.GROUP) {
                         titleView.setVisibility(View.VISIBLE);
-                    }else{
+                    } else {
                         titleView.setVisibility(View.GONE);
                         topline.setVisibility(View.GONE);
                         bottomline.setVisibility(View.GONE);
@@ -240,11 +265,11 @@ public class TableView<T> implements ListViewListener {
                     view = cell.getView();
                     view.setTag(cell);
 
-                    Log.e("CELL", "8888");
+                    Log.e("CELL", "GROUP: 创建CELL");
 
-                    if (row == dataSource.getRows(section)){
+                    if (row == dataSource.getRows(section)) {
                         cell.divider.setVisibility(View.GONE);
-                    }else{
+                    } else {
                         cell.divider.setVisibility(View.VISIBLE);
                     }
 
@@ -255,62 +280,54 @@ public class TableView<T> implements ListViewListener {
 //                }
 
 
-                    T t = null;
-                    if (style == TableViewStyle.GROUP)
-                        t = dataSource.getEntity(section, row - 1);
-                    else
-                        t = dataSource.getEntity(section, row);
-
-
+                    T t = dataSource.getEntity(section, row - 1);
                     cell.refresh(t);
 
                     return view;
                 }
 
 
+            } else {
 
-            }else{
+                int type = getItemViewType(position);
 
+                int typeCount = getViewTypeCount();
 
-                View view = convertView;
                 TableViewCell<T> cell = null;
-                //if (view == null && (view instanceof String)) {
-                if (style == TableViewStyle.GROUP)
-                    cell = dataSource.getTableViewCell(section, row - 1);
-                else
-                    cell = dataSource.getTableViewCell(section, row);
-                view = cell.getView();
-                view.setTag(cell);
 
-                Log.e("CELL", "8888");
+                if (convertView == null) {
+                    for (int i = 0; i < typeCount; i++) {
+                        if (type == i) {
+                            cell = dataSource.getTableViewCell(section, row);
+                            convertView = cell.getView();
+                            convertView.setTag(cell);
 
-//                } else {
-//
-//                    Log.e("CELL","9999");
-//                    cell = (TableViewCell<T>) view.getTag();
-//                }
+                            Log.e("CELL", "PLAIN: 创建CELL  POSTION: " +position+"  TYPE:"+type + "   " + cell);
+                        }
+                    }
 
+                } else {
+                    for (int i = 0; i < typeCount; i++) {
+                        if (type == i) {
 
-                T t = null;
-                if (style == TableViewStyle.GROUP)
-                    t = dataSource.getEntity(section, row - 1);
-                else
-                    t = dataSource.getEntity(section, row);
+                            cell = (TableViewCell<T>) convertView.getTag();
+                            Log.e("CELL", "PLAIN: 重用CELL   POSTION:" + position+ "  TYPE:"+type + "   " + cell);
+                        }
+                    }
+                }
+
+                T t = dataSource.getEntity(section, row);
 
                 cell.divider.setVisibility(View.GONE);
 
-
                 cell.refresh(t);
 
-                return view;
+                return convertView;
+
             }
-
-
-
 
         }
     }
-
 
     private int getTotalCellCount() {
         if (dataSource == null)
@@ -322,7 +339,7 @@ public class TableView<T> implements ListViewListener {
         for (int i = 0; i < section; i++) {
             int row = dataSource.getRows(i);
             if (style == TableViewStyle.GROUP)
-            row = row + 2; //加上header和footer两个特殊的row
+                row = row + 2; //加上header和footer两个特殊的row
             for (int j = 0; j < row; j++) {
                 sectionMap.put(totalCount + j, i);
                 rowMap.put(totalCount + j, j);

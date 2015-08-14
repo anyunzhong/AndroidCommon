@@ -9,6 +9,7 @@
 
         <item name="android:textColorPrimary">@android:color/white</item>
 
+
         <!-- 状态栏颜色 -->
         <item name="colorPrimaryDark">#cd2c2d</item>
         <!-- 窗口的背景颜色 -->

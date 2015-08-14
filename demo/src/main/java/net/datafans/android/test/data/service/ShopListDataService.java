@@ -13,34 +13,36 @@ import net.datafans.android.common.data.service.DataService;
 
 public class ShopListDataService extends DataService {
 
-	private List<Shop> shopList = new ArrayList<Shop>();
+    private List<Shop> shopList = new ArrayList<Shop>();
 
-	@Override
-	protected String getRequestDomain() {
-		return "http://112.124.28.196:55555";
-	}
+    @Override
+    protected String getRequestDomain() {
+        return "http://112.124.28.196:55555";
+    }
 
-	@Override
-	protected String getRequestPath() {
-		return "/contact/friend/list/";
-	}
+    @Override
+    protected String getRequestPath() {
+        return "/contact/friend/list/";
+    }
 
-	@Override
-	protected void setRequestParams(RequestParams params) {
-		super.setRequestParams(params);
-		params.put("api_version", 1);
-		params.put("token", "dde7ca3d61ee7bde7248299d4b22d4fa");
-		params.put("user_id", 100001);
-	}
+    @Override
+    protected void setRequestParams(RequestParams params) {
+        super.setRequestParams(params);
+        params.put("api_version", 1);
+        params.put("token", "8c3c3f96b7788451567b6518f1676adc");
+        params.put("user_id", 100001);
+    }
 
-	@Override
-	protected void parseResponse(BaseResponse response) {
-		JSONObject o = (JSONObject) JSON.parse(response.getData());
-		shopList.addAll(JSON.parseArray(o.getString("friends"), Shop.class));
-	}
+    @Override
+    protected void parseResponse(BaseResponse response) {
+        JSONObject o = (JSONObject) JSON.parse(response.getData());
+        List<Shop> shops = JSON.parseArray(o.getString("friends"), Shop.class);
+        for (int i = 0; i < 30; i++)
+            shopList.addAll(shops);
+    }
 
-	public List<Shop> getShopList() {
-		return shopList;
-	}
+    public List<Shop> getShopList() {
+        return shopList;
+    }
 
 }

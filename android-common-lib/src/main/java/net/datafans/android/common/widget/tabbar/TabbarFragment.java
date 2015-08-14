@@ -40,6 +40,7 @@ public class TabbarFragment extends Fragment {
     private TabbarController controller;
 
     private Map<Integer, ImageView> iconMap = new HashMap<>();
+    private Map<Integer, View> tipMap = new HashMap<>();
     private Map<Integer, BadgeView> iconBadgeMap = new HashMap<>();
 
 
@@ -101,6 +102,10 @@ public class TabbarFragment extends Fragment {
 
             iconMap.put(i, icon);
 
+
+            View tip = view.findViewById(R.id.tab_item_tip);
+            tipMap.put(i, tip);
+
             TextView textView = (TextView) view.findViewById(R.id.tab_item_text);
             textView.setText(controller.getTabItemNames()[i]);
             Resources resource = getActivity().getResources();
@@ -120,6 +125,15 @@ public class TabbarFragment extends Fragment {
 
 
 
+    }
+
+    public void showTip(int index, boolean show){
+        View tip = tipMap.get(index);
+        if (show){
+            tip.setVisibility(View.VISIBLE);
+        }else{
+            tip.setVisibility(View.GONE);
+        }
     }
 
 

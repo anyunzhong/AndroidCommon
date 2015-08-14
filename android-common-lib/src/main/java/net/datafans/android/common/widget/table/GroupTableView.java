@@ -13,8 +13,8 @@ public class GroupTableView<T> extends TableView<T> {
 
     public GroupTableView(Context context, RefreshControlType type,
                           boolean enableRefresh, boolean enableLoadMore,
-                          boolean enableAutoLoadMore) {
-        super(context, type, enableRefresh, enableLoadMore, enableAutoLoadMore, TableViewStyle.GROUP);
+                          boolean enableAutoLoadMore, TableViewDataSource dataSource, TableViewDelegate delegate) {
+        super(context, type, enableRefresh, enableLoadMore, enableAutoLoadMore, TableViewStyle.GROUP, dataSource, delegate);
 
         getView().setBackgroundColor(Color.rgb(235,235,235));
         getAdapter().getListView().setDivider(null);

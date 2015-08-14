@@ -10,8 +10,8 @@ public class PlainTableView<T> extends TableView<T> {
 
     public PlainTableView(Context context, RefreshControlType type,
                           boolean enableRefresh, boolean enableLoadMore,
-                          boolean enableAutoLoadMore) {
-        super(context, type, enableRefresh, enableLoadMore, enableAutoLoadMore, TableViewStyle.PLAIN);
+                          boolean enableAutoLoadMore, TableViewDataSource dataSource, TableViewDelegate delegate) {
+        super(context, type, enableRefresh, enableLoadMore, enableAutoLoadMore, TableViewStyle.PLAIN, dataSource, delegate);
 
         //getView().setBackgroundColor(Color.WHITE);
  //       getAdapter().getListView().setDivider(null);

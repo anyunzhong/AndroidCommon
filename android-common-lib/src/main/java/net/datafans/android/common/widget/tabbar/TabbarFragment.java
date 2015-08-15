@@ -39,7 +39,7 @@ public class TabbarFragment extends Fragment {
 
     private TabbarController controller;
 
-    private Map<Integer, ImageView> iconMap = new HashMap<>();
+    private Map<Integer, View> badgeMaskMap = new HashMap<>();
     private Map<Integer, View> tipMap = new HashMap<>();
     private Map<Integer, BadgeView> iconBadgeMap = new HashMap<>();
 
@@ -100,7 +100,9 @@ public class TabbarFragment extends Fragment {
             ImageView icon = (ImageView) view.findViewById(R.id.tab_item_icon);
             icon.setImageDrawable(getResources().getDrawable(controller.getTabItemIcons()[i]));
 
-            iconMap.put(i, icon);
+
+            View mask = view.findViewById(R.id.mask);
+            badgeMaskMap.put(i, mask);
 
 
             View tip = view.findViewById(R.id.tab_item_tip);
@@ -124,28 +126,27 @@ public class TabbarFragment extends Fragment {
         }
 
 
-
     }
 
-    public void showTip(int index, boolean show){
+    public void showTip(int index, boolean show) {
         View tip = tipMap.get(index);
-        if (show){
+        if (show) {
             tip.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             tip.setVisibility(View.GONE);
         }
     }
 
 
-    public void setBadge(int index, int value, Context context){
+    public void setBadge(int index, int value, Context context) {
 
         if (index >= controller.getTabItemNames().length) return;
 
         BadgeView badge = iconBadgeMap.get(index);
-        ImageView icon = iconMap.get(index);
+        View mask = badgeMaskMap.get(index);
 
         if (badge == null) {
-            badge = new BadgeView(context, icon);
+            badge = new BadgeView(context, mask);
             badge.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);
             badge.setTextColor(Color.WHITE);
             badge.setBadgeBackgroundColor(Color.RED);
@@ -153,7 +154,6 @@ public class TabbarFragment extends Fragment {
             badge.setBadgeMargin(65, 0);
 
             iconBadgeMap.put(index, badge);
-
 
 
         }

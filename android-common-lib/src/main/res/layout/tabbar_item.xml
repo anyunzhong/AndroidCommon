@@ -1,36 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="23dp"
-        android:layout_marginTop="7dp">
-        <ImageView
-            android:id="@+id/tab_item_icon"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="23dp"
-            />
-        <View
-            android:id="@+id/tab_item_tip"
-            android:layout_width="7dp"
-            android:layout_height="7dp"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="28dp"
-            android:layout_marginTop="2dp"
-            android:visibility="gone"
-            android:background="@drawable/red_dot" />
-    </RelativeLayout>
+            android:layout_marginTop="7dp">
+            <ImageView
+                android:id="@+id/tab_item_icon"
+                android:layout_width="match_parent"
+                android:layout_height="23dp"
+                />
+            <View
+                android:id="@+id/tab_item_tip"
+                android:layout_width="7dp"
+                android:layout_height="7dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="28dp"
+                android:layout_marginTop="2dp"
+                android:visibility="gone"
+                android:background="@drawable/red_dot" />
+        </RelativeLayout>
 
-    <TextView
-        android:id="@+id/tab_item_text"
+        <TextView
+            android:id="@+id/tab_item_text"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textSize="11sp" />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/mask"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:textSize="11sp" />
+        android:layout_height="match_parent">
+    </View>
 
-</LinearLayout>
+
+</FrameLayout>
 

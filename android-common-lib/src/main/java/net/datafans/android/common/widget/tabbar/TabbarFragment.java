@@ -151,7 +151,7 @@ public class TabbarFragment extends Fragment {
             badge.setTextColor(Color.WHITE);
             badge.setBadgeBackgroundColor(Color.RED);
             badge.setTextSize(12);
-            badge.setBadgeMargin(65, 0);
+            badge.setBadgeMargin(65, 20);
 
             iconBadgeMap.put(index, badge);
 

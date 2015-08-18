@@ -38,13 +38,10 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme" >
         <activity
             android:name=".activity.ShopListController"
             android:label="@string/title_activity_shop_list" >
-
-
-
         </activity>
         <activity
             android:name=".activity.ViewPagerActivity"
@@ -53,6 +50,11 @@
         <activity
             android:name=".activity.MainTabActivity"
             android:label="@string/title_activity_main_tab" >
+
+        </activity>
+        <activity
+            android:name=".activity.TestSectionTableViewController"
+            android:label="@string/title_activity_test_section_table_view_controller" >
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

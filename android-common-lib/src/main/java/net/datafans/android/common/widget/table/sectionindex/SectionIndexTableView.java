@@ -1,6 +1,7 @@
 package net.datafans.android.common.widget.table.sectionindex;
 
 import android.content.Context;
+import android.view.View;
 
 import net.datafans.android.common.helper.FirstLetterHelper;
 import net.datafans.android.common.widget.table.GroupTableView;
@@ -235,7 +236,7 @@ public class SectionIndexTableView<T> implements TableViewDataSource<T>, TableVi
 
 
 
-    public TableView<T> getTableView() {
-        return tableView;
+    public View getView() {
+        return tableView.getView();
     }
 }

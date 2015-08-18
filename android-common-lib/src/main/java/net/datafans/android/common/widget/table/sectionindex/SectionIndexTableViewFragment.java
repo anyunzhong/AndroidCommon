@@ -21,6 +21,6 @@ public class SectionIndexTableViewFragment<T> extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		return tableView.getTableView().getView();
+		return tableView.getView();
 	}
 }

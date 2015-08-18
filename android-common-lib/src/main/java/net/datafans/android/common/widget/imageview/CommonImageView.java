@@ -4,6 +4,7 @@ import net.datafans.android.common.config.AndroidCommon;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 
 public class CommonImageView extends FrameLayout {
 
@@ -41,6 +42,10 @@ public class CommonImageView extends FrameLayout {
 			type = ImageViewType.Cube;
 		}
 		return type;
+	}
+
+	public ImageView getImageView(){
+		return adapter.getImageView();
 	}
 
 }

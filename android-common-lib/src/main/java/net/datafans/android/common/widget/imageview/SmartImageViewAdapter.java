@@ -3,6 +3,7 @@ package net.datafans.android.common.widget.imageview;
 import android.content.Context;
 import android.view.View;
 import android.widget.FrameLayout.LayoutParams;
+import android.widget.ImageView;
 
 import com.loopj.android.image.SmartImageView;
 
@@ -18,7 +19,7 @@ public class SmartImageViewAdapter extends ImageViewAdapter {
 	}
 
 	@Override
-	public View getImageView() {
+	public ImageView getImageView() {
 		return imageView;
 	}
 

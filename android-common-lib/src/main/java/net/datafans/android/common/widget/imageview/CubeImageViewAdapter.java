@@ -6,6 +6,7 @@ import in.srain.cube.image.ImageLoaderFactory;
 import android.content.Context;
 import android.view.View;
 import android.widget.FrameLayout.LayoutParams;
+import android.widget.ImageView;
 
 public class CubeImageViewAdapter extends ImageViewAdapter {
 
@@ -23,7 +24,7 @@ public class CubeImageViewAdapter extends ImageViewAdapter {
 	}
 
 	@Override
-	public View getImageView() {
+	public ImageView getImageView() {
 		return imageView;
 	}
 

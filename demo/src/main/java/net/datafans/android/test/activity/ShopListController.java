@@ -85,11 +85,10 @@ public class ShopListController extends TableViewController<Shop> {
     @Override
     public TableViewCell<Shop> getTableViewCell(int section, int row) {
         if (row % 2 == 0)
-            return new ShopListTableViewCell(R.layout.shop_list,
-                    LayoutInflater.from(this));
+            return new ShopListTableViewCell(R.layout.shop_list,this);
         else
             return new ShopListTableViewRedCell(R.layout.shop_list_red,
-                    LayoutInflater.from(this));
+                    this);
     }
 
 

@@ -65,7 +65,7 @@ public class TestSectionTableViewController extends SectionIndexTableViewControl
 
     @Override
     public TableViewCell<String> getTableViewCell(int section, int row) {
-        return new SectionTableViewCell(R.layout.section_table_item, LayoutInflater.from(this));
+        return new SectionTableViewCell(R.layout.section_table_item, this);
     }
 
     @Override

@@ -12,21 +12,26 @@ public class CommonImageView extends FrameLayout {
 
 	public CommonImageView(Context context) {
 		super(context);
+		init(context);
 	}
 
 	public CommonImageView(Context context, AttributeSet attrs) {
 		super(context, attrs, 0);
 
+		init(context);
+	}
+
+	private void init(Context context){
 		ImageViewType type = getImageViewType();
 		switch (type) {
-		case Cube:
-			adapter = new CubeImageViewAdapter(context);
-			break;
-		case Smart:
-			adapter = new SmartImageViewAdapter(context);
-			break;
-		default:
-			break;
+			case Cube:
+				adapter = new CubeImageViewAdapter(context);
+				break;
+			case Smart:
+				adapter = new SmartImageViewAdapter(context);
+				break;
+			default:
+				break;
 		}
 
 		addView(adapter.getImageView());

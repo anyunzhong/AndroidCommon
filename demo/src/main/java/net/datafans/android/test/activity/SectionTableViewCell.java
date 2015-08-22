@@ -1,5 +1,6 @@
 package net.datafans.android.test.activity;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -17,8 +18,8 @@ public class SectionTableViewCell extends TableViewCell<String> {
 	TextView titleView;
 
 
-	public SectionTableViewCell(int layout, LayoutInflater flater) {
-		super(layout, flater);
+	public SectionTableViewCell(int layout, Context context) {
+		super(layout, context);
 		arrow.setVisibility(View.GONE);
 	}
 

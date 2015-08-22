@@ -1,5 +1,6 @@
 package net.datafans.android.common.widget.table;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,15 +23,21 @@ public abstract class TableViewCell<T> {
 
     protected  RelativeLayout arrow;
 
-    public TableViewCell(int layout, LayoutInflater flater) {
+    protected  Context context;
 
+    public TableViewCell(int layout, Context context) {
 
-        container = new RelativeLayout(flater.getContext());
+        this.context = context;
+
+        LayoutInflater inflater = LayoutInflater.from(context);
+
+        container = new RelativeLayout(context);
         AbsListView.LayoutParams params = new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         container.setLayoutParams(params);
 
 
-        cell = (ViewGroup)flater.inflate(layout, null);
+
+        cell = (ViewGroup)inflater.inflate(layout, null);
         RelativeLayout.LayoutParams cellParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         cellParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
         cellParams.bottomMargin = 0;
@@ -42,7 +49,7 @@ public abstract class TableViewCell<T> {
 
 
 
-        divider = new View(flater.getContext());
+        divider = new View(inflater.getContext());
         divider.setBackgroundColor(Color.LTGRAY);
         RelativeLayout.LayoutParams dividerParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dividerParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
@@ -51,10 +58,10 @@ public abstract class TableViewCell<T> {
         container.addView(divider,dividerParams);
 
 
-        ImageView arrowImageView = new ImageView(flater.getContext());
+        ImageView arrowImageView = new ImageView(context);
         arrowImageView.setImageResource(R.drawable.arrow_right);
 
-        arrow = new RelativeLayout(flater.getContext());
+        arrow = new RelativeLayout(context);
         RelativeLayout.LayoutParams arrowLp = new RelativeLayout.LayoutParams(40, 40);
         arrowLp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
         arrowLp.addRule(RelativeLayout.CENTER_VERTICAL);

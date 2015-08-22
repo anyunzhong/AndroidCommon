@@ -4,6 +4,8 @@ import net.datafans.android.common.widget.imageview.CommonImageView;
 import net.datafans.android.common.widget.table.TableViewCell;
 import net.datafans.android.test.R;
 import net.datafans.android.test.data.service.Shop;
+
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -21,8 +23,8 @@ public class ShopListTableViewCell extends TableViewCell<Shop> {
 	@InjectView(R.id.avatar)
 	CommonImageView imageView;
 
-	public ShopListTableViewCell(int layout, LayoutInflater flater) {
-		super(layout, flater);
+	public ShopListTableViewCell(int layout, Context context) {
+		super(layout, context);
 		arrow.setVisibility(View.VISIBLE);
 	}
 

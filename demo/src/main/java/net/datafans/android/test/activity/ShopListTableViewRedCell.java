@@ -1,5 +1,6 @@
 package net.datafans.android.test.activity;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -19,8 +20,8 @@ public class ShopListTableViewRedCell extends TableViewCell<Shop> {
 	@InjectView(R.id.avatar)
 	CommonImageView imageView;
 
-	public ShopListTableViewRedCell(int layout, LayoutInflater flater) {
-		super(layout, flater);
+	public ShopListTableViewRedCell(int layout, Context context) {
+		super(layout, context);
 		//arrow.setVisibility(View.VISIBLE);
 	}
 

@@ -37,6 +37,9 @@ public class ShopListController extends TableViewController<Shop> {
         super.onCreate(savedInstanceState);
 
         dataService.execute();
+
+
+        showLoadingView();
     }
 
     @Override
@@ -153,9 +156,22 @@ public class ShopListController extends TableViewController<Shop> {
 
     }
 
+
+
     @Override
     protected boolean enableAutoLoadMore() {
         return true;
     }
 
+
+    @Override
+    protected void onClickLoadFailView() {
+        super.onClickLoadFailView();
+
+        if (shopList != null) {
+            shopList.clear();
+        }
+        dataService.execute();
+
+    }
 }

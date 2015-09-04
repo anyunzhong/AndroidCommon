@@ -7,7 +7,6 @@ import net.datafans.android.common.widget.table.sectionindex.SectionIndexTableVi
 import net.datafans.android.common.widget.table.sectionindex.SectionIndexTableViewDataSource;
 import net.datafans.android.common.widget.table.sectionindex.SectionIndexTableViewDelegate;
 import net.datafans.android.common.widget.table.sectionindex.SectionIndexTableViewFragment;
-import net.datafans.android.common.widget.table.refresh.RefreshControlType;
 
 /**
  * Created by zhonganyun on 15/8/17.
@@ -25,7 +24,12 @@ public abstract class SectionIndexTableViewController<T> extends FragmentControl
     @Override
     protected Fragment getRootFragment() {
         if (tableView == null) {
-            tableView = new SectionIndexTableView<>(this, RefreshControlType.None, false, false, false, this, this);
+
+            SectionIndexTableView.Builder<T> builder = new SectionIndexTableView.Builder<>();
+            builder.setContext(this);
+            builder.setDataSource(this);
+            builder.setDelegate(this);
+            tableView = builder.build();
         }
         return new SectionIndexTableViewFragment<>(tableView);
     }

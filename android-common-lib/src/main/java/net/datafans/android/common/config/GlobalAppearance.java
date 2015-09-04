@@ -1,7 +1,7 @@
 package net.datafans.android.common.config;
 
 
-public class GlobalAppearence {
+public class GlobalAppearance {
 
 	private int statusBarTintColor;
 

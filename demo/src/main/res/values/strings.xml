@@ -13,5 +13,6 @@
     <string name="title_activity_test_section_table_view_controller">
         TestSectionTableViewController
     </string>
+    <string name="title_activity_hud_test">HudTestActivity</string>
 
 </resources>

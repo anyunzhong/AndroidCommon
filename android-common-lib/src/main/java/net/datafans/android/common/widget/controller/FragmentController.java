@@ -7,14 +7,12 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import net.datafans.android.common.R;
 import net.datafans.android.common.data.service.BaseResponse;
@@ -152,18 +150,27 @@ public abstract class FragmentController extends Controller {
         showLoadFail(false);
     }
 
+
+    protected boolean enableAutoLoadStateView() {
+        return true;
+    }
+
     @Override
     public void onStatusOk(BaseResponse response, Class<?> type) {
         super.onStatusOk(response, type);
-        hideLoadingView();
-        hideLoadFailView();
+        if (enableAutoLoadStateView()) {
+            hideLoadingView();
+            hideLoadFailView();
+        }
     }
 
     @Override
     public void onStatusError(BaseResponse response) {
         super.onStatusError(response);
-        hideLoadingView();
-        showLoadFailView();
+        if (enableAutoLoadStateView()) {
+            hideLoadingView();
+            showLoadFailView();
+        }
 
     }
 
@@ -172,8 +179,10 @@ public abstract class FragmentController extends Controller {
                                Throwable throwable) {
         super.onRequestError(errorCode, errorResponse, throwable);
 
-        hideLoadingView();
-        showLoadFailView();
+        if (enableAutoLoadStateView()) {
+            hideLoadingView();
+            showLoadFailView();
+        }
     }
 
 

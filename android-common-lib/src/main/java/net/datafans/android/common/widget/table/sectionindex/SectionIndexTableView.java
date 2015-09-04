@@ -35,13 +35,13 @@ public class SectionIndexTableView<T> implements TableViewDataSource<T>, TableVi
 
 
 
-    private TableView<T> tableView;
+    private TableView tableView;
 
 
     private SectionIndexTableViewDataSource<T> dataSource;
     private SectionIndexTableViewDelegate delegate;
 
-    public SectionIndexTableView(Context context, RefreshControlType type,
+    protected SectionIndexTableView(Context context, RefreshControlType type,
                                  boolean enableRefresh, boolean enableLoadMore,
                                  boolean enableAutoLoadMore, SectionIndexTableViewDataSource<T> dataSource, SectionIndexTableViewDelegate delegate) {
 
@@ -52,9 +52,70 @@ public class SectionIndexTableView<T> implements TableViewDataSource<T>, TableVi
 
         initFirstChars();
 
-        tableView = new GroupTableView<T>(context, type,
-                enableRefresh, enableLoadMore, enableAutoLoadMore, this, this);
+        GroupTableView.Builder<T> builder = new GroupTableView.Builder<>();
+        builder.setContext(context);
+        builder.setRefreshType(type);
+        builder.setEnableRefresh(enableRefresh);
+        builder.setEnableLoadMore(enableLoadMore);
+        builder.setEnableAutoLoadMore(enableAutoLoadMore);
+        builder.setDataSource(this);
+        builder.setDelegate(this);
+        tableView = builder.bulid();
 
+    }
+
+    public static class Builder<T>{
+
+        private SectionIndexTableViewDataSource<T> dataSource;
+        private SectionIndexTableViewDelegate delegate;
+        private RefreshControlType refreshType = RefreshControlType.None;
+        private Context context;
+        private boolean enableRefresh = false;
+        private boolean enableLoadMore = false;
+        private boolean enableAutoLoadMore = false;
+
+
+
+        public Builder<T> setDataSource(SectionIndexTableViewDataSource<T> dataSource) {
+            this.dataSource = dataSource;
+            return this;
+        }
+
+        public Builder<T> setDelegate(SectionIndexTableViewDelegate delegate) {
+            this.delegate = delegate;
+            return this;
+        }
+
+        public Builder<T> setRefreshType(RefreshControlType refreshType) {
+            this.refreshType = refreshType;
+            return this;
+        }
+
+        public Builder<T> setContext(Context context) {
+            this.context = context;
+            return this;
+        }
+
+        public Builder<T> setEnableRefresh(boolean enableRefresh) {
+            this.enableRefresh = enableRefresh;
+            return this;
+        }
+
+        public Builder<T> setEnableLoadMore(boolean enableLoadMore) {
+            this.enableLoadMore = enableLoadMore;
+            return this;
+        }
+
+        public Builder<T> setEnableAutoLoadMore(boolean enableAutoLoadMore) {
+            this.enableAutoLoadMore = enableAutoLoadMore;
+            return this;
+        }
+
+        public SectionIndexTableView<T> build() {
+
+            return new SectionIndexTableView<>(context, refreshType, enableRefresh, enableLoadMore, enableAutoLoadMore, dataSource, delegate);
+
+        }
     }
 
 
@@ -118,9 +179,7 @@ public class SectionIndexTableView<T> implements TableViewDataSource<T>, TableVi
 
 
     private boolean isShowUnIndexTitles() {
-        if (dataSource.getUnIndexedTitles() == null) return false;
-        if (dataSource.getUnIndexedTitles().size() <= 0) return false;
-        return true;
+        return dataSource.getUnIndexedTitles() != null && dataSource.getUnIndexedTitles().size() > 0;
     }
 
 

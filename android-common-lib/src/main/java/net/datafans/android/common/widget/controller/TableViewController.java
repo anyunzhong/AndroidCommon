@@ -34,17 +34,27 @@ public abstract class TableViewController<T> extends FragmentController implemen
     protected Fragment getRootFragment() {
 
         if (tableView == null) {
-            if (style == TableViewStyle.GROUP)
-                tableView = new GroupTableView<T>(this, getRefreshControlType(),
-                        enableRefresh(), enableLoadMore(), enableAutoLoadMore(), this, this);
-            else
-                tableView = new PlainTableView<T>(this, getRefreshControlType(),
-                        enableRefresh(), enableLoadMore(), enableAutoLoadMore(), this, this);
-            tableView.setDataSource(this);
-            tableView.setDelegate(this);
+
+            TableView.Builder<T> builder;
+
+            if (style == TableViewStyle.GROUP) {
+                builder = new GroupTableView.Builder<>();
+            } else {
+                builder = new PlainTableView.Builder<>();
+            }
+
+            builder.setContext(this);
+            builder.setRefreshType(getRefreshControlType());
+            builder.setEnableLoadMore(enableRefresh());
+            builder.setEnableLoadMore(enableLoadMore());
+            builder.setEnableAutoLoadMore(enableAutoLoadMore());
+            builder.setDataSource(this);
+            builder.setDelegate(this);
+
+            tableView = builder.bulid();
 
         }
-        return new TableViewFragment<T>(tableView);
+        return new TableViewFragment<>(tableView);
     }
 
     @Override
@@ -97,7 +107,6 @@ public abstract class TableViewController<T> extends FragmentController implemen
     }
 
 
-
     @Override
     public int getSections() {
         return 1;
@@ -105,12 +114,12 @@ public abstract class TableViewController<T> extends FragmentController implemen
 
     @Override
     public int getSectionFooterHeight(int section) {
-        return style == TableViewStyle.GROUP?150:0;
+        return style == TableViewStyle.GROUP ? 150 : 0;
     }
 
     @Override
     public int getSectionHeaderHeight(int section) {
-        return style == TableViewStyle.GROUP?150:0;
+        return style == TableViewStyle.GROUP ? 150 : 0;
     }
 
     @Override

@@ -1,5 +1,7 @@
 package net.datafans.android.common.helper;
 
+import android.annotation.SuppressLint;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -7,8 +9,9 @@ import java.util.Date;
 /**
  * Created by zhonganyun on 15/8/6.
  */
-public class TimeHelper {
 
+@SuppressLint("SimpleDateFormat")
+public class TimeHelper {
 
     private static SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
     private static SimpleDateFormat monthFormat = new SimpleDateFormat("MM-dd HH:mm");

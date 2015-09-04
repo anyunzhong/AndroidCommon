@@ -57,11 +57,14 @@
         <activity
             android:name=".activity.MainTabActivity"
             android:label="@string/title_activity_main_tab" >
-
         </activity>
         <activity
             android:name=".activity.TestSectionTableViewController"
             android:label="@string/title_activity_test_section_table_view_controller" >
+        </activity>
+        <activity
+            android:name=".activity.HudTestActivity"
+            android:label="@string/title_activity_hud_test" >
 
 
 

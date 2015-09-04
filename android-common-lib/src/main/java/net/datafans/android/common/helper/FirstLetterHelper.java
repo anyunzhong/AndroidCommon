@@ -4,7 +4,6 @@ package net.datafans.android.common.helper;
  * Created by zhonganyun on 15/8/17.
  */
 public class FirstLetterHelper {
-    private static int BEGIN = 45217;
     private static int END = 63486;
     // 按照声母表示，这个表是在GB2312中的出现的第一个汉字，也就是说“啊”是代表首字母a的第一个汉字。
     // i, u, v都不做声母, 自定规则跟随前面的字母
@@ -52,6 +51,7 @@ public class FirstLetterHelper {
         // 若是，则在码表内的进行判断。
         int gb = gbValue(ch);// 汉字转换首字母
 
+        int BEGIN = 45217;
         if ((gb < BEGIN) || (gb > END))// 在码表区间之前，直接返回
         {
             return ch;
@@ -74,7 +74,7 @@ public class FirstLetterHelper {
      * 取出汉字的编码 cn 汉字
      */
     private static int gbValue(char ch) {// 将一个汉字（GB2312）转换为十进制表示。
-        String str = new String();
+        String str = "";
         str += ch;
         try {
             byte[] bytes = str.getBytes("GB2312");

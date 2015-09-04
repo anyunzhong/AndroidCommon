@@ -47,7 +47,9 @@ public abstract class DataService {
 
 	}
 
+	@SuppressWarnings("deprecation")
 	private AsyncHttpResponseHandler responseHandler = new AsyncHttpResponseHandler() {
+
 		@Override
 		public void onFailure(int statusCode, Header[] headers,
 				byte[] errorResponse, Throwable throwable) {
@@ -81,6 +83,7 @@ public abstract class DataService {
 			// 数据解析错误
 			Log.e("ANDROID_COMMON", "data_parse_error");
 			onError(-1, null, null);
+			return;
 		}
 
 

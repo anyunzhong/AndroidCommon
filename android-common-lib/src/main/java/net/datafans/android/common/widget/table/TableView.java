@@ -1,7 +1,15 @@
 package net.datafans.android.common.widget.table;
 
-import java.util.HashMap;
-import java.util.Map;
+import android.content.Context;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AbsListView;
+import android.widget.AdapterView;
+import android.widget.BaseAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import net.datafans.android.common.R;
 import net.datafans.android.common.widget.table.refresh.ListViewAdapter;
@@ -15,25 +23,12 @@ import net.datafans.android.common.widget.table.refresh.adapter.PullDownListView
 import net.datafans.android.common.widget.table.refresh.adapter.SwipeRefreshListViewAdapter;
 import net.datafans.android.common.widget.table.refresh.adapter.UltraPullToRefreshListViewAdapter;
 
-import android.content.Context;
-import android.graphics.Color;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AbsListView;
-import android.widget.AdapterView;
-import android.widget.BaseAdapter;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-
-import javax.sql.DataSource;
+import java.util.HashMap;
+import java.util.Map;
 
 public class TableView<T> implements ListViewListener {
 
-    private Map<RefreshControlType, ListViewAdapter> adapterMap = new HashMap<RefreshControlType, ListViewAdapter>();
+    private Map<RefreshControlType, ListViewAdapter> adapterMap = new HashMap<>();
 
     private RefreshControlType refreshType;
 
@@ -41,30 +36,20 @@ public class TableView<T> implements ListViewListener {
     private TableViewDataSource<T> dataSource;
     private TableViewDelegate delegate;
 
-    private Map<Integer, Integer> sectionMap = new HashMap<Integer, Integer>();
-    private Map<Integer, Integer> rowMap = new HashMap<Integer, Integer>();
+    private Map<Integer, Integer> sectionMap = new HashMap<>();
+    private Map<Integer, Integer> rowMap = new HashMap<>();
 
     private Context context;
-
-    public Context getContext() {
-        return context;
-    }
-
     private boolean enableRefresh = false;
     private boolean enableLoadMore = false;
     private boolean enableAutoLoadMore = false;
 
     private TableViewStyle style;
 
-    public TableView(Context context, RefreshControlType type) {
-        this.context = context;
-        refreshType = type;
-        init();
-    }
 
-    public TableView(Context context, RefreshControlType type,
-                     boolean enableRefresh, boolean enableLoadMore,
-                     boolean enableAutoLoadMore, TableViewStyle style, TableViewDataSource dataSource, TableViewDelegate delegate) {
+    protected TableView(Context context, RefreshControlType type,
+                        boolean enableRefresh, boolean enableLoadMore,
+                        boolean enableAutoLoadMore, TableViewStyle style, TableViewDataSource<T> dataSource, TableViewDelegate delegate) {
         this.context = context;
         this.enableRefresh = enableRefresh;
         this.enableLoadMore = enableLoadMore;
@@ -76,11 +61,6 @@ public class TableView<T> implements ListViewListener {
         init();
     }
 
-    public TableView(Context context) {
-        this.context = context;
-        this.refreshType = RefreshControlType.BGANormal;
-        init();
-    }
 
     private void init() {
         tableViewAdapter = new TableViewAdapter();
@@ -131,6 +111,10 @@ public class TableView<T> implements ListViewListener {
             adapterMap.put(type, adapter);
         }
         return adapter;
+    }
+
+    public Context getContext() {
+        return context;
     }
 
     public ListViewAdapter getAdapter() {
@@ -239,6 +223,7 @@ public class TableView<T> implements ListViewListener {
         }
 
 
+        @SuppressWarnings("unchecked")
         @Override
         public View getView(final int position, View convertView,
                             ViewGroup parent) {
@@ -281,7 +266,8 @@ public class TableView<T> implements ListViewListener {
                     }
                 }
 
-                if (row == 0) {
+
+                if (row == 0 && holder != null) {
                     holder.topline.setVisibility(View.GONE);
                     holder.bottomline.setVisibility(View.VISIBLE);
                     AbsListView.LayoutParams layoutParams = new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dataSource.getSectionHeaderHeight(section));
@@ -289,7 +275,7 @@ public class TableView<T> implements ListViewListener {
                     holder.titleView.setText(dataSource.getSectionHeaderTitle(section));
                 }
 
-                if (row == dataSource.getRows(section) + 1) {
+                if (row == dataSource.getRows(section) + 1 && holder != null) {
                     holder.topline.setVisibility(View.VISIBLE);
                     holder.bottomline.setVisibility(View.GONE);
                     AbsListView.LayoutParams layoutParams = new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dataSource.getSectionFooterHeight(section));
@@ -338,9 +324,11 @@ public class TableView<T> implements ListViewListener {
 
                 T t = dataSource.getEntity(section, row);
 
-                cell.divider.setVisibility(View.GONE);
+                if (cell != null) {
+                    cell.divider.setVisibility(View.GONE);
 
-                cell.refresh(t);
+                    cell.refresh(t);
+                }
 
                 return convertView;
 
@@ -429,5 +417,97 @@ public class TableView<T> implements ListViewListener {
         getAdapter().getListView().setDivider(null);
     }
 
+
+    public static class Builder<T> {
+
+        private RefreshControlType refreshType = RefreshControlType.None;
+        private TableViewDataSource<T> dataSource;
+        private TableViewDelegate delegate;
+        private Context context;
+        private boolean enableRefresh = false;
+        private boolean enableLoadMore = false;
+        private boolean enableAutoLoadMore = false;
+        private TableViewStyle style;
+
+
+        public Builder<T> setRefreshType(RefreshControlType refreshType) {
+            this.refreshType = refreshType;
+            return this;
+        }
+
+        public Builder<T> setDelegate(TableViewDelegate delegate) {
+            this.delegate = delegate;
+            return this;
+        }
+
+        public Builder<T> setContext(Context context) {
+            this.context = context;
+            return this;
+        }
+
+        public Builder<T> setEnableRefresh(boolean enableRefresh) {
+            this.enableRefresh = enableRefresh;
+            return this;
+        }
+
+        public Builder<T> setEnableLoadMore(boolean enableLoadMore) {
+            this.enableLoadMore = enableLoadMore;
+            return this;
+        }
+
+        public Builder<T> setEnableAutoLoadMore(boolean enableAutoLoadMore) {
+            this.enableAutoLoadMore = enableAutoLoadMore;
+            return this;
+        }
+
+        public Builder<T> setDataSource(TableViewDataSource<T> dataSource) {
+            this.dataSource = dataSource;
+            return this;
+        }
+
+
+
+
+        public void setStyle(TableViewStyle style) {
+            this.style = style;
+        }
+
+        public RefreshControlType getRefreshType() {
+            return refreshType;
+        }
+
+        public TableViewDelegate getDelegate() {
+            return delegate;
+        }
+
+        public Context getContext() {
+            return context;
+        }
+
+        public boolean isEnableRefresh() {
+            return enableRefresh;
+        }
+
+        public boolean isEnableLoadMore() {
+            return enableLoadMore;
+        }
+
+        public boolean isEnableAutoLoadMore() {
+            return enableAutoLoadMore;
+        }
+
+        public TableViewStyle getStyle() {
+            return style;
+        }
+
+        public TableViewDataSource<T> getDataSource() {
+            return dataSource;
+        }
+
+        public TableView<T> bulid() {
+            return new TableView<>(context, refreshType, enableRefresh, enableLoadMore, enableAutoLoadMore, style, dataSource, delegate);
+        }
+
+    }
 
 }

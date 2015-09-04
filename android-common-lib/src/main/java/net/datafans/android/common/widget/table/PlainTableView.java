@@ -8,18 +8,23 @@ import net.datafans.android.common.widget.table.refresh.RefreshControlType;
 
 public class PlainTableView<T> extends TableView<T> {
 
-    public PlainTableView(Context context, RefreshControlType type,
+    protected PlainTableView(Context context, RefreshControlType type,
                           boolean enableRefresh, boolean enableLoadMore,
-                          boolean enableAutoLoadMore, TableViewDataSource dataSource, TableViewDelegate delegate) {
+                          boolean enableAutoLoadMore, TableViewDataSource<T> dataSource, TableViewDelegate delegate) {
         super(context, type, enableRefresh, enableLoadMore, enableAutoLoadMore, TableViewStyle.PLAIN, dataSource, delegate);
 
-        //getView().setBackgroundColor(Color.WHITE);
- //       getAdapter().getListView().setDivider(null);
-//        getAdapter().getListView().setHeaderDividersEnabled(false);
-//        //禁止底部出现分割线
-//        getAdapter().getListView().setFooterDividersEnabled(false);
         getAdapter().getListView().setDivider(new ColorDrawable(Color.rgb(216,216,216)));
         getAdapter().getListView().setDividerHeight(1);
+    }
+
+
+    public static class Builder<T> extends TableView.Builder<T>{
+
+        public PlainTableView<T> build(){
+
+            return new PlainTableView<>(getContext(), getRefreshType(), isEnableRefresh(), isEnableLoadMore(), isEnableAutoLoadMore(), getDataSource(), getDelegate());
+
+        }
     }
 
 }

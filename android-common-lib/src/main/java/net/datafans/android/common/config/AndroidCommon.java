@@ -7,7 +7,7 @@ public class AndroidCommon {
 
 	private static Context ctx;
 
-	private static GlobalAppearence appearence = new GlobalAppearence();
+	private static GlobalAppearance appearence = new GlobalAppearance();
 
 	public final static AndroidCommon common = new AndroidCommon();
 
@@ -27,7 +27,7 @@ public class AndroidCommon {
 
 	}
 
-	public static GlobalAppearence getAppearence() {
+	public static GlobalAppearance getAppearence() {
 		return appearence;
 	}
 

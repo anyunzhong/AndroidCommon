@@ -2,22 +2,16 @@ package net.datafans.android.common.widget.controller;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
-import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
 
-import net.datafans.android.common.R;
 import net.datafans.android.common.config.AndroidCommon;
 import net.datafans.android.common.data.service.BaseResponse;
 import net.datafans.android.common.data.service.DataServiceDelegate;

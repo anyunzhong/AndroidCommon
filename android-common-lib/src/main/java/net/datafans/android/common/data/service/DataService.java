@@ -53,17 +53,20 @@ public abstract class DataService {
 		@Override
 		public void onFailure(int statusCode, Header[] headers,
 				byte[] errorResponse, Throwable throwable) {
+			Log.e("ANDROID_COMMON", statusCode + "  " + throwable.toString());
 			onError(statusCode, errorResponse, throwable);
 		}
 
 		@Override
 		public void onSuccess(int statusCode, Header[] headers, byte[] response) {
+			Log.e("ANDROID_COMMON", statusCode + "  " +response);
 			DataService.this.onSuccess(response);
 		}
 	};
 
 	private void onError(int statusCode, byte[] errorResponse,
 			Throwable throwable) {
+		Log.e("ANDROID_COMMON", delegate.toString());
 		if (delegate == null) {
 			return;
 		}
@@ -89,11 +92,14 @@ public abstract class DataService {
 
 		if (baseResponse.getStatus() == 1) {
 			parseResponse(baseResponse);
-			if (delegate!=null)
-			delegate.onStatusOk(baseResponse, this.getClass());
+			if (delegate!=null) {
+				delegate.onStatusOk(baseResponse, this.getClass());
+			}
 		} else {
-			if (delegate!=null)
-			delegate.onStatusError(baseResponse);
+			if (delegate!=null) {
+				delegate.onStatusError(baseResponse);
+			}
+
 		}
 	}
 

@@ -51,7 +51,7 @@ public abstract class TableViewController<T> extends FragmentController implemen
             builder.setDataSource(this);
             builder.setDelegate(this);
 
-            tableView = builder.bulid();
+            tableView = builder.build();
 
         }
         return new TableViewFragment<>(tableView);

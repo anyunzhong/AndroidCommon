@@ -504,7 +504,7 @@ public class TableView<T> implements ListViewListener {
             return dataSource;
         }
 
-        public TableView<T> bulid() {
+        public TableView<T> build() {
             return new TableView<>(context, refreshType, enableRefresh, enableLoadMore, enableAutoLoadMore, style, dataSource, delegate);
         }
 

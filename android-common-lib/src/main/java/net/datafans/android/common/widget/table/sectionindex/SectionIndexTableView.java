@@ -60,7 +60,7 @@ public class SectionIndexTableView<T> implements TableViewDataSource<T>, TableVi
         builder.setEnableAutoLoadMore(enableAutoLoadMore);
         builder.setDataSource(this);
         builder.setDelegate(this);
-        tableView = builder.bulid();
+        tableView = builder.build();
 
     }
 

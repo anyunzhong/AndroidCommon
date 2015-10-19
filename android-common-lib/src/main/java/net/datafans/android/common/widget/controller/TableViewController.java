@@ -17,7 +17,7 @@ import android.widget.Toast;
 public abstract class TableViewController<T> extends FragmentController implements
         TableViewDataSource<T>, TableViewDelegate {
 
-    private TableView<T> tableView;
+    protected TableView<T> tableView;
 
     private TableViewStyle style;
 

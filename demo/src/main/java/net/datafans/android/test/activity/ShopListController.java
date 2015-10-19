@@ -70,7 +70,7 @@ public class ShopListController extends TableViewController<Shop> {
 
     @Override
     protected RefreshControlType getRefreshControlType() {
-        return RefreshControlType.None;
+        return RefreshControlType.BGANormal;
 
     }
 

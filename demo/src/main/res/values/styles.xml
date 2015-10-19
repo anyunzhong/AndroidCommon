@@ -3,6 +3,8 @@
 
     <style name="AppBaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
 
+        <!--<item name="actionBarSize">30dp</item>-->
+
         <!-- toolbar（actionbar）颜色 -->
         <item name="colorPrimary">#4876FF</item>
 
@@ -18,6 +20,6 @@
         <!--<item name="searchViewStyle">@style/MySearchViewStyle</item>-->
     </style>
 
-    <style name="AppTheme" parent="@style/AppBaseTheme"></style>
+    <style name="AppTheme" parent="@style/AppBaseTheme" />
 
 </resources>

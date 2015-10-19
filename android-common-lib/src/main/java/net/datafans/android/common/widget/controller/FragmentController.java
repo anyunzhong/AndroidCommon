@@ -2,6 +2,7 @@ package net.datafans.android.common.widget.controller;
 
 
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -16,12 +17,13 @@ import android.widget.RelativeLayout;
 
 import net.datafans.android.common.R;
 import net.datafans.android.common.data.service.BaseResponse;
+import net.datafans.android.common.helper.DipHelper;
 
 public abstract class FragmentController extends Controller {
 
     private Toolbar mToolbar;
 
-    private RelativeLayout containerParent;
+    protected RelativeLayout containerParent;
 
     private View container;
 
@@ -36,7 +38,14 @@ public abstract class FragmentController extends Controller {
 
         super.onCreate(savedInstanceState);
 
-        View rootView = getLayoutInflater().inflate(R.layout.activity_base, null);
+
+        View rootView;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+
+            rootView = getLayoutInflater().inflate(R.layout.activity_base, null);
+        }else {
+            rootView = getLayoutInflater().inflate(R.layout.activity_base_comp, null);
+        }
         setContentView(rootView);
 
         containerParent = (RelativeLayout) rootView.findViewById(R.id.container_parent);

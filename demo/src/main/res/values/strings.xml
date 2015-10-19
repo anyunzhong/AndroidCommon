@@ -14,5 +14,8 @@
         TestSectionTableViewController
     </string>
     <string name="title_activity_hud_test">HudTestActivity</string>
+    <string name="title_activity_edit_text">EditTextActivity</string>
+    <string name="title_activity_edit_activity_plain">EditActivityPlain</string>
+    <string name="title_activity_popup_test">PopupTest</string>
 
 </resources>

@@ -147,6 +147,7 @@ public class TableView<T> implements ListViewListener {
                 int row = getRow(position);
                 if (style == TableViewStyle.GROUP)
                     row = row - 1;
+                Log.d("AndroidCommon", "row click: " + row);
                 delegate.onClickRow(section, row);
             }
         });

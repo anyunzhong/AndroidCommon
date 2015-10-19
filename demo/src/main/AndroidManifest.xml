@@ -43,8 +43,6 @@
             android:name=".activity.ShopListController"
             android:label="@string/title_activity_shop_list" >
 
-
-
         </activity>
         <activity
             android:name=".activity.ViewPagerActivity"
@@ -57,18 +55,28 @@
         <activity
             android:name=".activity.TestSectionTableViewController"
             android:label="@string/title_activity_test_section_table_view_controller" >
+        </activity>
+        <activity
+            android:name=".activity.HudTestActivity"
+            android:label="@string/title_activity_hud_test" >
+        </activity>
+        <activity
+            android:name=".activity.EditTextActivity"
+            android:label="@string/title_activity_edit_text" >
+        </activity>
+        <activity
+            android:name=".activity.EditActivityPlain"
+            android:label="@string/title_activity_edit_activity_plain" >
+        </activity>
+        <activity
+            android:name=".activity.PopupTest"
+            android:label="@string/title_activity_popup_test" >
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
-        </activity>
-        <activity
-            android:name=".activity.HudTestActivity"
-            android:label="@string/title_activity_hud_test" >
-
 
 
         </activity>

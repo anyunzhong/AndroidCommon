@@ -17,5 +17,6 @@
     <string name="title_activity_edit_text">EditTextActivity</string>
     <string name="title_activity_edit_activity_plain">EditActivityPlain</string>
     <string name="title_activity_popup_test">PopupTest</string>
+    <string name="title_activity_action_sheet_test">ActionSheetTest</string>
 
 </resources>

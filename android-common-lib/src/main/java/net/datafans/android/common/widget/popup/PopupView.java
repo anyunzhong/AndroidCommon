@@ -57,10 +57,16 @@ public class PopupView {
     }
 
 
-    private void init() {
+    protected int getLayout() {
+        return R.layout.popup;
+    }
 
-        popview = LayoutInflater.from(context).inflate(R.layout.popup, null);
+
+    private void init() {
+        popview = LayoutInflater.from(context).inflate(getLayout(), null);
+
         focusView = popview.findViewById(R.id.focusArea);
+
         titleView = (TextView) popview.findViewById(R.id.title);
         descView = (TextView) popview.findViewById(R.id.desc);
         divider = popview.findViewById(R.id.divider);
@@ -123,13 +129,17 @@ public class PopupView {
         setItems(items, false);
     }
 
+    protected boolean isActionSheet(){
+        return false;
+    }
+
     public void setItems(final List<PopItem> items, boolean vertical) {
         if (items == null || items.isEmpty()) return;
 
         int count = items.size();
 
         LinearLayout layout;
-        if (count == 2 && !vertical) {
+        if (count == 2 && !vertical && !isActionSheet()) {
 
             layout = (LinearLayout) LayoutInflater.from(context).inflate(R.layout.popup_two_item, null);
             TextView leftTextView = (TextView) layout.findViewById(R.id.textLeft);

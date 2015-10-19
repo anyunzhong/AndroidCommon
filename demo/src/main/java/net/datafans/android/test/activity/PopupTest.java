@@ -1,14 +1,15 @@
 package net.datafans.android.test.activity;
 
 import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import net.datafans.android.common.widget.popup.ActionSheetView;
 import net.datafans.android.common.widget.popup.PopItem;
 import net.datafans.android.common.widget.popup.PopupView;
 import net.datafans.android.test.R;
@@ -26,8 +27,8 @@ public class PopupTest extends AppCompatActivity {
         setContentView(rootView);
 
 
-        TextView textView = (TextView) findViewById(R.id.text);
-        textView.setOnClickListener(new View.OnClickListener() {
+        TextView alertTextView = (TextView) findViewById(R.id.alertMode);
+        alertTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -57,6 +58,48 @@ public class PopupTest extends AppCompatActivity {
 //                        Log.d("Pop", "Click");
 //                    }
 //                }));
+
+                popupView.setItems(items);
+
+
+                popupView.show();
+            }
+        });
+
+
+
+
+
+        TextView sheetTextView = (TextView) findViewById(R.id.sheetMode);
+        sheetTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                PopupView popupView = new ActionSheetView(PopupTest.this, rootView, true);
+                //popupView.setTitle("选择照片", Color.RED);
+
+                List<PopItem> items = new ArrayList<PopItem>();
+                items.add(new PopItem("相册", new PopItem.Listener() {
+                    @Override
+                    public void onClick() {
+                        Log.d("Pop", "Click");
+                    }
+                }));
+
+                items.add(new PopItem("拍摄", new PopItem.Listener() {
+                    @Override
+                    public void onClick() {
+                        Log.d("Pop", "Click");
+                    }
+                }));
+
+
+                items.add(new PopItem("历史照片", new PopItem.Listener() {
+                    @Override
+                    public void onClick() {
+                        Log.d("Pop", "Click");
+                    }
+                }));
 
                 popupView.setItems(items);
 

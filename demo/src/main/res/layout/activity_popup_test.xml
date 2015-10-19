@@ -6,14 +6,27 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:gravity="center"
     tools:context="net.datafans.android.test.activity.PopupTest">
 
     <TextView
-        android:id="@+id/text"
-        android:layout_width="200dp"
-        android:layout_height="100dp"
+        android:id="@+id/alertMode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:background="@android:color/darker_gray"
         android:textColor="@android:color/white"
-        android:text="@string/hello_world" />
+        android:padding="30dp"
+        android:text="Alert模式" />
+
+    <TextView
+        android:id="@+id/sheetMode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/darker_gray"
+        android:textColor="@android:color/white"
+        android:padding="30dp"
+        android:layout_below="@+id/alertMode"
+        android:text="Sheet模式" />
 
 </RelativeLayout>

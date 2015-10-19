@@ -2,21 +2,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
+    android:gravity="bottom"
     android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/focusArea"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"
-        android:background="@drawable/pop_bg"
+        android:background="@android:color/white"
         android:minHeight="30dp"
         android:orientation="vertical">
 
         <include layout="@layout/popup_common" />
-
     </LinearLayout>
 
 </LinearLayout>

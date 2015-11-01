@@ -13,10 +13,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.shizhefei.view.indicator.Indicator;
 import com.shizhefei.view.indicator.IndicatorViewPager;
+import com.shizhefei.view.viewpager.SViewPager;
 
 import net.datafans.android.common.R;
 import net.datafans.android.common.widget.badge.BadgeView;
@@ -67,15 +69,15 @@ public class TabbarFragment extends Fragment {
 
     private void initView(View view) {
 
-        ViewPager viewPager = (ViewPager) view.findViewById(R.id.tabbar_viewPager);
+        SViewPager viewPager = (SViewPager) view.findViewById(R.id.tabbar_viewPager);
         Indicator indicator = (Indicator) view.findViewById(R.id.tabbar_indicator);
 
         indicatorViewPager = new IndicatorViewPager(indicator, viewPager);
         indicatorViewPager.setAdapter(new TabbarAdapter(getFragmentManager()));
 
-        //viewPager.setCanScroll(true);
+        viewPager.setCanScroll(controller.canScroll());
         viewPager.setOffscreenPageLimit(controller.getTabItemNames().length);
-        // viewPager.setPrepareNumber(0);
+        //viewPager.setPrepareNumber(0);
 
 
     }
@@ -94,6 +96,11 @@ public class TabbarFragment extends Fragment {
 
         @Override
         public View getViewForTab(int i, View view, ViewGroup viewGroup) {
+
+
+            if (controller.getCusTabView(i) != null)
+                return controller.getCusTabView(i);
+
             if (view == null) {
                 view = inflater.inflate(R.layout.tabbar_item, viewGroup, false);
             }

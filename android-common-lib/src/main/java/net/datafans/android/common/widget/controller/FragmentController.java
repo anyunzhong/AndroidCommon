@@ -76,6 +76,14 @@ public abstract class FragmentController extends Controller {
                 onClickReturnButton();
             }
         });
+
+        View cusView = getCusToolbarView();
+        if (cusView != null) {
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+            cusView.setBackgroundColor(Color.TRANSPARENT);
+            mToolbar.addView(cusView, params);
+        }
+
     }
 
     protected void changeTitle(String title) {
@@ -199,6 +207,10 @@ public abstract class FragmentController extends Controller {
 
     protected int getFragmentPadding() {
         return 0;
+    }
+
+    protected View getCusToolbarView(){
+        return null;
     }
 
     protected boolean enableReturnButton() {

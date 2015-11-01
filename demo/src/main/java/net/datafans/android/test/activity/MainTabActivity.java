@@ -27,6 +27,11 @@ public class MainTabActivity extends TabbarController {
 
 
     @Override
+    public boolean canScroll() {
+        return false;
+    }
+
+    @Override
     protected String getNavTitle() {
         return "微信";
     }

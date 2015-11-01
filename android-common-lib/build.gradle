@@ -44,11 +44,11 @@ compile('net.datafans:bga-refresh-layout-lib:1.0.0')
             exclude group: 'com.android.support', module: 'support-v4'
         }
     compile 'net.datafans:trinea-android-common-lib:1.0.0'
-    compile('net.datafans:viewPagerIndicator_Library:1.0.3')
-
-                {
-                    exclude group: 'net.datafans', module: 'androidsupportv4'
-                }
+    compile('net.datafans:viewPagerIndicator_Library:1.0.4')
+//
+//                {
+//                    exclude group: 'net.datafans', module: 'androidsupportv4'
+//                }
 
 
 

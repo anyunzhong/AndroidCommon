@@ -50,21 +50,12 @@
         <activity
             android:name=".activity.MainTabActivity"
             android:label="@string/title_activity_main_tab" >
-
         </activity>
-
         <activity
             android:name=".activity.MainCusTabActivity"
             android:label="@string/title_activity_main_tab" >
 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
-
-
         <activity
             android:name=".activity.TestSectionTableViewController"
             android:label="@string/title_activity_test_section_table_view_controller" >
@@ -84,7 +75,15 @@
         <activity
             android:name=".activity.PopupTest"
             android:label="@string/title_activity_popup_test" >
+        </activity>
+        <activity
+            android:name=".activity.FullScreenActivity"
+            android:label="@string/title_activity_full_screen" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 

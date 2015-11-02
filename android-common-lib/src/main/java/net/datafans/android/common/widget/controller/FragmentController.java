@@ -17,11 +17,10 @@ import android.widget.RelativeLayout;
 
 import net.datafans.android.common.R;
 import net.datafans.android.common.data.service.BaseResponse;
-import net.datafans.android.common.helper.DipHelper;
 
 public abstract class FragmentController extends Controller {
 
-    private Toolbar mToolbar;
+    protected Toolbar toolbar;
 
     protected RelativeLayout containerParent;
 
@@ -42,8 +41,13 @@ public abstract class FragmentController extends Controller {
         View rootView;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
 
-            rootView = getLayoutInflater().inflate(R.layout.activity_base, null);
-        }else {
+
+            if (enableFullScreen()) {
+                rootView = getLayoutInflater().inflate(R.layout.activity_base_full, null);
+            } else {
+                rootView = getLayoutInflater().inflate(R.layout.activity_base, null);
+            }
+        } else {
             rootView = getLayoutInflater().inflate(R.layout.activity_base_comp, null);
         }
         setContentView(rootView);
@@ -61,16 +65,16 @@ public abstract class FragmentController extends Controller {
 
     private void initNavbar() {
 
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         if (!enableReturnButton())
-            mToolbar.setNavigationIcon(null);
-        mToolbar.setTitle(getNavTitle());
-        mToolbar.setTitleTextColor(Color.WHITE);
-        mToolbar.setBackgroundColor(getStatusBarColor());
-        setSupportActionBar(mToolbar);
+            toolbar.setNavigationIcon(null);
+        toolbar.setTitle(getNavTitle());
+        toolbar.setTitleTextColor(Color.WHITE);
+        toolbar.setBackgroundColor(getStatusBarColor());
+        setSupportActionBar(toolbar);
 
-        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onClickReturnButton();
@@ -81,13 +85,13 @@ public abstract class FragmentController extends Controller {
         if (cusView != null) {
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
             cusView.setBackgroundColor(Color.TRANSPARENT);
-            mToolbar.addView(cusView, params);
+            toolbar.addView(cusView, params);
         }
 
     }
 
     protected void changeTitle(String title) {
-        mToolbar.setTitle(title);
+        toolbar.setTitle(title);
     }
 
     private void initFragment() {
@@ -209,7 +213,7 @@ public abstract class FragmentController extends Controller {
         return 0;
     }
 
-    protected View getCusToolbarView(){
+    protected View getCusToolbarView() {
         return null;
     }
 

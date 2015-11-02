@@ -21,14 +21,26 @@ public abstract class Controller extends AppCompatActivity implements DataServic
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+        if (enableFullScreen()){
+            requestWindowFeature(Window.FEATURE_NO_TITLE);
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        }
+
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        initStatusBar();
+
+
+        if (!enableFullScreen())
+            initStatusBar();
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         //super.onSaveInstanceState(outState);
+    }
+
+    protected boolean enableFullScreen() {
+        return false;
     }
 
     private void initStatusBar() {
@@ -68,7 +80,7 @@ public abstract class Controller extends AppCompatActivity implements DataServic
 
     @Override
     public void onRequestError(int errorCode, byte[] errorResponse,
-                                  Throwable throwable) {
+                               Throwable throwable) {
         if (errorCode == -2) {
             Log.e("ANDROID_COMMON", "network exception");
             Toast toast = Toast.makeText(this, "网络异常", Toast.LENGTH_SHORT);

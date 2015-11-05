@@ -74,6 +74,12 @@ public class TabbarFragment extends Fragment {
 
         indicatorViewPager = new IndicatorViewPager(indicator, viewPager);
         indicatorViewPager.setAdapter(new TabbarAdapter(getFragmentManager()));
+        indicatorViewPager.setOnIndicatorPageChangeListener(new IndicatorViewPager.OnIndicatorPageChangeListener() {
+            @Override
+            public void onIndicatorPageChange(int i, int index) {
+                controller.onClickTab(index);
+            }
+        });
 
         viewPager.setCanScroll(controller.canScroll());
         viewPager.setOffscreenPageLimit(controller.getTabItemNames().length);
@@ -95,7 +101,7 @@ public class TabbarFragment extends Fragment {
         }
 
         @Override
-        public View getViewForTab(int i, View view, ViewGroup viewGroup) {
+        public View getViewForTab(final  int i, View view, ViewGroup viewGroup) {
 
 
             if (controller.getCusTabView(i) != null)

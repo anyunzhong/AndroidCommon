@@ -17,6 +17,7 @@ import android.widget.RelativeLayout;
 
 import net.datafans.android.common.R;
 import net.datafans.android.common.data.service.BaseResponse;
+import net.datafans.android.common.helper.DipHelper;
 
 public abstract class FragmentController extends Controller {
 
@@ -84,6 +85,7 @@ public abstract class FragmentController extends Controller {
         View cusView = getCusToolbarView();
         if (cusView != null) {
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+            params.rightMargin = DipHelper.dip2px(this, 15);
             cusView.setBackgroundColor(Color.TRANSPARENT);
             toolbar.addView(cusView, params);
         }

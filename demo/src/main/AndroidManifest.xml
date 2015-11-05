@@ -46,6 +46,8 @@
         <activity
             android:name=".activity.ViewPagerActivity"
             android:label="@string/title_activity_view_pager" >
+
+
         </activity>
         <activity
             android:name=".activity.MainTabActivity"
@@ -54,6 +56,12 @@
         <activity
             android:name=".activity.MainCusTabActivity"
             android:label="@string/title_activity_main_tab" >
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
         </activity>
         <activity
@@ -79,11 +87,7 @@
         <activity
             android:name=".activity.FullScreenActivity"
             android:label="@string/title_activity_full_screen" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 

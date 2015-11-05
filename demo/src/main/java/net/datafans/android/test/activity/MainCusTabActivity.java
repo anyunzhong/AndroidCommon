@@ -2,7 +2,6 @@ package net.datafans.android.test.activity;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -66,7 +65,7 @@ public class MainCusTabActivity extends TabbarController {
 
     @Override
     public int getTabItemColor() {
-        return R.color.tab_main_selector;
+        return R.color.tabbar_selector;
     }
 
 

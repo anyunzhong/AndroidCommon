@@ -45,5 +45,8 @@ public abstract class TabbarController extends FragmentController {
         return true;
     }
 
+    public void onClickTab(int index){}
+
+
 
 }

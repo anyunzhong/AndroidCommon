@@ -50,7 +50,7 @@ public class MainTabActivity extends TabbarController {
 
     @Override
     public int getTabItemColor() {
-        return R.color.tab_main_selector;
+        return R.color.tabbar_selector;
     }
 
     @Override

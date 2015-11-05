@@ -29,8 +29,8 @@ public class ShopListDataService extends DataService {
     protected void setRequestParams(RequestParams params) {
         super.setRequestParams(params);
         params.put("api_version", 1);
-        params.put("token", "8c3c3f96b7788451567b6518f1676adc");
-        params.put("user_id", 100001);
+        params.put("token", "37f54ae1713fddc11c387b66acb0ffe8");
+        params.put("user_id", 100005);
     }
 
     @Override

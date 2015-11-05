@@ -1,24 +1,21 @@
 package net.datafans.android.test.activity;
 
-import java.util.List;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import net.datafans.android.common.data.service.BaseResponse;
-import net.datafans.android.common.data.service.DataServiceDelegate;
-import net.datafans.android.common.widget.controller.TableViewController;
+import net.datafans.android.common.widget.controller.GroupTableViewController;
 import net.datafans.android.common.widget.table.TableViewCell;
-import net.datafans.android.common.widget.table.TableViewStyle;
 import net.datafans.android.common.widget.table.refresh.RefreshControlType;
 import net.datafans.android.test.R;
 import net.datafans.android.test.data.service.Shop;
 import net.datafans.android.test.data.service.ShopListDataService;
 
-import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
+import java.util.List;
 
-public class ShopListController extends TableViewController<Shop> {
+public class ShopListController extends GroupTableViewController<Shop> {
 
     private List<Shop> shopList;
 
@@ -30,9 +27,6 @@ public class ShopListController extends TableViewController<Shop> {
         dataService = new ShopListDataService();
         dataService.setDelegate(this);
         shopList = dataService.getShopList();
-
-
-        setStyle(TableViewStyle.GROUP);
 
         super.onCreate(savedInstanceState);
 

@@ -5,6 +5,7 @@ import android.view.View;
 
 import net.datafans.android.common.helper.FirstLetterHelper;
 import net.datafans.android.common.widget.table.GroupTableView;
+import net.datafans.android.common.widget.table.GroupTableViewDataSource;
 import net.datafans.android.common.widget.table.TableView;
 import net.datafans.android.common.widget.table.TableViewCell;
 import net.datafans.android.common.widget.table.TableViewDataSource;
@@ -22,7 +23,7 @@ import java.util.Set;
 /**
  * Created by zhonganyun on 15/8/18.
  */
-public class SectionIndexTableView<T> implements TableViewDataSource<T>, TableViewDelegate {
+public class SectionIndexTableView<T> implements GroupTableViewDataSource<T>, TableViewDelegate {
 
 
     //分组标题

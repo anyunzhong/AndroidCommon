@@ -271,17 +271,27 @@ public class TableView<T> implements ListViewListener {
                 if (row == 0 && holder != null) {
                     holder.topline.setVisibility(View.GONE);
                     holder.bottomline.setVisibility(View.VISIBLE);
-                    AbsListView.LayoutParams layoutParams = new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dataSource.getSectionHeaderHeight(section));
-                    holder.rootView.setLayoutParams(layoutParams);
-                    holder.titleView.setText(dataSource.getSectionHeaderTitle(section));
+
+                    if (dataSource instanceof GroupTableViewDataSource) {
+                        GroupTableViewDataSource source = (GroupTableViewDataSource) dataSource;
+
+                        AbsListView.LayoutParams layoutParams = new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, source.getSectionHeaderHeight(section));
+                        holder.rootView.setLayoutParams(layoutParams);
+
+                        holder.titleView.setText(source.getSectionHeaderTitle(section));
+                    }
+
                 }
 
                 if (row == dataSource.getRows(section) + 1 && holder != null) {
                     holder.topline.setVisibility(View.VISIBLE);
                     holder.bottomline.setVisibility(View.GONE);
-                    AbsListView.LayoutParams layoutParams = new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dataSource.getSectionFooterHeight(section));
-                    holder.rootView.setLayoutParams(layoutParams);
-                    holder.titleView.setText(dataSource.getSectionFooterTitle(section));
+                    if (dataSource instanceof GroupTableViewDataSource) {
+                        GroupTableViewDataSource source = (GroupTableViewDataSource) dataSource;
+                        AbsListView.LayoutParams layoutParams = new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, source.getSectionFooterHeight(section));
+                        holder.rootView.setLayoutParams(layoutParams);
+                        holder.titleView.setText(source.getSectionFooterTitle(section));
+                    }
                 }
 
 
@@ -341,7 +351,12 @@ public class TableView<T> implements ListViewListener {
     private int getTotalCellCount() {
         if (dataSource == null)
             return 0;
-        int section = dataSource.getSections();
+        int section = 1;
+        if (dataSource instanceof GroupTableViewDataSource) {
+            GroupTableViewDataSource source = (GroupTableViewDataSource) dataSource;
+            section = source.getSections();
+        }
+
         if (style == TableViewStyle.PLAIN)
             section = 1;
         int totalCount = 0;
@@ -465,8 +480,6 @@ public class TableView<T> implements ListViewListener {
             this.dataSource = dataSource;
             return this;
         }
-
-
 
 
         public void setStyle(TableViewStyle style) {

@@ -1,29 +1,21 @@
 package net.datafans.android.common.widget.controller;
 
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.widget.Toast;
+
 import net.datafans.android.common.data.service.BaseResponse;
-import net.datafans.android.common.widget.table.GroupTableView;
 import net.datafans.android.common.widget.table.PlainTableView;
 import net.datafans.android.common.widget.table.TableView;
 import net.datafans.android.common.widget.table.TableViewDataSource;
 import net.datafans.android.common.widget.table.TableViewDelegate;
 import net.datafans.android.common.widget.table.TableViewFragment;
-import net.datafans.android.common.widget.table.TableViewStyle;
 import net.datafans.android.common.widget.table.refresh.RefreshControlType;
-
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.widget.Toast;
 
 public abstract class TableViewController<T> extends FragmentController implements
         TableViewDataSource<T>, TableViewDelegate {
 
     protected TableView<T> tableView;
-
-    private TableViewStyle style;
-
-    public void setStyle(TableViewStyle style) {
-        this.style = style;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,14 +27,7 @@ public abstract class TableViewController<T> extends FragmentController implemen
 
         if (tableView == null) {
 
-            TableView.Builder<T> builder;
-
-            if (style == TableViewStyle.GROUP) {
-                builder = new GroupTableView.Builder<>();
-            } else {
-                builder = new PlainTableView.Builder<>();
-            }
-
+            TableView.Builder<T> builder = new PlainTableView.Builder<>();
             builder.setContext(this);
             builder.setRefreshType(getRefreshControlType());
             builder.setEnableLoadMore(enableRefresh());
@@ -105,33 +90,6 @@ public abstract class TableViewController<T> extends FragmentController implemen
     protected boolean enableAutoLoadMore() {
         return false;
     }
-
-
-    @Override
-    public int getSections() {
-        return 1;
-    }
-
-    @Override
-    public int getSectionFooterHeight(int section) {
-        return style == TableViewStyle.GROUP ? 150 : 0;
-    }
-
-    @Override
-    public int getSectionHeaderHeight(int section) {
-        return style == TableViewStyle.GROUP ? 150 : 0;
-    }
-
-    @Override
-    public String getSectionFooterTitle(int section) {
-        return "";
-    }
-
-    @Override
-    public String getSectionHeaderTitle(int section) {
-        return "";
-    }
-
 
     @Override
     public int getItemViewType(int section, int row) {

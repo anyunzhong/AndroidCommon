@@ -23,6 +23,8 @@ public abstract class GroupTableViewController<T> extends TableViewController<T>
             builder.setEnableAutoLoadMore(enableAutoLoadMore());
             builder.setDataSource(this);
             builder.setDelegate(this);
+            builder.setHeaderView(getTableHeaderView());
+            builder.setFooterView(getTableFooterView());
             tableView = builder.build();
 
         }

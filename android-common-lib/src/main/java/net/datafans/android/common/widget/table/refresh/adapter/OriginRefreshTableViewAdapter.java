@@ -2,7 +2,6 @@ package net.datafans.android.common.widget.table.refresh.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,9 +10,9 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import net.datafans.android.common.R;
-import net.datafans.android.common.widget.table.refresh.ListViewAdapter;
+import net.datafans.android.common.widget.table.refresh.RefreshTableViewAdapter;
 
-public class OriginListViewAdapter extends ListViewAdapter implements
+public class OriginRefreshTableViewAdapter extends RefreshTableViewAdapter implements
 		OnRefreshListener {
 
 	private ListView listView;
@@ -21,7 +20,7 @@ public class OriginListViewAdapter extends ListViewAdapter implements
 	private LinearLayout layout;
 
 	@SuppressLint("InflateParams")
-	public OriginListViewAdapter(Context context, BaseAdapter adapter) {
+	public OriginRefreshTableViewAdapter(Context context, BaseAdapter adapter) {
 
 		View view = LayoutInflater.from(context).inflate(
 				R.layout.origin_listview, null);
@@ -29,7 +28,7 @@ public class OriginListViewAdapter extends ListViewAdapter implements
 
 		listView = (ListView) layout.findViewById(R.id.listview);
 
-		listView.setAdapter(adapter);
+		//listView.setAdapter(adapter);
 
 	}
 
@@ -37,7 +36,6 @@ public class OriginListViewAdapter extends ListViewAdapter implements
 	public View getRootView() {
 		return layout;
 	}
-
 
 	@Override
 	public ListView getListView() {

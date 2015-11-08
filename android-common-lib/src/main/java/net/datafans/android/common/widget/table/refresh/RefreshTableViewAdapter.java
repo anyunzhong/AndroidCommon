@@ -3,9 +3,9 @@ package net.datafans.android.common.widget.table.refresh;
 import android.view.View;
 import android.widget.ListView;
 
-public abstract class ListViewAdapter {
+public abstract class RefreshTableViewAdapter {
 
-	private ListViewListener listener;
+	private RefreshTableViewListener listener;
 
 	public abstract View getRootView();
 
@@ -23,11 +23,11 @@ public abstract class ListViewAdapter {
 
 	public abstract void loadOver(boolean over);
 
-	public ListViewListener getListener() {
+	public RefreshTableViewListener getListener() {
 		return listener;
 	}
 
-	public void setListener(ListViewListener listener) {
+	public void setListener(RefreshTableViewListener listener) {
 		this.listener = listener;
 	}
 

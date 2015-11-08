@@ -12,27 +12,27 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import net.datafans.android.common.R;
-import net.datafans.android.common.widget.table.refresh.ListViewAdapter;
-import net.datafans.android.common.widget.table.refresh.ListViewListener;
 import net.datafans.android.common.widget.table.refresh.RefreshControlType;
-import net.datafans.android.common.widget.table.refresh.adapter.BGAListViewAdapter;
-import net.datafans.android.common.widget.table.refresh.adapter.BGAListViewAdapter.RefreshType;
-import net.datafans.android.common.widget.table.refresh.adapter.DropDownListViewAdapter;
-import net.datafans.android.common.widget.table.refresh.adapter.OriginListViewAdapter;
-import net.datafans.android.common.widget.table.refresh.adapter.PullDownListViewAdapter;
-import net.datafans.android.common.widget.table.refresh.adapter.SwipeRefreshListViewAdapter;
-import net.datafans.android.common.widget.table.refresh.adapter.UltraPullToRefreshListViewAdapter;
+import net.datafans.android.common.widget.table.refresh.RefreshTableViewAdapter;
+import net.datafans.android.common.widget.table.refresh.RefreshTableViewListener;
+import net.datafans.android.common.widget.table.refresh.adapter.BGARefreshTableViewAdapter;
+import net.datafans.android.common.widget.table.refresh.adapter.BGARefreshTableViewAdapter.RefreshType;
+import net.datafans.android.common.widget.table.refresh.adapter.DropDownRefreshTableViewAdapter;
+import net.datafans.android.common.widget.table.refresh.adapter.OriginRefreshTableViewAdapter;
+import net.datafans.android.common.widget.table.refresh.adapter.PullDownRefreshTableViewAdapter;
+import net.datafans.android.common.widget.table.refresh.adapter.SwipeRefreshRefreshTableViewAdapter;
+import net.datafans.android.common.widget.table.refresh.adapter.UltraPullToRefreshRefreshTableViewAdapter;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class TableView<T> implements ListViewListener {
+public class TableView<T> implements RefreshTableViewListener {
 
-    private Map<RefreshControlType, ListViewAdapter> adapterMap = new HashMap<>();
+    private Map<RefreshControlType, RefreshTableViewAdapter> adapterMap = new HashMap<>();
 
     private RefreshControlType refreshType;
 
-    private TableViewAdapter tableViewAdapter;
+    private TableViewAdapter listViewAdapter;
     private TableViewDataSource<T> dataSource;
     private TableViewDelegate delegate;
 
@@ -46,10 +46,13 @@ public class TableView<T> implements ListViewListener {
 
     private TableViewStyle style;
 
+    private View headerView;
+    private View footerView;
+
 
     protected TableView(Context context, RefreshControlType type,
                         boolean enableRefresh, boolean enableLoadMore,
-                        boolean enableAutoLoadMore, TableViewStyle style, TableViewDataSource<T> dataSource, TableViewDelegate delegate) {
+                        boolean enableAutoLoadMore, TableViewStyle style, TableViewDataSource<T> dataSource, TableViewDelegate delegate, View headerView, View footerView) {
         this.context = context;
         this.enableRefresh = enableRefresh;
         this.enableLoadMore = enableLoadMore;
@@ -58,46 +61,49 @@ public class TableView<T> implements ListViewListener {
         refreshType = type;
         this.dataSource = dataSource;
         this.delegate = delegate;
+
+        this.headerView = headerView;
+        this.footerView = footerView;
         init();
     }
 
 
     private void init() {
-        tableViewAdapter = new TableViewAdapter();
+        listViewAdapter = new TableViewAdapter();
         initView();
     }
 
-    private ListViewAdapter getAdapter(RefreshControlType type) {
-        ListViewAdapter adapter = adapterMap.get(type);
+    private RefreshTableViewAdapter getAdapter(RefreshControlType type) {
+        RefreshTableViewAdapter adapter = adapterMap.get(type);
         if (adapter == null) {
             switch (type) {
                 case None:
-                    adapter = new OriginListViewAdapter(context, tableViewAdapter);
+                    adapter = new OriginRefreshTableViewAdapter(context, listViewAdapter);
                     break;
                 case PullDown:
-                    adapter = new PullDownListViewAdapter(context, tableViewAdapter);
+                    adapter = new PullDownRefreshTableViewAdapter(context, listViewAdapter);
                     break;
                 case SwipeRefresh:
-                    adapter = new SwipeRefreshListViewAdapter(context,
-                            tableViewAdapter);
+                    adapter = new SwipeRefreshRefreshTableViewAdapter(context,
+                            listViewAdapter);
                     break;
                 case UltraPullToRefresh:
-                    adapter = new UltraPullToRefreshListViewAdapter(context,
-                            tableViewAdapter);
+                    adapter = new UltraPullToRefreshRefreshTableViewAdapter(context,
+                            listViewAdapter);
                     break;
                 case DropDown:
-                    adapter = new DropDownListViewAdapter(context, tableViewAdapter);
+                    adapter = new DropDownRefreshTableViewAdapter(context, listViewAdapter);
                     break;
                 case BGANormal:
-                    adapter = new BGAListViewAdapter(context, tableViewAdapter,
+                    adapter = new BGARefreshTableViewAdapter(context, listViewAdapter,
                             RefreshType.Normal);
                     break;
                 case BGAMooc:
-                    adapter = new BGAListViewAdapter(context, tableViewAdapter,
+                    adapter = new BGARefreshTableViewAdapter(context, listViewAdapter,
                             RefreshType.MoocStyle);
                     break;
                 case BGAStickiness:
-                    adapter = new BGAListViewAdapter(context, tableViewAdapter,
+                    adapter = new BGARefreshTableViewAdapter(context, listViewAdapter,
                             RefreshType.Stickiness);
                     break;
                 default:
@@ -108,6 +114,17 @@ public class TableView<T> implements ListViewListener {
             adapter.enableLoadMore(enableLoadMore);
             adapter.enableAutoLoadMore(enableAutoLoadMore);
 
+            ListView listView = adapter.getListView();
+            if (headerView != null) {
+                listView.addHeaderView(headerView);
+            }
+
+            if (footerView != null) {
+                listView.addHeaderView(footerView);
+            }
+
+            adapter.getListView().setAdapter(listViewAdapter);
+
             adapterMap.put(type, adapter);
         }
         return adapter;
@@ -117,7 +134,7 @@ public class TableView<T> implements ListViewListener {
         return context;
     }
 
-    public ListViewAdapter getAdapter() {
+    public RefreshTableViewAdapter getAdapter() {
         return getAdapter(refreshType);
     }
 
@@ -125,28 +142,35 @@ public class TableView<T> implements ListViewListener {
         return getAdapter().getRootView();
     }
 
-    public BaseAdapter getTableViewAdapter() {
-        return tableViewAdapter;
+    public BaseAdapter getListViewAdapter() {
+        return listViewAdapter;
     }
 
     public void reloadData() {
-        tableViewAdapter.notifyDataSetChanged();
+        listViewAdapter.notifyDataSetChanged();
     }
 
     private void initView() {
 
-        ListViewAdapter adapter = getAdapter();
+        RefreshTableViewAdapter adapter = getAdapter();
         adapter.setListener(this);
 
-        ListView listView = adapter.getListView();
+        final ListView listView = adapter.getListView();
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+
+                if (TableView.this.headerView != null) position = position - 1;
                 if (delegate == null) return;
                 int section = getSection(position);
                 int row = getRow(position);
+
                 if (style == TableViewStyle.GROUP)
                     row = row - 1;
+//                if (style == TableViewStyle.PLAIN) {
+//                    if (TableView.this.headerView != null)
+//                        row--;
+//                }
                 Log.d("AndroidCommon", "row click: " + row);
                 delegate.onClickRow(section, row);
             }
@@ -228,7 +252,6 @@ public class TableView<T> implements ListViewListener {
         @Override
         public View getView(final int position, View convertView,
                             ViewGroup parent) {
-
 
             int section = getSection(position);
             int row = getRow(position);
@@ -433,6 +456,14 @@ public class TableView<T> implements ListViewListener {
         getAdapter().getListView().setDivider(null);
     }
 
+    public View getTableHeaderView() {
+        return null;
+    }
+
+    public View getTableFooterView() {
+        return null;
+    }
+
 
     public static class Builder<T> {
 
@@ -445,6 +476,26 @@ public class TableView<T> implements ListViewListener {
         private boolean enableAutoLoadMore = false;
         private TableViewStyle style;
 
+        public View getHeaderView() {
+            return headerView;
+        }
+
+        public Builder setHeaderView(View headerView) {
+            this.headerView = headerView;
+            return this;
+        }
+
+        public View getFooterView() {
+            return footerView;
+        }
+
+        public Builder setFooterView(View footerView) {
+            this.footerView = footerView;
+            return this;
+        }
+
+        private View headerView;
+        private View footerView;
 
         public Builder<T> setRefreshType(RefreshControlType refreshType) {
             this.refreshType = refreshType;
@@ -519,7 +570,7 @@ public class TableView<T> implements ListViewListener {
         }
 
         public TableView<T> build() {
-            return new TableView<>(context, refreshType, enableRefresh, enableLoadMore, enableAutoLoadMore, style, dataSource, delegate);
+            return new TableView<>(context, refreshType, enableRefresh, enableLoadMore, enableAutoLoadMore, style, dataSource, delegate, headerView, footerView);
         }
 
     }

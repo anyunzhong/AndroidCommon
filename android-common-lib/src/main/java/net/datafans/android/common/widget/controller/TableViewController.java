@@ -2,9 +2,11 @@ package net.datafans.android.common.widget.controller;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.View;
 import android.widget.Toast;
 
 import net.datafans.android.common.data.service.BaseResponse;
+import net.datafans.android.common.data.service.DataService;
 import net.datafans.android.common.widget.table.PlainTableView;
 import net.datafans.android.common.widget.table.TableView;
 import net.datafans.android.common.widget.table.TableViewDataSource;
@@ -35,6 +37,8 @@ public abstract class TableViewController<T> extends FragmentController implemen
             builder.setEnableAutoLoadMore(enableAutoLoadMore());
             builder.setDataSource(this);
             builder.setDelegate(this);
+            builder.setHeaderView(getTableHeaderView());
+            builder.setFooterView(getTableFooterView());
 
             tableView = builder.build();
 
@@ -43,21 +47,21 @@ public abstract class TableViewController<T> extends FragmentController implemen
     }
 
     @Override
-    public void onStatusOk(BaseResponse response, Class<?> type) {
-        super.onStatusOk(response, type);
+    public void onStatusOk(BaseResponse response, DataService service) {
+        super.onStatusOk(response, service);
         onEnd();
     }
 
     @Override
-    public void onStatusError(BaseResponse response) {
-        super.onStatusError(response);
+    public void onStatusError(BaseResponse response, DataService service) {
+        super.onStatusError(response, service);
         onEnd();
     }
 
     @Override
     public void onRequestError(int errorCode, byte[] errorResponse,
-                               Throwable throwable) {
-        super.onRequestError(errorCode, errorResponse, throwable);
+                               Throwable throwable, DataService service) {
+        super.onRequestError(errorCode, errorResponse, throwable, service);
         onEnd();
     }
 
@@ -99,5 +103,13 @@ public abstract class TableViewController<T> extends FragmentController implemen
     @Override
     public int getItemViewTypeCount() {
         return 1;
+    }
+
+    protected View getTableHeaderView() {
+        return null;
+    }
+
+    protected View getTableFooterView() {
+        return null;
     }
 }

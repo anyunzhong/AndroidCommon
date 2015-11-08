@@ -19,6 +19,17 @@
         android:text="Alert模式" />
 
     <TextView
+        android:id="@+id/alertModeUpgrade"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/darker_gray"
+        android:textColor="@android:color/white"
+        android:layout_below="@+id/alertMode"
+        android:padding="30dp"
+        android:text="Alert模式(升级例子)" />
+
+    <TextView
         android:id="@+id/sheetMode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -26,7 +37,7 @@
         android:background="@android:color/darker_gray"
         android:textColor="@android:color/white"
         android:padding="30dp"
-        android:layout_below="@+id/alertMode"
+        android:layout_below="@+id/alertModeUpgrade"
         android:text="Sheet模式" />
 
 </RelativeLayout>

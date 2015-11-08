@@ -3,7 +3,7 @@ package net.datafans.android.common.widget.table.refresh.adapter;
 import in.srain.cube.views.ptr.PtrDefaultHandler;
 import in.srain.cube.views.ptr.PtrFrameLayout;
 import in.srain.cube.views.ptr.PtrHandler;
-import net.datafans.android.common.widget.table.refresh.ListViewAdapter;
+import net.datafans.android.common.widget.table.refresh.RefreshTableViewAdapter;
 import android.content.Context;
 import android.graphics.Color;
 import android.view.View;
@@ -11,20 +11,20 @@ import android.widget.BaseAdapter;
 import android.widget.FrameLayout.LayoutParams;
 import android.widget.ListView;
 
-public class UltraPullToRefreshListViewAdapter extends ListViewAdapter {
+public class UltraPullToRefreshRefreshTableViewAdapter extends RefreshTableViewAdapter {
 
 	private PtrFrameLayout frameLayout;
 	private ListView listView;
 
-	public UltraPullToRefreshListViewAdapter(Context context,
-			BaseAdapter adapter) {
+	public UltraPullToRefreshRefreshTableViewAdapter(Context context,
+													 BaseAdapter adapter) {
 
 		LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
 		frameLayout = new PtrFrameLayout(context);
 		frameLayout.setLayoutParams(params);
 		listView = new ListView(context);
 		frameLayout.addView(listView);
-		listView.setAdapter(adapter);
+		//listView.setAdapter(adapter);
 		
 		listView.setBackgroundColor(Color.BLUE);
 		listView.setLayoutParams(params);

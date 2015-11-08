@@ -1,7 +1,5 @@
 package net.datafans.android.common.widget.controller;
 
-import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Build;
@@ -14,6 +12,7 @@ import android.widget.Toast;
 
 import net.datafans.android.common.config.AndroidCommon;
 import net.datafans.android.common.data.service.BaseResponse;
+import net.datafans.android.common.data.service.DataService;
 import net.datafans.android.common.data.service.DataServiceDelegate;
 import net.datafans.android.common.lib.systembar.SystemBarTintManager;
 
@@ -21,7 +20,7 @@ public abstract class Controller extends AppCompatActivity implements DataServic
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        if (enableFullScreen()){
+        if (enableFullScreen()) {
             requestWindowFeature(Window.FEATURE_NO_TITLE);
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
@@ -66,12 +65,12 @@ public abstract class Controller extends AppCompatActivity implements DataServic
     }
 
     @Override
-    public void onStatusOk(BaseResponse response, Class<?> type) {
+    public void onStatusOk(BaseResponse response, DataService service) {
 
     }
 
     @Override
-    public void onStatusError(BaseResponse response) {
+    public void onStatusError(BaseResponse response, DataService service) {
         Log.e("ANDROID_COMMON", response.toString());
         Toast toast = Toast.makeText(this, response.getErrorMsg(),
                 Toast.LENGTH_SHORT);
@@ -80,7 +79,7 @@ public abstract class Controller extends AppCompatActivity implements DataServic
 
     @Override
     public void onRequestError(int errorCode, byte[] errorResponse,
-                               Throwable throwable) {
+                               Throwable throwable, DataService service) {
         if (errorCode == -2) {
             Log.e("ANDROID_COMMON", "network exception");
             Toast toast = Toast.makeText(this, "网络异常", Toast.LENGTH_SHORT);

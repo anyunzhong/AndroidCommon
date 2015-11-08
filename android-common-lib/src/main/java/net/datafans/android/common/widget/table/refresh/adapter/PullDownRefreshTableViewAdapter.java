@@ -2,21 +2,21 @@ package net.datafans.android.common.widget.table.refresh.adapter;
 
 import net.datafans.android.common.lib.refresh.pulldown.PullDownView;
 import net.datafans.android.common.lib.refresh.pulldown.PullDownView.OnPullDownListener;
-import net.datafans.android.common.widget.table.refresh.ListViewAdapter;
+import net.datafans.android.common.widget.table.refresh.RefreshTableViewAdapter;
 import android.content.Context;
 import android.view.View;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 
-public class PullDownListViewAdapter extends ListViewAdapter implements
+public class PullDownRefreshTableViewAdapter extends RefreshTableViewAdapter implements
 		OnPullDownListener {
 
 	private PullDownView pullDownView;
 
-	public PullDownListViewAdapter(Context context, BaseAdapter adapter) {
+	public PullDownRefreshTableViewAdapter(Context context, BaseAdapter adapter) {
 		pullDownView = new PullDownView(context);
 		pullDownView.setOnPullDownListener(this);
-		pullDownView.getListView().setAdapter(adapter);
+		//pullDownView.getListView().setAdapter(adapter);
 		pullDownView.enableAutoFetchMore(true, 1);
 
 	}

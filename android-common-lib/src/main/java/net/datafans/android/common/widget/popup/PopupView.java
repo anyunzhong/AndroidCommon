@@ -35,12 +35,13 @@ public class PopupView {
 
     private PopupWindow popupWindow;
 
-    private View popview;
-    private View focusView;
     private TextView titleView;
     private TextView descView;
     private View divider;
     private LinearLayout contentView;
+
+    private View cusDivider;
+    private LinearLayout cusContentView;
 
     public PopupView(Context context, View rootView, boolean dismissOnTouchSpace) {
         this.context = context;
@@ -63,14 +64,17 @@ public class PopupView {
 
 
     private void init() {
-        popview = LayoutInflater.from(context).inflate(getLayout(), null);
+        View popview = LayoutInflater.from(context).inflate(getLayout(), null);
 
-        focusView = popview.findViewById(R.id.focusArea);
+        View focusView = popview.findViewById(R.id.focusArea);
 
         titleView = (TextView) popview.findViewById(R.id.title);
         descView = (TextView) popview.findViewById(R.id.desc);
         divider = popview.findViewById(R.id.divider);
         contentView = (LinearLayout) popview.findViewById(R.id.content);
+
+        cusDivider = popview.findViewById(R.id.cusDivider);
+        cusContentView = (LinearLayout) popview.findViewById(R.id.cusContent);
 
         popupWindow = new PopupWindow(popview,
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, true);
@@ -206,6 +210,17 @@ public class PopupView {
     public void show() {
         popupWindow.showAtLocation(rootView, Gravity.CENTER, 0, 0);
     }
+
+    public void setCustomContentView(View view){
+        if (view == null) return;
+
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        cusContentView.addView(view,params);
+
+        cusDivider.setVisibility(View.VISIBLE);
+
+    }
+
 
 
 }

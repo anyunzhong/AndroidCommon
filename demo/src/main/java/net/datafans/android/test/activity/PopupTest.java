@@ -69,6 +69,43 @@ public class PopupTest extends AppCompatActivity {
 
 
 
+        TextView alertUpgradeTextView = (TextView) findViewById(R.id.alertModeUpgrade);
+        alertUpgradeTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                PopupView popupView = new PopupView(PopupTest.this, rootView, false);
+                popupView.setTitle("升级到1.1");
+
+
+                View cusView = getLayoutInflater().inflate(R.layout.popup_upgrade_content, null);
+                popupView.setCustomContentView(cusView);
+
+                List<PopItem> items = new ArrayList<PopItem>();
+                items.add(new PopItem("升级", new PopItem.Listener() {
+                    @Override
+                    public void onClick() {
+                        Log.d("Pop", "Click");
+                    }
+                }));
+
+                items.add(new PopItem("暂不", new PopItem.Listener() {
+                    @Override
+                    public void onClick() {
+                        Log.d("Pop", "Click");
+                    }
+                }));
+
+                popupView.setItems(items);
+
+
+                popupView.show();
+            }
+        });
+
+
+
+
 
         TextView sheetTextView = (TextView) findViewById(R.id.sheetMode);
         sheetTextView.setOnClickListener(new View.OnClickListener() {

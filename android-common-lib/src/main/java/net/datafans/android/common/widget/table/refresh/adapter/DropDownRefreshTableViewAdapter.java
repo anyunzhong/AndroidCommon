@@ -8,16 +8,16 @@ import android.view.View.OnClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 
-import net.datafans.android.common.widget.table.refresh.ListViewAdapter;
+import net.datafans.android.common.widget.table.refresh.RefreshTableViewAdapter;
 
-public class DropDownListViewAdapter extends ListViewAdapter {
+public class DropDownRefreshTableViewAdapter extends RefreshTableViewAdapter {
 
 	private DropDownListView listView;
 
-	public DropDownListViewAdapter(Context context, BaseAdapter adapter) {
+	public DropDownRefreshTableViewAdapter(Context context, BaseAdapter adapter) {
 
 		listView = new DropDownListView(context);
-		listView.setAdapter(adapter);
+		//listView.setAdapter(adapter);
 		listView.setDropDownStyle(true);
 		listView.setOnBottomStyle(true);
 		listView.setShowFooterProgressBar(true);

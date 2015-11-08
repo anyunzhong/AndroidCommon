@@ -1,7 +1,7 @@
 package net.datafans.android.common.widget.table.refresh.adapter;
 
 import net.datafans.android.common.R;
-import net.datafans.android.common.widget.table.refresh.ListViewAdapter;
+import net.datafans.android.common.widget.table.refresh.RefreshTableViewAdapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -20,7 +20,7 @@ import cn.bingoogolapple.refreshlayout.BGARefreshViewHolder;
 import cn.bingoogolapple.refreshlayout.BGAStickinessRefreshViewHolder;
 import cn.trinea.android.common.view.DropDownListView;
 
-public class BGAListViewAdapter extends ListViewAdapter implements
+public class BGARefreshTableViewAdapter extends RefreshTableViewAdapter implements
         BGARefreshLayoutDelegate {
 
     private BGARefreshLayout refreshLayout;
@@ -29,8 +29,8 @@ public class BGAListViewAdapter extends ListViewAdapter implements
     private DropDownListView listView;
 
     @SuppressLint("InflateParams")
-    public BGAListViewAdapter(Context context, BaseAdapter adapter,
-                              RefreshType type) {
+    public BGARefreshTableViewAdapter(Context context, BaseAdapter adapter,
+                                      RefreshType type) {
         View view = LayoutInflater.from(context).inflate(R.layout.bga, null);
         refreshLayout = (BGARefreshLayout) view
                 .findViewById(R.id.rl_modulename_refresh);
@@ -56,7 +56,7 @@ public class BGAListViewAdapter extends ListViewAdapter implements
 
         listView = (DropDownListView) view
                 .findViewById(R.id.rl_modulename_refresh_listview);
-        listView.setAdapter(adapter);
+        //listView.setAdapter(adapter);
 
         listView.setDropDownStyle(false);
         listView.setOnBottomStyle(true);

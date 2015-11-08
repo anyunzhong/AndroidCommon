@@ -4,9 +4,14 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import net.datafans.android.common.data.service.BaseResponse;
+import net.datafans.android.common.data.service.DataService;
 import net.datafans.android.common.widget.controller.GroupTableViewController;
+import net.datafans.android.common.widget.controller.TableViewController;
+import net.datafans.android.common.widget.table.PlainTableView;
 import net.datafans.android.common.widget.table.TableViewCell;
 import net.datafans.android.common.widget.table.refresh.RefreshControlType;
 import net.datafans.android.test.R;
@@ -15,7 +20,7 @@ import net.datafans.android.test.data.service.ShopListDataService;
 
 import java.util.List;
 
-public class ShopListController extends GroupTableViewController<Shop> {
+public class ShopListController extends TableViewController<Shop> {
 
     private List<Shop> shopList;
 
@@ -74,7 +79,7 @@ public class ShopListController extends GroupTableViewController<Shop> {
     }
 
 
-    @Override
+    //@Override
     public int getSections() {
         return 1;
     }
@@ -82,19 +87,19 @@ public class ShopListController extends GroupTableViewController<Shop> {
     @Override
     public TableViewCell<Shop> getTableViewCell(int section, int row) {
         if (row % 2 == 0)
-            return new ShopListTableViewCell(R.layout.shop_list,this);
+            return new ShopListTableViewCell(R.layout.shop_list, this);
         else
             return new ShopListTableViewRedCell(R.layout.shop_list_red,
                     this);
     }
 
 
-    @Override
+    //@Override
     public String getSectionHeaderTitle(int section) {
         return "评论";
     }
 
-    @Override
+    //@Override
     public String getSectionFooterTitle(int section) {
         return "";
     }
@@ -137,7 +142,7 @@ public class ShopListController extends GroupTableViewController<Shop> {
     }
 
     @Override
-    public void onStatusOk(BaseResponse response, Class<?> type) {
+    public void onStatusOk(BaseResponse response, DataService service) {
 
         if (shopList.size() > 4) {
             loadOver(true);
@@ -145,11 +150,10 @@ public class ShopListController extends GroupTableViewController<Shop> {
             loadOver(false);
         }
 
-        super.onStatusOk(response, type);
+        super.onStatusOk(response, service);
         Log.d("response", response.toString());
 
     }
-
 
 
     @Override
@@ -168,4 +172,11 @@ public class ShopListController extends GroupTableViewController<Shop> {
         dataService.execute();
 
     }
+
+//    @Override
+//    protected View getTableHeaderView() {
+//        TextView textView = new TextView(this);
+//        textView.setText("hello world");
+//        return textView;
+//    }
 }

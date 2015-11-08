@@ -13,126 +13,125 @@ import com.loopj.android.http.RequestParams;
 
 public abstract class DataService {
 
-	private DataServiceDelegate delegate;
+    private DataServiceDelegate delegate;
 
-	private RequestType requestType;
+    private RequestType requestType;
 
-	private RequestParams params = new RequestParams();
+    private RequestParams params = new RequestParams();
 
-	public void execute() {
+    public void execute() {
 
-		if (!NetworkDetector.isAvailable(AndroidCommon.getContext())) {
-			onError(-2, null, null);
-		}
-		if (requestType == null) {
-			requestType = RequestType.GET;
-		}
-		setRequestParams(params);
-		executeRequest();
-	}
+        if (!NetworkDetector.isAvailable(AndroidCommon.getContext())) {
+            onError(-2, null, null);
+        }
+        if (requestType == null) {
+            requestType = RequestType.GET;
+        }
+        setRequestParams(params);
+        executeRequest();
+    }
 
-	protected void executeRequest() {
-		switch (requestType) {
-		case GET:
-			AsyncHttpClientHelper.get(getRequestUrl(), params, responseHandler);
-			break;
-		case POST:
-			AsyncHttpClientHelper
-					.post(getRequestUrl(), params, responseHandler);
-			break;
+    protected void executeRequest() {
+        switch (requestType) {
+            case GET:
+                AsyncHttpClientHelper.get(getRequestUrl(), params, responseHandler);
+                break;
+            case POST:
+                AsyncHttpClientHelper
+                        .post(getRequestUrl(), params, responseHandler);
+                break;
 
-		default:
-			break;
-		}
+            default:
+                break;
+        }
 
-	}
+    }
 
-	@SuppressWarnings("deprecation")
-	private AsyncHttpResponseHandler responseHandler = new AsyncHttpResponseHandler() {
+    @SuppressWarnings("deprecation")
+    private AsyncHttpResponseHandler responseHandler = new AsyncHttpResponseHandler() {
 
-		@Override
-		public void onFailure(int statusCode, Header[] headers,
-				byte[] errorResponse, Throwable throwable) {
-			Log.e("ANDROID_COMMON", statusCode + "  " + throwable.toString());
-			onError(statusCode, errorResponse, throwable);
-		}
+        @Override
+        public void onFailure(int statusCode, Header[] headers,
+                              byte[] errorResponse, Throwable throwable) {
+            Log.e("ANDROID_COMMON", statusCode + "  " + throwable.toString());
+            onError(statusCode, errorResponse, throwable);
+        }
 
-		@Override
-		public void onSuccess(int statusCode, Header[] headers, byte[] response) {
-			Log.e("ANDROID_COMMON", statusCode + "  " +response);
-			DataService.this.onSuccess(response);
-		}
-	};
+        @Override
+        public void onSuccess(int statusCode, Header[] headers, byte[] response) {
+            DataService.this.onSuccess(response);
+        }
+    };
 
-	private void onError(int statusCode, byte[] errorResponse,
-			Throwable throwable) {
-		Log.e("ANDROID_COMMON", delegate.toString());
-		if (delegate == null) {
-			return;
-		}
+    private void onError(int statusCode, byte[] errorResponse,
+                         Throwable throwable) {
+        Log.e("ANDROID_COMMON", delegate.toString());
+        if (delegate == null) {
+            return;
+        }
 
-		delegate.onRequestError(statusCode, errorResponse, throwable);
-	}
+        delegate.onRequestError(statusCode, errorResponse, throwable, this);
+    }
 
-	private void onSuccess(byte[] response) {
-		String data = new String(response);
-		if (data.equals("")) {
-			onError(-1, null, null);
-			return;
-		}
+    private void onSuccess(byte[] response) {
+        String data = new String(response);
+        if (data.equals("")) {
+            onError(-1, null, null);
+            return;
+        }
 
-		BaseResponse baseResponse = JSON.parseObject(data, BaseResponse.class);
-		if (baseResponse == null) {
-			// 数据解析错误
-			Log.e("ANDROID_COMMON", "data_parse_error");
-			onError(-1, null, null);
-			return;
-		}
+        BaseResponse baseResponse = JSON.parseObject(data, BaseResponse.class);
+        if (baseResponse == null) {
+            // 数据解析错误
+            Log.e("ANDROID_COMMON", "data_parse_error");
+            onError(-1, null, null);
+            return;
+        }
 
 
-		if (baseResponse.getStatus() == 1) {
-			parseResponse(baseResponse);
-			if (delegate!=null) {
-				delegate.onStatusOk(baseResponse, this.getClass());
-			}
-		} else {
-			if (delegate!=null) {
-				delegate.onStatusError(baseResponse);
-			}
+        if (baseResponse.getStatus() == 1) {
+            parseResponse(baseResponse);
+            if (delegate != null) {
+                delegate.onStatusOk(baseResponse, this);
+            }
+        } else {
+            if (delegate != null) {
+                delegate.onStatusError(baseResponse, this);
+            }
 
-		}
-	}
+        }
+    }
 
-	protected String getRequestDomain() {
-		return "";
-	}
+    protected String getRequestDomain() {
+        return "";
+    }
 
-	protected String getRequestPath() {
-		return "";
-	}
+    protected String getRequestPath() {
+        return "";
+    }
 
-	protected String getRequestUrl() {
-		return getRequestDomain() + getRequestPath();
-	}
+    protected String getRequestUrl() {
+        return getRequestDomain() + getRequestPath();
+    }
 
-	protected void parseResponse(BaseResponse response) {
+    protected void parseResponse(BaseResponse response) {
 
-	}
+    }
 
-	public DataServiceDelegate getDelegate() {
-		return delegate;
-	}
+    public DataServiceDelegate getDelegate() {
+        return delegate;
+    }
 
-	public void setDelegate(DataServiceDelegate delegate) {
-		this.delegate = delegate;
-	}
+    public void setDelegate(DataServiceDelegate delegate) {
+        this.delegate = delegate;
+    }
 
-	public void setRequestType(RequestType requestType) {
-		this.requestType = requestType;
-	}
+    public void setRequestType(RequestType requestType) {
+        this.requestType = requestType;
+    }
 
-	protected void setRequestParams(RequestParams params) {
+    protected void setRequestParams(RequestParams params) {
 
-	}
+    }
 
 }

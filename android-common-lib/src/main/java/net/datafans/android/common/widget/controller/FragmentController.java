@@ -17,6 +17,7 @@ import android.widget.RelativeLayout;
 
 import net.datafans.android.common.R;
 import net.datafans.android.common.data.service.BaseResponse;
+import net.datafans.android.common.data.service.DataService;
 import net.datafans.android.common.helper.DipHelper;
 
 public abstract class FragmentController extends Controller {
@@ -154,22 +155,22 @@ public abstract class FragmentController extends Controller {
 
     }
 
-    protected void showLoadingView() {
+    public void showLoadingView() {
         showLoading(true);
     }
 
 
-    protected void hideLoadingView() {
+    public void hideLoadingView() {
         showLoading(false);
     }
 
 
-    protected void showLoadFailView() {
+    public void showLoadFailView() {
         showLoadFail(true);
     }
 
 
-    protected void hideLoadFailView() {
+    public void hideLoadFailView() {
         showLoadFail(false);
     }
 
@@ -179,8 +180,8 @@ public abstract class FragmentController extends Controller {
     }
 
     @Override
-    public void onStatusOk(BaseResponse response, Class<?> type) {
-        super.onStatusOk(response, type);
+    public void onStatusOk(BaseResponse response, DataService service) {
+        super.onStatusOk(response, service);
         if (enableAutoLoadStateView()) {
             hideLoadingView();
             hideLoadFailView();
@@ -188,8 +189,8 @@ public abstract class FragmentController extends Controller {
     }
 
     @Override
-    public void onStatusError(BaseResponse response) {
-        super.onStatusError(response);
+    public void onStatusError(BaseResponse response, DataService service) {
+        super.onStatusError(response, service);
         if (enableAutoLoadStateView()) {
             hideLoadingView();
             showLoadFailView();
@@ -199,8 +200,8 @@ public abstract class FragmentController extends Controller {
 
     @Override
     public void onRequestError(int errorCode, byte[] errorResponse,
-                               Throwable throwable) {
-        super.onRequestError(errorCode, errorResponse, throwable);
+                               Throwable throwable, DataService service) {
+        super.onRequestError(errorCode, errorResponse, throwable, service);
 
         if (enableAutoLoadStateView()) {
             hideLoadingView();

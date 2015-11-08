@@ -70,6 +70,9 @@
         <activity
             android:name=".activity.TestSectionTableViewController"
             android:label="@string/title_activity_test_section_table_view_controller" >
+
+
+
         </activity>
         <activity
             android:name=".activity.HudTestActivity"
@@ -86,6 +89,10 @@
         <activity
             android:name=".activity.PopupTest"
             android:label="@string/title_activity_popup_test" >
+
+
+
+
         </activity>
         <activity
             android:name=".activity.FullScreenActivity"

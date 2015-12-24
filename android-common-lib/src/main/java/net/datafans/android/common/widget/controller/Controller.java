@@ -14,6 +14,7 @@ import net.datafans.android.common.config.AndroidCommon;
 import net.datafans.android.common.data.service.BaseResponse;
 import net.datafans.android.common.data.service.DataService;
 import net.datafans.android.common.data.service.DataServiceDelegate;
+import net.datafans.android.common.helper.LogHelper;
 import net.datafans.android.common.lib.systembar.SystemBarTintManager;
 
 public abstract class Controller extends AppCompatActivity implements DataServiceDelegate {
@@ -71,7 +72,7 @@ public abstract class Controller extends AppCompatActivity implements DataServic
 
     @Override
     public void onStatusError(BaseResponse response, DataService service) {
-        Log.e("ANDROID_COMMON", response.toString());
+        LogHelper.error(response.toString());
         Toast toast = Toast.makeText(this, response.getErrorMsg(),
                 Toast.LENGTH_SHORT);
         toast.show();
@@ -81,13 +82,13 @@ public abstract class Controller extends AppCompatActivity implements DataServic
     public void onRequestError(int errorCode, byte[] errorResponse,
                                Throwable throwable, DataService service) {
         if (errorCode == -2) {
-            Log.e("ANDROID_COMMON", "network exception");
+            LogHelper.error("network exception");
             Toast toast = Toast.makeText(this, "网络异常", Toast.LENGTH_SHORT);
             toast.show();
         }
 
         if (errorCode == -1) {
-            Log.e("ANDROID_COMMON", "data_parse_exception");
+            LogHelper.error("data_parse_exception");
             Toast toast = Toast.makeText(this, "数据解析错误", Toast.LENGTH_SHORT);
             toast.show();
         }

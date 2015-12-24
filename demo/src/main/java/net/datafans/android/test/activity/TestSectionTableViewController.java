@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import net.datafans.android.common.helper.LogHelper;
 import net.datafans.android.common.widget.controller.SectionIndexTableViewController;
 import net.datafans.android.common.widget.table.TableViewCell;
 import net.datafans.android.test.R;
@@ -60,7 +61,7 @@ public class TestSectionTableViewController extends SectionIndexTableViewControl
 
     @Override
     public void onClickRow(int index) {
-        Log.d("CLICK index", ""+index);
+        LogHelper.debug("" + index);
     }
 
     @Override
@@ -86,6 +87,6 @@ public class TestSectionTableViewController extends SectionIndexTableViewControl
 
     @Override
     public void onClickUnIndexedRow(int index) {
-        Log.d("CLICK unindex", ""+index);
+        LogHelper.debug("" + index);
     }
 }

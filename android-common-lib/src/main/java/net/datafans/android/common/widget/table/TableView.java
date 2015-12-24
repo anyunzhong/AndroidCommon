@@ -12,6 +12,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import net.datafans.android.common.R;
+import net.datafans.android.common.helper.LogHelper;
 import net.datafans.android.common.widget.table.refresh.RefreshControlType;
 import net.datafans.android.common.widget.table.refresh.RefreshTableViewAdapter;
 import net.datafans.android.common.widget.table.refresh.RefreshTableViewListener;
@@ -171,7 +172,7 @@ public class TableView<T> implements RefreshTableViewListener {
 //                    if (TableView.this.headerView != null)
 //                        row--;
 //                }
-                Log.d("AndroidCommon", "row click: " + row);
+                LogHelper.debug("row click: " + row);
                 delegate.onClickRow(section, row);
             }
         });
@@ -271,21 +272,21 @@ public class TableView<T> implements RefreshTableViewListener {
                         convertView = holder.rootView;
                         convertView.setTag(holder);
 
-                        Log.d("CELL", "GROUP: 创建HEADER OR FOOTER");
+                        LogHelper.debug("GROUP: 创建HEADER OR FOOTER");
                     } else {
                         cell = dataSource.getTableViewCell(section, row - 1);
                         convertView = cell.getView();
                         convertView.setTag(cell);
-                        Log.d("CELL", "GROUP: 创建CELL");
+                        LogHelper.debug("GROUP: 创建CELL");
                     }
 
                 } else {
 
                     if (type == 0) {
-                        Log.d("CELL", "GROUP: 重用HEADER OR FOOTER");
+                        LogHelper.debug("GROUP: 重用HEADER OR FOOTER");
                         holder = (ViewHolder) convertView.getTag();
                     } else {
-                        Log.d("CELL", "GROUP: 重用CELL");
+                        LogHelper.debug("GROUP: 重用CELL");
                         cell = (TableViewCell<T>) convertView.getTag();
                     }
                 }
@@ -342,7 +343,7 @@ public class TableView<T> implements RefreshTableViewListener {
                             convertView = cell.getView();
                             convertView.setTag(cell);
 
-                            Log.d("CELL", "PLAIN: 创建CELL  POSTION: " + position + "  TYPE:" + type + "   " + cell);
+                            LogHelper.debug("PLAIN: 创建CELL  POSTION: " + position + "  TYPE:" + type + "   " + cell);
                         }
                     }
 
@@ -351,7 +352,7 @@ public class TableView<T> implements RefreshTableViewListener {
                         if (type == i) {
 
                             cell = (TableViewCell<T>) convertView.getTag();
-                            Log.d("CELL", "PLAIN: 重用CELL   POSTION:" + position + "  TYPE:" + type + "   " + cell);
+                            LogHelper.debug("PLAIN: 重用CELL   POSTION:" + position + "  TYPE:" + type + "   " + cell);
                         }
                     }
                 }

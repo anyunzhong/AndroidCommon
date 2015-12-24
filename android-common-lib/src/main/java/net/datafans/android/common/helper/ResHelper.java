@@ -17,7 +17,7 @@ public class ResHelper {
             Field localField = R.mipmap.class.getField(name);
             return localField.getInt(name);
         } catch (Exception e) {
-            Log.e("Android-Common", e.toString());
+            LogHelper.error(e);
         }
         return 0;
     }

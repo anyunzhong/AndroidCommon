@@ -1,6 +1,7 @@
 package net.datafans.android.common.data.service;
 
 import net.datafans.android.common.config.AndroidCommon;
+import net.datafans.android.common.helper.LogHelper;
 import net.datafans.android.common.network.NetworkDetector;
 
 import org.apache.http.Header;
@@ -53,7 +54,7 @@ public abstract class DataService {
         @Override
         public void onFailure(int statusCode, Header[] headers,
                               byte[] errorResponse, Throwable throwable) {
-            Log.e("ANDROID_COMMON", statusCode + "  " + throwable.toString());
+            LogHelper.error(throwable);
             onError(statusCode, errorResponse, throwable);
         }
 
@@ -65,7 +66,6 @@ public abstract class DataService {
 
     private void onError(int statusCode, byte[] errorResponse,
                          Throwable throwable) {
-        Log.e("ANDROID_COMMON", delegate.toString());
         if (delegate == null) {
             return;
         }
@@ -83,7 +83,7 @@ public abstract class DataService {
         BaseResponse baseResponse = JSON.parseObject(data, BaseResponse.class);
         if (baseResponse == null) {
             // 数据解析错误
-            Log.e("ANDROID_COMMON", "data_parse_error");
+            LogHelper.error("data_parse_error");
             onError(-1, null, null);
             return;
         }

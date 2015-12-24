@@ -60,6 +60,7 @@ compile('net.datafans:bga-refresh-layout-lib:1.0.0')
     //compile 'me.relex:circleindicator:1.1.4@aar'
     //compile 'net.datafans:circleindicator:1.0.0'
     compile 'de.greenrobot:eventbus:2.4.0'
+
 }
 
 apply from: 'bintray-publish-github.gradle'

@@ -7,6 +7,7 @@ import android.widget.Toast;
 import net.datafans.android.common.data.service.BaseResponse;
 import net.datafans.android.common.data.service.DataService;
 import net.datafans.android.common.data.service.DataServiceDelegate;
+import net.datafans.android.common.helper.LogHelper;
 
 /**
  * Created by zhonganyun on 15/11/6.
@@ -21,7 +22,7 @@ public class DataServiceFragment extends Fragment implements DataServiceDelegate
 
     @Override
     public void onStatusError(BaseResponse response, DataService service) {
-        Log.e("ANDROID_COMMON", response.toString());
+        LogHelper.error(response.toString());
         Toast toast = Toast.makeText(getActivity(), response.getErrorMsg(),
                 Toast.LENGTH_SHORT);
         toast.show();
@@ -31,7 +32,7 @@ public class DataServiceFragment extends Fragment implements DataServiceDelegate
     public void onRequestError(int errorCode, byte[] errorResponse,
                                Throwable throwable, DataService service) {
         if (errorCode == -2) {
-            Log.e("ANDROID_COMMON", "network exception");
+            LogHelper.error("network exception");
             Toast toast = Toast.makeText(getActivity(), "网络异常", Toast.LENGTH_SHORT);
             toast.show();
         }

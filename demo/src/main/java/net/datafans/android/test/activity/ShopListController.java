@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import net.datafans.android.common.data.service.BaseResponse;
 import net.datafans.android.common.data.service.DataService;
+import net.datafans.android.common.helper.LogHelper;
 import net.datafans.android.common.widget.controller.GroupTableViewController;
 import net.datafans.android.common.widget.controller.TableViewController;
 import net.datafans.android.common.widget.table.PlainTableView;
@@ -107,7 +108,7 @@ public class ShopListController extends TableViewController<Shop> {
     @Override
     public void onClickRow(int section, int row) {
 
-        Log.d("section:row", section + ":" + row);
+        LogHelper.debug(section + ":" + row);
     }
 
     @Override
@@ -151,7 +152,7 @@ public class ShopListController extends TableViewController<Shop> {
         }
 
         super.onStatusOk(response, service);
-        Log.d("response", response.toString());
+        LogHelper.debug(response.toString());
 
     }
 

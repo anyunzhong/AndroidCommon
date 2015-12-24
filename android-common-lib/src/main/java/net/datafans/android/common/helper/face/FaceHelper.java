@@ -3,6 +3,7 @@ package net.datafans.android.common.helper.face;
 import android.content.Context;
 import android.util.Log;
 
+import net.datafans.android.common.helper.LogHelper;
 import net.datafans.android.common.helper.PListParser;
 
 import java.io.IOException;
@@ -48,7 +49,7 @@ public class FaceHelper {
             return dealExpression(context, source, pattern, 0);
         } catch (Exception e) {
             e.printStackTrace();
-            Log.e("Android-Common", e.toString());
+            LogHelper.error(e);
         }
 
         return null;
@@ -87,7 +88,7 @@ public class FaceHelper {
                 PListParser parser = new PListParser(context.getAssets().open("expression.xml"));
                 plistMap = (HashMap<String, String>) parser.root;
             } catch (IOException e) {
-                Log.e("Android-Common", e.toString());
+                LogHelper.error(e);
             }
 
         }

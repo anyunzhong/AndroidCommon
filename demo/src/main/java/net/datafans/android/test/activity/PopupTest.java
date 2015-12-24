@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import net.datafans.android.common.helper.LogHelper;
 import net.datafans.android.common.widget.popup.ActionSheetView;
 import net.datafans.android.common.widget.popup.PopItem;
 import net.datafans.android.common.widget.popup.PopupView;
@@ -40,14 +41,14 @@ public class PopupTest extends AppCompatActivity {
                 items.add(new PopItem("确定", new PopItem.Listener() {
                     @Override
                     public void onClick() {
-                        Log.d("Pop", "Click");
+                        LogHelper.debug("Click");
                     }
                 }));
 
                 items.add(new PopItem("取消", new PopItem.Listener() {
                     @Override
                     public void onClick() {
-                        Log.d("Pop", "Click");
+                        LogHelper.debug("Click");
                     }
                 }));
 
@@ -85,14 +86,14 @@ public class PopupTest extends AppCompatActivity {
                 items.add(new PopItem("升级", new PopItem.Listener() {
                     @Override
                     public void onClick() {
-                        Log.d("Pop", "Click");
+                        LogHelper.debug("Click");
                     }
                 }));
 
                 items.add(new PopItem("暂不", new PopItem.Listener() {
                     @Override
                     public void onClick() {
-                        Log.d("Pop", "Click");
+                        LogHelper.debug("Click");
                     }
                 }));
 
@@ -119,14 +120,14 @@ public class PopupTest extends AppCompatActivity {
                 items.add(new PopItem("相册", new PopItem.Listener() {
                     @Override
                     public void onClick() {
-                        Log.d("Pop", "Click");
+                        LogHelper.debug("Click");
                     }
                 }));
 
                 items.add(new PopItem("拍摄", new PopItem.Listener() {
                     @Override
                     public void onClick() {
-                        Log.d("Pop", "Click");
+                        LogHelper.debug("Click");
                     }
                 }));
 
@@ -134,7 +135,7 @@ public class PopupTest extends AppCompatActivity {
                 items.add(new PopItem("历史照片", new PopItem.Listener() {
                     @Override
                     public void onClick() {
-                        Log.d("Pop", "Click");
+                        LogHelper.debug("Click");
                     }
                 }));
 

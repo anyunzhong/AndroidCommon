@@ -61,6 +61,9 @@ compile('net.datafans:bga-refresh-layout-lib:1.0.0')
     //compile 'net.datafans:circleindicator:1.0.0'
     compile 'de.greenrobot:eventbus:2.4.0'
 
+    compile 'com.jakewharton:disklrucache:2.0.2'
+    compile 'pl.droidsonroids.gif:android-gif-drawable:1.1.+'
+
 }
 
 apply from: 'bintray-publish-github.gradle'

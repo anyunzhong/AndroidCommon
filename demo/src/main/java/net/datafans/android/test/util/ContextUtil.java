@@ -1,6 +1,6 @@
 package net.datafans.android.test.util;
 
-import net.datafans.android.common.config.AndroidCommon;
+import net.datafans.android.common.AndroidCommon;
 import net.datafans.android.common.widget.imageview.ImageViewType;
 import android.app.Application;
 import android.graphics.Color;
@@ -12,7 +12,7 @@ public class ContextUtil extends Application {
 		super.onCreate();
 
 		AndroidCommon.onCreate(this);
-		AndroidCommon.getAppearence().setStatusBarTintColor(
+		AndroidCommon.getAppearance().setStatusBarTintColor(
 				Color.rgb(24, 30, 43));
 		AndroidCommon.setImageViewType(ImageViewType.Smart);
 	}

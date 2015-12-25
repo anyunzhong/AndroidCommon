@@ -5,12 +5,11 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
 
-import net.datafans.android.common.config.AndroidCommon;
+import net.datafans.android.common.AndroidCommon;
 import net.datafans.android.common.data.service.BaseResponse;
 import net.datafans.android.common.data.service.DataService;
 import net.datafans.android.common.data.service.DataServiceDelegate;
@@ -58,7 +57,7 @@ public abstract class Controller extends AppCompatActivity implements DataServic
 
 
     protected int getStatusBarColor() {
-        int color = AndroidCommon.getAppearence().getStatusBarTintColor();
+        int color = AndroidCommon.getAppearance().getStatusBarTintColor();
         if (color != 0) {
             return color;
         }

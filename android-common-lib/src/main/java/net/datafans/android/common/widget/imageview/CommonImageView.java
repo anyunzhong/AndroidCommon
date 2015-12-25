@@ -1,6 +1,6 @@
 package net.datafans.android.common.widget.imageview;
 
-import net.datafans.android.common.config.AndroidCommon;
+import net.datafans.android.common.AndroidCommon;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;

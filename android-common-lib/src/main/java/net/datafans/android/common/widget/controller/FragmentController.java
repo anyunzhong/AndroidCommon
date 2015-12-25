@@ -93,7 +93,7 @@ public abstract class FragmentController extends Controller {
 
     }
 
-    protected void changeTitle(String title) {
+    public void changeTitle(String title) {
         toolbar.setTitle(title);
     }
 

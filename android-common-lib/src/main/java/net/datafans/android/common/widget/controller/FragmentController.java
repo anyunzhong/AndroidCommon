@@ -1,6 +1,7 @@
 package net.datafans.android.common.widget.controller;
 
 
+import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import net.datafans.android.common.R;
 import net.datafans.android.common.data.service.BaseResponse;
 import net.datafans.android.common.data.service.DataService;
 import net.datafans.android.common.helper.DipHelper;
+import net.datafans.android.common.helper.LogHelper;
 
 public abstract class FragmentController extends Controller {
 
@@ -65,6 +67,7 @@ public abstract class FragmentController extends Controller {
 
     }
 
+
     private void initNavbar() {
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -72,8 +75,24 @@ public abstract class FragmentController extends Controller {
         if (!enableReturnButton())
             toolbar.setNavigationIcon(null);
         toolbar.setTitle(getNavTitle());
-        toolbar.setTitleTextColor(Color.WHITE);
-        toolbar.setBackgroundColor(getStatusBarColor());
+
+        if (getToolBarColor() != 0){
+            toolbar.setTitleTextColor(Color.BLACK);
+            toolbar.setBackgroundColor(getToolBarColor());
+        }else {
+            TypedArray array = getTheme().obtainStyledAttributes(new int[] {
+                    R.attr.colorPrimary,
+                    android.R.attr.textColorPrimary,
+            });
+            int primaryColor = array.getColor(0, 0xFF11FF);
+            int primaryTextColor = array.getColor(1, 0xFF00FF);
+            LogHelper.error("color:" +primaryColor);
+            array.recycle();
+            toolbar.setTitleTextColor(primaryTextColor);
+            toolbar.setBackgroundColor(primaryColor);
+        }
+
+
         setSupportActionBar(toolbar);
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {

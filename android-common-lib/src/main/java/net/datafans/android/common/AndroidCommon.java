@@ -1,6 +1,5 @@
 package net.datafans.android.common;
 
-import net.datafans.android.common.config.GlobalAppearance;
 import net.datafans.android.common.helper.LogHelper;
 import net.datafans.android.common.widget.image.loader.WebFileLoader;
 import net.datafans.android.common.widget.imageview.ImageViewType;
@@ -10,8 +9,6 @@ import android.content.Context;
 public class AndroidCommon {
 
     private static Context ctx;
-
-    private static GlobalAppearance appearance = new GlobalAppearance();
 
     public final static AndroidCommon common = new AndroidCommon();
 
@@ -35,10 +32,6 @@ public class AndroidCommon {
 
     public static void onTerminate() {
 
-    }
-
-    public static GlobalAppearance getAppearance() {
-        return appearance;
     }
 
     public static void configLog(String tag, boolean enable){

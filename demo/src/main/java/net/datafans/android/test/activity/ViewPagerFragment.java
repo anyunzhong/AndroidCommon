@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.shizhefei.view.indicator.FixedIndicatorView;
 import com.shizhefei.view.indicator.IndicatorViewPager;
+import com.shizhefei.view.indicator.ScrollIndicatorView;
 import com.shizhefei.view.indicator.slidebar.ColorBar;
 import com.shizhefei.view.indicator.transition.OnTransitionTextListener;
 
@@ -45,7 +46,7 @@ public class ViewPagerFragment extends Fragment {
     private void initView(View view) {
 
         ViewPager viewPager = (ViewPager) view.findViewById(R.id.fragment_tabmain_viewPager);
-        FixedIndicatorView indicator = (FixedIndicatorView) view.findViewById(R.id.fragment_tabmain_indicator);
+        ScrollIndicatorView indicator = (ScrollIndicatorView) view.findViewById(R.id.fragment_tabmain_indicator);
 
         indicator.setScrollBar(new ColorBar(getActivity(), Color.RED, 10));
         float unSelectSize = 20;
@@ -66,7 +67,7 @@ public class ViewPagerFragment extends Fragment {
     private class TabAdapter extends IndicatorViewPager.IndicatorViewPagerAdapter {
         @Override
         public int getCount() {
-            return 4;
+            return 10;
         }
 
         @Override

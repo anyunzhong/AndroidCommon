@@ -8,7 +8,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <com.shizhefei.view.indicator.FixedIndicatorView
+        <com.shizhefei.view.indicator.ScrollIndicatorView
             android:id="@+id/fragment_tabmain_indicator"
             android:layout_width="match_parent"
             android:layout_height="50dp" />

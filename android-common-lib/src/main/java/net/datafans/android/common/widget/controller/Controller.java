@@ -1,6 +1,7 @@
 package net.datafans.android.common.widget.controller;
 
 import android.content.pm.ActivityInfo;
+import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import net.datafans.android.common.AndroidCommon;
+import net.datafans.android.common.R;
 import net.datafans.android.common.data.service.BaseResponse;
 import net.datafans.android.common.data.service.DataService;
 import net.datafans.android.common.data.service.DataServiceDelegate;
@@ -52,16 +54,27 @@ public abstract class Controller extends AppCompatActivity implements DataServic
         SystemBarTintManager tintManager = new SystemBarTintManager(this);
         tintManager.setStatusBarTintEnabled(true);
 
-        tintManager.setTintColor(getStatusBarColor());
+        if (getStatusBarColor() != 0) {
+            tintManager.setTintColor(getStatusBarColor());
+        } else {
+            TypedArray array = getTheme().obtainStyledAttributes(new int[]{
+                    R.attr.colorPrimaryDark,
+            });
+
+            int primaryColorDark = array.getColor(0, 0xFF11FF);
+            array.recycle();
+
+            tintManager.setTintColor(primaryColorDark);
+        }
     }
 
 
     protected int getStatusBarColor() {
-        int color = AndroidCommon.getAppearance().getStatusBarTintColor();
-        if (color != 0) {
-            return color;
-        }
-        return Color.BLACK;
+        return 0;
+    }
+
+    protected int getToolBarColor() {
+        return 0;
     }
 
     @Override

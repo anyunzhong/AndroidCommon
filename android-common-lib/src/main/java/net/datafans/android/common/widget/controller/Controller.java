@@ -45,6 +45,9 @@ public abstract class Controller extends AppCompatActivity implements DataServic
     }
 
     private void initStatusBar() {
+
+        //if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) return;
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             Window window = getWindow();
             window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,

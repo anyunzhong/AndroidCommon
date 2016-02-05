@@ -19,7 +19,7 @@ public class MaskImageView extends ImageView {
         super(context, attrs);
     }
 
-    public void load(String url, int mask, String maskAlias, int maxWidth) {
-        MaskImageViewLoader.sharedInstance().load(this, url, mask, maskAlias, maxWidth);
+    public void load(String url, String thumbData, int mask, String maskAlias, int maxWidth) {
+        MaskImageViewLoader.sharedInstance().load(this, url, thumbData, mask, maskAlias, maxWidth);
     }
 }

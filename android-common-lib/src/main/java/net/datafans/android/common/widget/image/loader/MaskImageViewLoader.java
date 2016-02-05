@@ -11,6 +11,7 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.os.AsyncTask;
+import android.util.Base64;
 import android.widget.ImageView;
 
 import com.jakewharton.disklrucache.DiskLruCache;
@@ -37,15 +38,30 @@ public class MaskImageViewLoader extends AbstractLoader {
         return loader;
     }
 
-    public void load(ImageView imageView, String url, int mask, String maskAlias, int maxWidth) {
+    public void load(ImageView imageView, String url, String thumbData, int mask, String maskAlias, int maxWidth) {
 
-        String key = getGifKey(url, maskAlias);
+        Bitmap bitmap =null;
 
-        Bitmap bitmap = getBitmapByKey(key);
+        if (url != null && !url.equals("")){
+            String key = getGifKey(url, maskAlias);
+            bitmap = getBitmapByKey(key);
+        }
 
         if (bitmap != null) {
             imageView.setImageBitmap(bitmap);
         } else {
+            //在请求大图之前 先加载不清晰的小图 基本是马赛克级别
+            if (thumbData != null && !thumbData.equals("")) {
+                byte[] bytes = Base64.decode(thumbData, Base64.DEFAULT);
+                InputStream inputStream = new ByteArrayInputStream(bytes);
+                Bitmap bit = mergeBitmap(WebFileLoader.sharedInstance().getContext(), inputStream, mask, maxWidth);
+                imageView.setImageBitmap(bit);
+            }
+
+            if (url == null || url.equals(""))
+            {
+                return;
+            }
             MaskLoadTask task = new MaskLoadTask();
             task.execute(url, imageView, mask, maskAlias, maxWidth);
         }
@@ -125,31 +141,29 @@ public class MaskImageViewLoader extends AbstractLoader {
     }
 
 
-    private byte[] merge(Context context, InputStream stream, int maskImage, int maxSize) {
+    private Bitmap mergeBitmap(Context context, InputStream stream, int maskImage, int maxSize) {
 
         try {
             Bitmap original = BitmapFactory.decodeStream(stream);
-
             int width = original.getWidth();
             int height = original.getHeight();
 
 
-
-            if (width >= height){
-                if (width > maxSize) {
+            if (width >= height) {
+                //if (width > maxSize) {
                     float rate = (float) maxSize / width;
                     Matrix matrix = new Matrix();
                     matrix.postScale(rate, rate);
                     original = Bitmap.createBitmap(original, 0, 0, original.getWidth(), original.getHeight(), matrix, true);
-                }
-            }else{
+                //}
+            } else {
 
-                if (height > maxSize) {
+                //if (height > maxSize) {
                     float rate = (float) maxSize / height;
                     Matrix matrix = new Matrix();
                     matrix.postScale(rate, rate);
                     original = Bitmap.createBitmap(original, 0, 0, original.getWidth(), original.getHeight(), matrix, true);
-                }
+                //}
             }
 
             Bitmap mask = BitmapFactory.decodeResource(context.getResources(), maskImage);
@@ -163,13 +177,17 @@ public class MaskImageViewLoader extends AbstractLoader {
             NinePatch patch = new NinePatch(mask, mask.getNinePatchChunk(), null);
             patch.draw(canvas, new Rect(0, 0, original.getWidth(), original.getHeight()), paint);
 
-            return bitmap2Bytes(result);
+            return result;
 
 
         } catch (Exception e) {
-            LogHelper.error(e);
+            LogHelper.error(e.toString());
         }
         return null;
+    }
+
+    private byte[] merge(Context context, InputStream stream, int maskImage, int maxSize) {
+        return bitmap2Bytes(mergeBitmap(context, stream, maskImage, maxSize));
     }
 
 

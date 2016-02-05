@@ -5,4 +5,8 @@
     <color name="tab_main_text_1">#09bb07</color>
     <color name="tab_main_text_2">@android:color/darker_gray</color>
 
+    <color name="colorPrimary">#009688</color>
+    <color name="colorPrimaryDark">#00796B</color>
+    <color name="colorAccent">#cd543f</color>
+
 </resources>

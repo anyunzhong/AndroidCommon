@@ -48,12 +48,12 @@ public class ViewPagerFragment extends Fragment {
         ViewPager viewPager = (ViewPager) view.findViewById(R.id.fragment_tabmain_viewPager);
         ScrollIndicatorView indicator = (ScrollIndicatorView) view.findViewById(R.id.fragment_tabmain_indicator);
 
-        indicator.setScrollBar(new ColorBar(getActivity(), Color.RED, 10));
+        indicator.setScrollBar(new ColorBar(getActivity(), getResources().getColor(R.color.colorPrimaryDark), 10));
         float unSelectSize = 20;
         float selectSize = unSelectSize * 1.0f;
 
-        int selectColor = Color.RED;
-        int unSelectColor = Color.GRAY;
+        int selectColor = Color.WHITE;
+        int unSelectColor = Color.LTGRAY;
         indicator.setOnTransitionListener(new OnTransitionTextListener(selectSize, unSelectSize, selectColor, unSelectColor));
 
         viewPager.setOffscreenPageLimit(4);
@@ -67,7 +67,7 @@ public class ViewPagerFragment extends Fragment {
     private class TabAdapter extends IndicatorViewPager.IndicatorViewPagerAdapter {
         @Override
         public int getCount() {
-            return 10;
+            return 6;
         }
 
         @Override

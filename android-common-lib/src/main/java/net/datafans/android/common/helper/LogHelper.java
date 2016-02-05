@@ -22,8 +22,9 @@ public class LogHelper {
     }
 
     public static void error(Throwable throwable) {
+        if (throwable == null) return;
         if (ENABLE)
-            Log.e(TAG, throwable.getMessage());
+            Log.e(TAG, throwable.toString());
     }
 
     public static void info(String log) {

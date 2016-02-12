@@ -20,5 +20,7 @@
     <string name="title_activity_action_sheet_test">ActionSheetTest</string>
     <string name="title_activity_full_screen">FullScreenActivity</string>
     <string name="title_activity_mask_image_view">MaskImageViewActivity</string>
+    <string name="title_activity_image_picker">ImagePickerActivity</string>
+    <string name="title_activity_photo_browser">PhotoBrowserActivity</string>
 
 </resources>

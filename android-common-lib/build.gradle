@@ -64,6 +64,9 @@ compile('net.datafans:bga-refresh-layout-lib:1.0.0')
     compile 'com.jakewharton:disklrucache:2.0.2'
     compile 'pl.droidsonroids.gif:android-gif-drawable:1.1.+'
 
+    compile 'cn.finalteam:galleryfinal:1.4.8.4'
+    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
+
 }
 
 apply from: 'bintray-publish-github.gradle'

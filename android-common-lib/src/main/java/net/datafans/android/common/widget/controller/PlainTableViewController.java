@@ -139,4 +139,5 @@ public abstract class PlainTableViewController<T> extends FragmentController imp
     public void onLoadMore() {
         LogHelper.info("load more");
     }
+
 }

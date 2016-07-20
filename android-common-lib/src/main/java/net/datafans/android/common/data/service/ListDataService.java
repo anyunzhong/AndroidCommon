@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.loopj.android.http.RequestParams;
 
 import net.datafans.android.common.widget.controller.PlainTableViewController;
+import net.datafans.android.common.widget.table.PlainTableViewFragment;
 
 /**
  * Created by zhonganyun on 16/7/19.
@@ -39,6 +40,9 @@ public abstract class ListDataService extends DataService {
         if (delegate instanceof PlainTableViewController) {
             PlainTableViewController controller = (PlainTableViewController) delegate;
             controller.loadOver(more == 0);
+        }else if (delegate instanceof PlainTableViewFragment) {
+            PlainTableViewFragment fragment = (PlainTableViewFragment) delegate;
+            fragment.loadOver(more == 0);
         }
     }
 }

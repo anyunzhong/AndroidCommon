@@ -25,7 +25,7 @@ public abstract  class GroupTableViewFragment<T> extends PlainTableViewFragment<
 		builder.setDelegate(this);
 		builder.setHeaderView(getTableHeaderView());
 		builder.setFooterView(getTableFooterView());
-		TableView tableView = builder.build();
+		tableView = builder.build();
 		return tableView.getView();
 	}
 
@@ -36,12 +36,12 @@ public abstract  class GroupTableViewFragment<T> extends PlainTableViewFragment<
 
 	@Override
 	public int getSectionFooterHeight(int section) {
-		return 1;
+		return 50;
 	}
 
 	@Override
 	public int getSectionHeaderHeight(int section) {
-		return 150;
+		return 100;
 	}
 
 	@Override

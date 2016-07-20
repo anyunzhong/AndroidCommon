@@ -34,9 +34,8 @@ public class ShopListDataService extends DataService {
     }
 
     @Override
-    protected void parseResponse(BaseResponse response) {
-        JSONObject o = (JSONObject) JSON.parse(response.getData());
-        List<Shop> shops = JSON.parseArray(o.getString("friends"), Shop.class);
+    protected void parseResponse(JSONObject data) {
+        List<Shop> shops = JSON.parseArray(data.getString("friends"), Shop.class);
         for (int i = 0; i < 5; i++)
             shopList.addAll(shops);
     }

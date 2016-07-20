@@ -42,6 +42,7 @@ public class ShopListController extends TableViewController<Shop> {
         showLoadingView();
     }
 
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.shop_list, menu);

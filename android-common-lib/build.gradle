@@ -44,6 +44,7 @@ compile('net.datafans:bga-refresh-layout-lib:1.0.0')
             exclude group: 'com.android.support', module: 'support-v4'
         }
     compile 'net.datafans:trinea-android-common-lib:1.0.0'
+
     compile('net.datafans:viewPagerIndicator_Library:1.0.4')
 //
 //                {
@@ -52,9 +53,9 @@ compile('net.datafans:bga-refresh-layout-lib:1.0.0')
 
 
 
-    compile 'in.srain.cube:cube-sdk:1.0.44@aar'
-    compile 'in.srain.cube:ultra-ptr:1.0.9'
-    compile 'in.srain.cube:clog:1.0.2'
+//    compile 'in.srain.cube:cube-sdk:1.0.44@aar'
+//    compile 'in.srain.cube:ultra-ptr:1.0.9'
+//    compile 'in.srain.cube:clog:1.0.2'
 
     compile 'com.jakewharton:butterknife:6.1.0'
     //compile 'me.relex:circleindicator:1.1.4@aar'

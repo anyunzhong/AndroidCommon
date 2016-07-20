@@ -7,6 +7,7 @@ import net.datafans.android.common.network.NetworkDetector;
 import org.apache.http.Header;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
@@ -88,7 +89,8 @@ public abstract class DataService {
 
 
         if (baseResponse.getStatus() == 1) {
-            parseResponse(baseResponse);
+            JSONObject object = JSON.parseObject(baseResponse.getData());
+            parseResponse(object);
             if (delegate != null) {
                 delegate.onStatusOk(baseResponse, this);
             }
@@ -112,7 +114,7 @@ public abstract class DataService {
         return getRequestDomain() + getRequestPath();
     }
 
-    protected void parseResponse(BaseResponse response) {
+    protected void parseResponse(JSONObject data) {
 
     }
 

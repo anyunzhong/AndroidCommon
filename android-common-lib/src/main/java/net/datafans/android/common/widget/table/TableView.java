@@ -121,7 +121,7 @@ public class TableView<T> implements RefreshTableViewListener {
             }
 
             if (footerView != null) {
-                listView.addHeaderView(footerView);
+                listView.addFooterView(footerView);
             }
 
             adapter.getListView().setAdapter(listViewAdapter);

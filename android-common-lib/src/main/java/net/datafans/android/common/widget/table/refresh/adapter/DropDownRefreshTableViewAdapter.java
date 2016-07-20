@@ -22,8 +22,8 @@ public class DropDownRefreshTableViewAdapter extends RefreshTableViewAdapter {
 		listView.setOnBottomStyle(true);
 		listView.setShowFooterProgressBar(true);
 		listView.setShowFooterWhenNoMore(true);
-	
-		
+
+
 		listView.setHeaderDefaultText("点击刷新");
 		listView.setHeaderPullText("下拉刷新");
 		listView.setHeaderReleaseText("释放刷新");

@@ -75,10 +75,10 @@ public abstract class TableViewController<T> extends FragmentController implemen
         return RefreshControlType.None;
     }
 
-    protected void loadOver(boolean over) {
+    public void loadOver(boolean over) {
         if (over) {
-            Toast toast = Toast.makeText(this, "加载完毕", Toast.LENGTH_SHORT);
-            toast.show();
+            //Toast toast = Toast.makeText(this, "加载完毕", Toast.LENGTH_SHORT);
+            //toast.show();
         }
         tableView.loadOver(over);
     }

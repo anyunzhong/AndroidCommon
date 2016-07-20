@@ -18,8 +18,8 @@ public class SectionTableViewCell extends TableViewCell<String> {
 	TextView titleView;
 
 
-	public SectionTableViewCell(int layout, Context context) {
-		super(layout, context);
+	public SectionTableViewCell() {
+		super(R.layout.section_table_item);
 		arrow.setVisibility(View.GONE);
 	}
 

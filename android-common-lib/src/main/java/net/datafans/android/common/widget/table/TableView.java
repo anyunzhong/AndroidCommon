@@ -1,7 +1,6 @@
 package net.datafans.android.common.widget.table;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +10,7 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import net.datafans.android.common.AndroidCommon;
 import net.datafans.android.common.R;
 import net.datafans.android.common.helper.LogHelper;
 import net.datafans.android.common.widget.table.refresh.RefreshControlType;
@@ -51,10 +51,10 @@ public class TableView<T> implements RefreshTableViewListener {
     private View footerView;
 
 
-    protected TableView(Context context, RefreshControlType type,
+    protected TableView(RefreshControlType type,
                         boolean enableRefresh, boolean enableLoadMore,
                         boolean enableAutoLoadMore, TableViewStyle style, TableViewDataSource<T> dataSource, TableViewDelegate delegate, View headerView, View footerView) {
-        this.context = context;
+        this.context = AndroidCommon.getContext();
         this.enableRefresh = enableRefresh;
         this.enableLoadMore = enableLoadMore;
         this.enableAutoLoadMore = enableAutoLoadMore;
@@ -471,7 +471,6 @@ public class TableView<T> implements RefreshTableViewListener {
         private RefreshControlType refreshType = RefreshControlType.None;
         private TableViewDataSource<T> dataSource;
         private TableViewDelegate delegate;
-        private Context context;
         private boolean enableRefresh = false;
         private boolean enableLoadMore = false;
         private boolean enableAutoLoadMore = false;
@@ -508,10 +507,6 @@ public class TableView<T> implements RefreshTableViewListener {
             return this;
         }
 
-        public Builder<T> setContext(Context context) {
-            this.context = context;
-            return this;
-        }
 
         public Builder<T> setEnableRefresh(boolean enableRefresh) {
             this.enableRefresh = enableRefresh;
@@ -546,10 +541,6 @@ public class TableView<T> implements RefreshTableViewListener {
             return delegate;
         }
 
-        public Context getContext() {
-            return context;
-        }
-
         public boolean isEnableRefresh() {
             return enableRefresh;
         }
@@ -571,7 +562,7 @@ public class TableView<T> implements RefreshTableViewListener {
         }
 
         public TableView<T> build() {
-            return new TableView<>(context, refreshType, enableRefresh, enableLoadMore, enableAutoLoadMore, style, dataSource, delegate, headerView, footerView);
+            return new TableView<>(refreshType, enableRefresh, enableLoadMore, enableAutoLoadMore, style, dataSource, delegate, headerView, footerView);
         }
 
     }

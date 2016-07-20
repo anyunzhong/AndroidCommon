@@ -13,8 +13,8 @@ public class EditTextTableViewCell extends TableViewCell<String> {
 
     private TextView titleView;
 
-    public EditTextTableViewCell(int layout, Context context) {
-        super(layout, context);
+    public EditTextTableViewCell() {
+        super(R.layout.section_table_item);
 
         titleView = (TextView) cell.findViewById(R.id.title);
     }

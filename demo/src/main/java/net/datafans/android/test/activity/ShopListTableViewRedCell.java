@@ -20,8 +20,8 @@ public class ShopListTableViewRedCell extends TableViewCell<Shop> {
 	@InjectView(R.id.avatar)
 	CommonImageView imageView;
 
-	public ShopListTableViewRedCell(int layout, Context context) {
-		super(layout, context);
+	public ShopListTableViewRedCell() {
+		super(R.layout.shop_list_red);
 		//arrow.setVisibility(View.VISIBLE);
 	}
 

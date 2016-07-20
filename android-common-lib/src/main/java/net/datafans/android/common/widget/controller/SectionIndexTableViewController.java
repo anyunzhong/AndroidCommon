@@ -26,7 +26,6 @@ public abstract class SectionIndexTableViewController<T> extends FragmentControl
         if (tableView == null) {
 
             SectionIndexTableView.Builder<T> builder = new SectionIndexTableView.Builder<>();
-            builder.setContext(this);
             builder.setDataSource(this);
             builder.setDelegate(this);
             tableView = builder.build();

@@ -1,14 +1,17 @@
 package net.datafans.android.common.widget.controller;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import net.datafans.android.common.widget.table.GroupTableView;
 import net.datafans.android.common.widget.table.GroupTableViewDataSource;
 import net.datafans.android.common.widget.table.TableView;
 import net.datafans.android.common.widget.table.TableViewDelegate;
-import net.datafans.android.common.widget.table.TableViewFragment;
 
-public abstract class GroupTableViewController<T> extends TableViewController<T> implements
+public abstract class GroupTableViewController<T> extends PlainTableViewController<T> implements
         GroupTableViewDataSource<T>, TableViewDelegate {
 
     @Override
@@ -16,7 +19,6 @@ public abstract class GroupTableViewController<T> extends TableViewController<T>
 
         if (tableView == null) {
             TableView.Builder<T> builder = new GroupTableView.Builder<>();
-            builder.setContext(this);
             builder.setRefreshType(getRefreshControlType());
             builder.setEnableLoadMore(enableRefresh());
             builder.setEnableLoadMore(enableLoadMore());
@@ -28,7 +30,13 @@ public abstract class GroupTableViewController<T> extends TableViewController<T>
             tableView = builder.build();
 
         }
-        return new TableViewFragment<>(tableView);
+        return new Fragment(){
+            @Override
+            public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                     Bundle savedInstanceState) {
+                return tableView.getView();
+            }
+        };
     }
 
 
@@ -39,7 +47,7 @@ public abstract class GroupTableViewController<T> extends TableViewController<T>
 
     @Override
     public int getSectionFooterHeight(int section) {
-        return 150;
+        return 1;
     }
 
     @Override

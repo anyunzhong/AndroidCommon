@@ -1,10 +1,9 @@
 package net.datafans.android.common.data.service;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.loopj.android.http.RequestParams;
 
-import net.datafans.android.common.widget.controller.TableViewController;
+import net.datafans.android.common.widget.controller.PlainTableViewController;
 
 /**
  * Created by zhonganyun on 16/7/19.
@@ -37,8 +36,8 @@ public abstract class ListDataService extends DataService {
         start = data.getString("start");
 
         DataServiceDelegate delegate = getDelegate();
-        if (delegate instanceof TableViewController) {
-            TableViewController controller = (TableViewController) delegate;
+        if (delegate instanceof PlainTableViewController) {
+            PlainTableViewController controller = (PlainTableViewController) delegate;
             controller.loadOver(more == 0);
         }
     }

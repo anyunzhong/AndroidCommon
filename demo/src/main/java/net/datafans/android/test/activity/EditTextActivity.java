@@ -2,22 +2,15 @@ package net.datafans.android.test.activity;
 
 import android.graphics.Color;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 
-import net.datafans.android.common.widget.controller.Controller;
-import net.datafans.android.common.widget.controller.FragmentController;
-import net.datafans.android.common.widget.controller.TableViewController;
+import net.datafans.android.common.widget.controller.PlainTableViewController;
 import net.datafans.android.common.widget.table.TableViewCell;
-import net.datafans.android.common.widget.table.TableViewFragment;
 import net.datafans.android.test.R;
 
-public class EditTextActivity extends TableViewController<String> {
+public class EditTextActivity extends PlainTableViewController<String> {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +49,7 @@ public class EditTextActivity extends TableViewController<String> {
 
     @Override
     public TableViewCell<String> getTableViewCell(int section, int row) {
-        return new EditTextTableViewCell(R.layout.section_table_item, this);
+        return new EditTextTableViewCell();
     }
 
     @Override

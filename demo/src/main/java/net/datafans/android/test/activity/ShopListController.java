@@ -1,18 +1,13 @@
 package net.datafans.android.test.activity;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.TextView;
 
 import net.datafans.android.common.data.service.BaseResponse;
 import net.datafans.android.common.data.service.DataService;
 import net.datafans.android.common.helper.LogHelper;
-import net.datafans.android.common.widget.controller.GroupTableViewController;
-import net.datafans.android.common.widget.controller.TableViewController;
-import net.datafans.android.common.widget.table.PlainTableView;
+import net.datafans.android.common.widget.controller.PlainTableViewController;
 import net.datafans.android.common.widget.table.TableViewCell;
 import net.datafans.android.common.widget.table.refresh.RefreshControlType;
 import net.datafans.android.test.R;
@@ -21,7 +16,7 @@ import net.datafans.android.test.data.service.ShopListDataService;
 
 import java.util.List;
 
-public class ShopListController extends TableViewController<Shop> {
+public class ShopListController extends PlainTableViewController<Shop> {
 
     private List<Shop> shopList;
 
@@ -89,10 +84,9 @@ public class ShopListController extends TableViewController<Shop> {
     @Override
     public TableViewCell<Shop> getTableViewCell(int section, int row) {
         if (row % 2 == 0)
-            return new ShopListTableViewCell(R.layout.shop_list, this);
+            return new ShopListTableViewCell();
         else
-            return new ShopListTableViewRedCell(R.layout.shop_list_red,
-                    this);
+            return new ShopListTableViewRedCell();
     }
 
 

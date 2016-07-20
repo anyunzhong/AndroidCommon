@@ -9,53 +9,58 @@ import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import net.datafans.android.common.AndroidCommon;
 import net.datafans.android.common.R;
 
 import butterknife.ButterKnife;
 
 public abstract class TableViewCell<T> {
 
-    protected ViewGroup cell;
+    protected View cell;
 
     protected RelativeLayout container;
 
-    public  View divider;
+    public View divider;
 
-    protected  RelativeLayout arrow;
+    protected RelativeLayout arrow;
 
-    protected  Context context;
+    protected Context context;
 
-    public TableViewCell(int layout, Context context) {
+    public TableViewCell(View view) {
 
-        this.context = context;
+        this.context = view.getContext();
+        cell = view;
+        initCell();
+    }
 
-        LayoutInflater inflater = LayoutInflater.from(context);
+    public TableViewCell(int layout) {
+        this.context = AndroidCommon.getContext();
+        cell = LayoutInflater.from(context).inflate(layout, null);
+        initCell();
+    }
 
+    private void initCell() {
         container = new RelativeLayout(context);
         AbsListView.LayoutParams params = new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         container.setLayoutParams(params);
 
-
-
-        cell = (ViewGroup)inflater.inflate(layout, null);
         RelativeLayout.LayoutParams cellParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         cellParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
         cellParams.bottomMargin = 0;
         cellParams.rightMargin = 0;
 
-        container.addView(cell,cellParams);
+        container.addView(cell, cellParams);
 
         ButterKnife.inject(this, cell);
 
 
-
-        divider = new View(inflater.getContext());
+        divider = new View(context);
         divider.setBackgroundColor(Color.LTGRAY);
         RelativeLayout.LayoutParams dividerParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dividerParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-        dividerParams.height=1;
+        dividerParams.height = 1;
         dividerParams.leftMargin = 50;
-        container.addView(divider,dividerParams);
+        container.addView(divider, dividerParams);
 
 
         ImageView arrowImageView = new ImageView(context);
@@ -66,11 +71,11 @@ public abstract class TableViewCell<T> {
         arrowLp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
         arrowLp.addRule(RelativeLayout.CENTER_VERTICAL);
         arrowLp.rightMargin = 20;
-        container.addView(arrow,arrowLp);
+        container.addView(arrow, arrowLp);
         arrow.addView(arrowImageView);
         arrow.setVisibility(View.GONE);
-
     }
+
 
     protected ViewGroup getView() {
         return container;

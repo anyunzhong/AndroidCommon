@@ -42,7 +42,7 @@ public class SectionIndexTableView<T> implements GroupTableViewDataSource<T>, Ta
     private SectionIndexTableViewDataSource<T> dataSource;
     private SectionIndexTableViewDelegate delegate;
 
-    protected SectionIndexTableView(Context context, RefreshControlType type,
+    protected SectionIndexTableView(RefreshControlType type,
                                  boolean enableRefresh, boolean enableLoadMore,
                                  boolean enableAutoLoadMore, SectionIndexTableViewDataSource<T> dataSource, SectionIndexTableViewDelegate delegate) {
 
@@ -54,7 +54,6 @@ public class SectionIndexTableView<T> implements GroupTableViewDataSource<T>, Ta
         initFirstChars();
 
         GroupTableView.Builder<T> builder = new GroupTableView.Builder<>();
-        builder.setContext(context);
         builder.setRefreshType(type);
         builder.setEnableRefresh(enableRefresh);
         builder.setEnableLoadMore(enableLoadMore);
@@ -70,7 +69,6 @@ public class SectionIndexTableView<T> implements GroupTableViewDataSource<T>, Ta
         private SectionIndexTableViewDataSource<T> dataSource;
         private SectionIndexTableViewDelegate delegate;
         private RefreshControlType refreshType = RefreshControlType.None;
-        private Context context;
         private boolean enableRefresh = false;
         private boolean enableLoadMore = false;
         private boolean enableAutoLoadMore = false;
@@ -92,10 +90,6 @@ public class SectionIndexTableView<T> implements GroupTableViewDataSource<T>, Ta
             return this;
         }
 
-        public Builder<T> setContext(Context context) {
-            this.context = context;
-            return this;
-        }
 
         public Builder<T> setEnableRefresh(boolean enableRefresh) {
             this.enableRefresh = enableRefresh;
@@ -114,7 +108,7 @@ public class SectionIndexTableView<T> implements GroupTableViewDataSource<T>, Ta
 
         public SectionIndexTableView<T> build() {
 
-            return new SectionIndexTableView<>(context, refreshType, enableRefresh, enableLoadMore, enableAutoLoadMore, dataSource, delegate);
+            return new SectionIndexTableView<>(refreshType, enableRefresh, enableLoadMore, enableAutoLoadMore, dataSource, delegate);
 
         }
     }

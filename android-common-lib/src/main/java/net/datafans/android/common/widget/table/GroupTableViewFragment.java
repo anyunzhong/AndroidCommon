@@ -36,12 +36,12 @@ public abstract  class GroupTableViewFragment<T> extends PlainTableViewFragment<
 
 	@Override
 	public int getSectionFooterHeight(int section) {
-		return 50;
+		return 1;
 	}
 
 	@Override
 	public int getSectionHeaderHeight(int section) {
-		return 100;
+		return 150;
 	}
 
 	@Override

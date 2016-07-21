@@ -33,7 +33,7 @@ public abstract class PlainTableViewController<T> extends FragmentController imp
 
             TableView.Builder<T> builder = new PlainTableView.Builder<>();
             builder.setRefreshType(getRefreshControlType());
-            builder.setEnableLoadMore(enableRefresh());
+            builder.setEnableRefresh(enableRefresh());
             builder.setEnableLoadMore(enableLoadMore());
             builder.setEnableAutoLoadMore(enableAutoLoadMore());
             builder.setDataSource(this);
@@ -79,7 +79,7 @@ public abstract class PlainTableViewController<T> extends FragmentController imp
     }
 
     protected RefreshControlType getRefreshControlType() {
-        return RefreshControlType.None;
+        return RefreshControlType.BGANormal;
     }
 
     public void loadOver(boolean over) {

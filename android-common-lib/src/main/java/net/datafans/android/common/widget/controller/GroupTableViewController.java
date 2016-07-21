@@ -20,7 +20,7 @@ public abstract class GroupTableViewController<T> extends PlainTableViewControll
         if (tableView == null) {
             TableView.Builder<T> builder = new GroupTableView.Builder<>();
             builder.setRefreshType(getRefreshControlType());
-            builder.setEnableLoadMore(enableRefresh());
+            builder.setEnableRefresh(enableRefresh());
             builder.setEnableLoadMore(enableLoadMore());
             builder.setEnableAutoLoadMore(enableAutoLoadMore());
             builder.setDataSource(this);

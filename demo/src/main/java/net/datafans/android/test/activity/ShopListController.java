@@ -33,7 +33,6 @@ public class ShopListController extends PlainTableViewController<Shop> {
 
         dataService.execute();
 
-
         showLoadingView();
     }
 
